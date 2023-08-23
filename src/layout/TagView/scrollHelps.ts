@@ -11,19 +11,16 @@ export function scrollHelps() {
 
   const scrollTo = debounce(
     async (index: number) => {
-      if (!contentRef.value?.children.length)
-        return
       const childrenEl = contentRef.value?.children[index] as HTMLElement
       if (!childrenEl)
         return
       const { left } = useElementBounding(childrenEl)
-      // 获取到的left是相对于父元素的距离
+      // 动画时间
       await useSleep(300)
-      // 移动到中间
-      const relaLeft = left.value - TransitionRefLeft.value - centerWidth.value
 
+      const resultDistance = left.value - TransitionRefLeft.value - centerWidth.value
       scrollRef.value?.scrollBy({
-        left: relaLeft,
+        left: resultDistance,
         behavior: 'smooth',
       })
     },
