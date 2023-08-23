@@ -5,7 +5,7 @@ export const HomeRouter: routerObject[] = [
       isTitle: '首页',
       lineIcon: 'material-symbols:home',
     },
-    component: '/home/index',
+    component: '/index.page',
   },
   {
     path: '/:pathMatch(.*)*',

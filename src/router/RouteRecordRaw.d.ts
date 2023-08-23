@@ -8,7 +8,7 @@ declare module 'vue-router' {
     /** 是否改变网页标题
      * @default true
      * */
-    changeTitle?: boolean
+    changeTitle?: false
     /** 菜单顺序,同层比较
      * @default 0
      * */
@@ -20,7 +20,7 @@ declare module 'vue-router' {
     /** 是否是固定页，默认不固定
      * @default undefined
      * */
-    isAffix?: true
+    isAffix?: false
     /** 是否隐藏在菜单,面包屑中隐藏，默认不隐藏
      * @default undefined
      **/
@@ -34,6 +34,5 @@ declare module 'vue-router' {
      * */
     isTag?: false
   }
-  interface RouteLocationPathRaw extends RouterTypeKeys {}
 }
 

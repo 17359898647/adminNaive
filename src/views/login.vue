@@ -1,10 +1,15 @@
 <script setup lang="ts">
-
+definePage({
+  meta: {
+    isTitle: '登录',
+    isHidden: true,
+  },
+})
 </script>
 
 <template>
   <div>
-    <h1>Login</h1>
+    login
   </div>
 </template>
 

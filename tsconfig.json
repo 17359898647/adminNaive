@@ -2,13 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "ESNext",
-    "target": "es2016",
+    "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "strict": true,
-    "jsx": "preserve",
     "esModuleInterop": true,
+    "jsx": "preserve",
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
@@ -16,8 +16,9 @@
     "forceConsistentCasingInFileNames": true,
     "types": [
       "vite/client",
-      "unplugin-vue-macros/macros-global",
-      "naive-ui/volar"
+      "naive-ui/volar",
+      "src/types/auto-router.d.ts",
+      "vite-plugin-vue-layouts/client"
     ],
     "paths": {
       "@/*": ["src/*"]

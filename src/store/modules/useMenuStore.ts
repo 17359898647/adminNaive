@@ -1,8 +1,9 @@
 import { isUndefined, map } from 'lodash-es'
 import type { MenuOption } from 'naive-ui'
+import type { RouteRecordRaw } from 'vue-router'
+import { routes } from 'vue-router/auto/routes'
 import { routerPush } from '@/composables/routerPush'
 import { sortMenu } from '@/router/helps/getAllRouterFiles'
-import { moduleRouters } from '@/router/modules'
 
 export type _MenuOption = MenuOption & {
   lineIcon?: string
@@ -11,9 +12,10 @@ export type _MenuOption = MenuOption & {
 export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
   const allMenuPath = new Set<string>()
-  const createMenuOptions = (router: routerObject[]): _MenuOption[] => {
+  const createMenuOptions = (router: RouteRecordRaw[]): _MenuOption[] => {
     return map(sortMenu(router), (item) => {
-      const { path, children, meta: { isTitle, isHidden, lineIcon, localIcon } } = item
+      const { path, children, meta } = item
+      const { lineIcon, localIcon, isHidden, isTitle } = meta!
       allMenuPath.add(path)
       return {
         key: path,
@@ -25,7 +27,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
       } as _MenuOption
     })
   }
-  const menuOptions = ref(createMenuOptions(moduleRouters))
+  const menuOptions = ref(createMenuOptions(routes))
 
   const openKeys = ref<string[]>([])
   const setOpenKeys = (keys: string[]) => {

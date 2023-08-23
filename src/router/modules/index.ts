@@ -17,7 +17,7 @@ export const baseRouter: routerObject[] = [
       isTitle: '登录',
       changeTitle: false,
     },
-    component: '/login/LoginView',
+    component: () => import('@/views/login/LoginView.vue'),
   },
   {
     path: '/:pathMatch(.*)*',

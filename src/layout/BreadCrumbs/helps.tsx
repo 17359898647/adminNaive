@@ -1,11 +1,14 @@
 import { forEach, isUndefined } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
+import type { RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
+import { sortMenu } from '@/router/helps/getAllRouterFiles'
 
-type BreadcrumbType = routerObject & { parentPath?: string }
-export function createBreadcrumb(router: routerObject[]): Record<string, BreadcrumbType> {
+export { routes } from 'vue-router/auto/routes'
+type BreadcrumbType = RouteRecordRaw & { parentPath?: string }
+export function createBreadcrumb(router: RouteRecordRaw[]): Record<string, BreadcrumbType> {
   const resultMap: Record<string, BreadcrumbType> = {}
-  const deep = (router: routerObject[], parentPath?: string) => {
+  const deep = (router: RouteRecordRaw[], parentPath?: string) => {
     forEach(router, (item) => {
       const { children, path } = item
       const breadcrumb: BreadcrumbType = {
@@ -17,11 +20,11 @@ export function createBreadcrumb(router: routerObject[]): Record<string, Breadcr
       resultMap[path] = breadcrumb
     })
   }
-  deep(router)
+  deep(sortMenu(router))
   return resultMap
 }
 export function deepFindBreadcrumb(parentPath: string, breadcrumb: Record<string, BreadcrumbType>) {
-  const result: routerObject[] = []
+  const result: RouteRecordRaw[] = []
   const deepFind = (deepPath: string) => {
     forEach(breadcrumb, (item) => {
       const { parentPath, path } = item
@@ -37,19 +40,15 @@ export function deepFindBreadcrumb(parentPath: string, breadcrumb: Record<string
   return result
 }
 
-export function createDropdownOptions(breadcrumbs: routerObject[]): DropdownOption[] {
+export function createDropdownOptions(breadcrumbs: RouteRecordRaw[]): DropdownOption[] {
   const result: DropdownOption[] = []
   forEach(breadcrumbs, (breadcrumb) => {
     const {
-      meta: {
-        isHidden,
-        isTitle,
-        lineIcon,
-        localIcon,
-      },
+      meta,
       children,
       path,
     } = breadcrumb
+    const { isHidden, lineIcon, localIcon, isTitle } = meta!
     if (isUndefined(isHidden)) {
       result.push({
         icon: () => <SvgIcon lineIcon={lineIcon} localIcon={localIcon}/>,

@@ -1,19 +1,18 @@
+import { isString } from 'lodash-es'
+import { setupLayouts } from 'virtual:generated-layouts'
 import type { App } from 'vue'
 import type { Router } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router/auto'
 import { htmlTitle } from '@/composables/useTitle'
-import { createPermissionRouter } from '@/router/guard/createPermissionRouter'
-import { initLoginRouteGuard } from '@/router/guard/initLoginRouteGuard'
-import { getAllRouterFiles } from '@/router/helps/getAllRouterFiles'
-import { baseRouter } from '@/router/modules'
 
 function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     loadingStart()
-    const isPermissionReady = await createPermissionRouter(to, from, next)
-    if (!isPermissionReady)
-      return
-    await initLoginRouteGuard(to, from, next)
+    // const isPermissionReady = await createPermissionRouter(to, from, next)
+    // if (!isPermissionReady)
+    //   return
+    // await initLoginRouteGuard(to, from, next)
+    next()
   })
   // 跳转完成后
   router.afterEach((to) => {
@@ -35,7 +34,20 @@ function setupRouterGuard(router: Router) {
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: getAllRouterFiles(baseRouter),
+  extendRoutes: (routers) => {
+    console.log(routers)
+    const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
+    return [
+      ...setupLayouts(routers.filter((item) => {
+        const { path, name } = item
+        return !excludeReg.test(path) && !excludeReg.test(isString(name) ? name : '')
+      })),
+      ...routers.filter((item) => {
+        const { path, name } = item
+        return excludeReg.test(path) || excludeReg.test(isString(name) ? name : '')
+      }),
+    ]
+  },
 })
 
 export async function installRouter(app: App) {

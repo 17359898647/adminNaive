@@ -1,4 +1,4 @@
-import { assign, forEach, includes, isFunction, isString, isUndefined, map, replace, sortBy } from 'lodash-es'
+import { assign, cloneDeep, forEach, includes, isFunction, isString, isUndefined, map, replace, sortBy } from 'lodash-es'
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -48,17 +48,20 @@ export function transformRouter() {
       originalPath: key,
     }
   })
-  console.log(result)
   return result
 }
 const dynamicViews = transformRouter()
 
-export function sortMenu(list: routerObject[]): routerObject[] {
-  forEach(list, (item) => {
-    if (item.children && item.children.length > 1)
-      item.children = sortMenu(item.children)
-  })
-  return sortBy(list, item => item.meta.isOrder ?? 0)
+export function sortMenu(list: RouteRecordRaw[]): RouteRecordRaw[] {
+  const listClone = cloneDeep(list)
+  const sort = (_list: RouteRecordRaw[]) => {
+    forEach(_list, (item) => {
+      if (item.children && item.children.length > 1)
+        item.children = sort(item.children)
+    })
+    return sortBy(_list, item => item.meta?.isOrder ?? 0)
+  }
+  return sort(listClone)
 }
 /** 删除多余 children */
 export function delChildrenRouter<T extends routerObject | RouteRecordRaw>(router: T[]): Omit<T, 'children'>[] {
@@ -117,7 +120,6 @@ async function setComponentName(asyncComponent: asyncComponentType, name: string
 
   if (!isUndefined(fileName) && !isUndefined(component[fileName]))
     assign(component[fileName], { name })
-  console.log(component.default.name)
   return component
 }
 
