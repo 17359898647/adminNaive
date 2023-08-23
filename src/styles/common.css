@@ -10,22 +10,3 @@ html,body,#app {
 .n-scrollbar + .n-scrollbar-rail.n-scrollbar-rail--vertical {
   z-index: 3000;
 }
-/* Tags列表动画 */
-.tags-move, /* 对移动中的元素应用的过渡 */
-.tags-enter-active,
-.tags-leave-active {
-  transition: all 0.3s var(--n-bezier) !important;
-}
-
-.tags-enter-from,
-.tags-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
-}
-
-/* 确保将离开的元素从布局流中删除
-  以便能够正确地计算移动的动画。 */
-.tags-leave-active {
-  position: absolute !important;
-  z-index: 1 !important;
-}

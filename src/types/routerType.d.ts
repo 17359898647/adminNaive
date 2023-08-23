@@ -25,10 +25,6 @@ interface routeMeta {
    * @default undefined
    * */
   isKeepAlive?: false
-  /** 是否是tag页，默认不是
-   * @default undefined
-   * */
-  isTag?: false
 }
 
 interface routerObject extends Omit<import('vue-router').RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {

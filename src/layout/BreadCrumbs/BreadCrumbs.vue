@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { isUndefined } from 'lodash-es'
+import type { CSSProperties } from 'vue'
 import { createBreadcrumb, createDropdownOptions, deepFindBreadcrumb } from '@/layout/BreadCrumbs/modules'
 import { moduleRouters } from '@/router/modules'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
-const { setAttrs, isCollapsed } = inject(layoutProvide)!
+const { setAttrs, isCollapsed, isHeaderHeight, isContentPadding } = inject(layoutProvide)!
 const isCollapsedIcon = computed(() => {
   return isCollapsed.value
     ? {
@@ -24,7 +25,13 @@ const breadcrumb = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-nowrap gap-2 overflow-hidden">
+  <div
+    class="flex flex-nowrap items-center gap-2 overflow-hidden"
+    :style="{
+      height: `${isHeaderHeight}px`,
+      padding: `0 ${isContentPadding}px`,
+    } as CSSProperties"
+  >
     <NPopover trigger="hover">
       <template #trigger>
         <SvgIcon
