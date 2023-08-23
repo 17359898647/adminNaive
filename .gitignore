@@ -19,6 +19,7 @@ src/types/auto-import.d.ts
 src/types/auto-components.d.ts
 src/types/.eslintrc-auto-import.json
 src/types/routerTypeKeys.d.ts
+src/types/auto-router.d.ts
 stats.html
 
 # Editor directories and files
