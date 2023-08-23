@@ -1,0 +1,8 @@
+dist
+node_modules
+pnpm-lock.yaml
+src/types/auto-import.d.ts
+src/types/auto-components.d.ts
+src/types/.eslintrc-auto-import.json
+src/assets
+stats.html
