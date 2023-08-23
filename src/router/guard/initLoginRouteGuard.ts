@@ -6,7 +6,8 @@ export async function initLoginRouteGuard(
   _from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) {
-  if (!true) {
+  const token = localStorage.getItem('token') || '123'
+  if (!token) {
     const { name } = to
     if (name === 'login') {
       next()

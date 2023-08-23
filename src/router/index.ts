@@ -16,7 +16,7 @@ function setupRouterGuard(router: Router) {
     await initLoginRouteGuard(to, from, next)
   })
   // 跳转完成后
-  router.afterEach((to, from) => {
+  router.afterEach((to) => {
     const {
       meta: {
         isTitle,

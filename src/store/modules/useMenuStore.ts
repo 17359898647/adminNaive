@@ -32,7 +32,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
     openKeys.value = keys
   }
   const selectKey = ref < string | null>(null)
-  const setSelectKey = async (path: string, item?: _MenuOption) => {
+  const setSelectKey = async (path: string) => {
     if (/^http(s)?:\/\//.test(path)) {
       window.open(path, '_blank')
       return
