@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CSSProperties } from 'vue/dist/vue'
+import type { CSSProperties } from 'vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { isTagViewHeight } = inject(layoutProvide)!

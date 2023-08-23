@@ -4,7 +4,7 @@ import BreadCrumbs from '@/layout/BreadCrumbs/BreadCrumbs.vue'
 import TagsView from '@/layout/TagsView.vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
-const { isFixedHeader, isHeaderHeight, isContentPadding, isCollapsed, setAttrs } = inject(layoutProvide)!
+const { isFixedHeader, isHeaderHeight, isContentPadding } = inject(layoutProvide)!
 </script>
 
 <template>

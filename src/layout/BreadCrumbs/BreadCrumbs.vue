@@ -28,7 +28,7 @@ const breadcrumb = computed(() => {
     <NPopover trigger="hover">
       <template #trigger>
         <SvgIcon
-          :key="isCollapsedIcon"
+          :key="isCollapsedIcon.icon"
           :lineIcon="isCollapsedIcon.icon"
           :size="24"
           @click="setAttrs('isCollapsed', !isCollapsed)"
@@ -41,22 +41,21 @@ const breadcrumb = computed(() => {
         v-for="{ path, meta: { isTitle, lineIcon, localIcon }, children } in breadcrumb"
         :key="path"
       >
-        <div class="flex gap-1">
-          <SvgIcon
-            :lineIcon="lineIcon"
-            :localIcon="localIcon"
-          />
-          <NDropdown
-            :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
-            size="small"
-            @select="routerPath => {
-              console.log(routerPath)
-              routerPush({ path: routerPath })
-            }"
-          >
-            {{ isTitle }}
-          </NDropdown>
-        </div>
+        <NDropdown
+          :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
+          size="small"
+          @select="routerPath => {
+            routerPush({ path: routerPath })
+          }"
+        >
+          <div class="flex gap-2">
+            <SvgIcon
+              :lineIcon="lineIcon"
+              :localIcon="localIcon"
+            />
+            <span>{{ isTitle }}</span>
+          </div>
+        </NDropdown>
       </NBreadcrumbItem>
     </NBreadcrumb>
   </div>

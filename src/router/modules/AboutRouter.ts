@@ -15,6 +15,16 @@ export const AboutRouter: routerObject[] = [
           isTitle: '作者',
           isOrder: 900,
         },
+        children: [
+          {
+            path: '/about/author1',
+            component: '/about/index',
+            meta: {
+              isTitle: '测试',
+              isOrder: 900,
+            },
+          },
+        ],
       },
     ],
   },

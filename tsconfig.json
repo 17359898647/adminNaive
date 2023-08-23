@@ -17,7 +17,6 @@
     "types": [
       "vite/client",
       "unplugin-vue-macros/macros-global",
-      "vite-plugin-svg-icons/client",
       "naive-ui/volar"
     ],
     "paths": {
@@ -26,3 +25,4 @@
   },
   "exclude": ["dist", "node_modules"]
 }
+

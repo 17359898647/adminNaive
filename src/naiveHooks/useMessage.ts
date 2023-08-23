@@ -1,8 +1,9 @@
+import type { MaybeRef, MaybeRefOrGetter } from '@vueuse/core'
 import { toValue } from '@vueuse/core'
 import type { MessageOptions } from 'naive-ui'
 import { createDiscreteApi } from 'naive-ui'
 import type { LoadingBarProviderProps } from 'naive-ui/es/loading-bar'
-import type { VNodeChild } from 'vue'
+import type { Ref, VNodeChild } from 'vue'
 
 export type msgType = string | (() => VNodeChild)
 export const loadingBarProviderProps = ref<LoadingBarProviderProps>({
@@ -17,7 +18,6 @@ const { message, dialog, notification, loadingBar } = createDiscreteApi(
     notificationProviderProps: {
       // max: 3,
     },
-    // @ts-expect-error
     loadingBarProviderProps,
   },
 )
@@ -39,29 +39,29 @@ export const defaultMessageOptions: MessageOptions = {
   // },
 }
 export type PickMessageOptions = Partial<
-  myTypes.Pick<MessageOptions, 'keepAliveOnHover' | 'type' | 'onClose' | 'onAfterLeave' | 'onLeave' | 'duration'>
+  Pick<MessageOptions, 'keepAliveOnHover' | 'type' | 'onClose' | 'onAfterLeave' | 'onLeave' | 'duration'>
 >
 type createRef<T> = {
-  [P in keyof T]: myTypes.MaybeRef<T[P]>
+  [P in keyof T]: MaybeRef<T[P]>
 }
 export function createMsg(
-  msg: myTypes.MaybeComputedRef<msgType>,
-  options?: myTypes.MaybeRef<createRef<PickMessageOptions>>,
+  msg: MaybeRefOrGetter<msgType>,
+  options?: MaybeRef<createRef<PickMessageOptions>>,
 ) {
   const optionsCopy = ref({
     ...defaultMessageOptions,
     ...toValue(options),
   })
   const { destroy, content, type, duration } = toRefs(message.create(toValue(msg), toValue(optionsCopy)))
-  const changeType = (ParamsType: myTypes.MaybeComputedRef<MessageOptions['type']>) => {
+  const changeType = (ParamsType: MaybeRefOrGetter<MessageOptions['type']>) => {
     type.value = toValue(ParamsType)!
     // console.log("修改类型", type!.value);
   }
-  const changeContent = (ParamsContent: myTypes.MaybeComputedRef<msgType>) => {
+  const changeContent = (ParamsContent: MaybeRefOrGetter<msgType>) => {
     content!.value = toValue(ParamsContent)!
   }
   const scope = effectScope()
-  const timer: myTypes.Ref<ReturnType<typeof setTimeout> | null> = ref(null)
+  const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
   const createTimer = (time: number) => {
     if (timer.value) {
       clearTimeout(timer.value)
@@ -85,7 +85,7 @@ export function createMsg(
       changeType(newVal.type)
     })
     watch(
-      duration as myTypes.Ref<number>,
+      duration as Ref<number>,
       (newVal) => {
         createTimer(newVal)
       },
