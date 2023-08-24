@@ -35,7 +35,6 @@ function setupRouterGuard(router: Router) {
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   extendRoutes: (routers) => {
-    console.log(routers)
     const createMeta = (_routers: RouteRecordRaw[]) => {
       forEach(_routers, (item) => {
         const { path } = item
@@ -50,6 +49,7 @@ export const router = createRouter({
       })
     }
     createMeta(routers)
+    console.log(routers)
     const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
     return [
       ...setupLayouts(routers.filter((item) => {

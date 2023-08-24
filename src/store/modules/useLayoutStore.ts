@@ -51,7 +51,7 @@ export const useLayoutStore = defineStore(
     const layoutAttrs = reactive<settingType>({
       isCollapsed: false,
       isRefreshPage: true,
-      isAccordion: false,
+      isAccordion: true,
       isShowTrigger: 'bar',
       isInverted: true,
       isFixedFooter: true,
@@ -61,7 +61,7 @@ export const useLayoutStore = defineStore(
       isSiderWidth: 200,
       isHeaderHeight: 64,
       isFooterHeight: 46,
-      isTagViewHeight: 42,
+      isTagViewHeight: 44,
       isTagViewShow: true,
       isTagViewShowIcon: true,
       isContentPadding: 8,

@@ -1,9 +1,10 @@
-import { filter, findIndex, forEach, isUndefined, some } from 'lodash-es'
+import { difference, filter, findIndex, forEach, isUndefined, some } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import { watch } from 'vue'
 import type { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw } from 'vue-router/auto'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
+import { scrollHelps } from '@/layout/TagView/scrollHelps'
 import { allAffixRoutes } from '@/router/helps/allRoutes'
 import { useLayoutStore } from '@/store/modules/useLayoutStore'
 
@@ -28,8 +29,8 @@ export const useTagStore = defineStore('useTagStore', () => {
   const historyPath = ref(route.fullPath)
   const layoutStore = useLayoutStore()
   const { delCache } = useKeepAliveCacheStore()
-  // const { isRefreshPage } = storeToRefs(layoutStore)
   const { setAttrs } = layoutStore
+  const { isCollapsed } = storeToRefs(layoutStore)
   const {
     undo,
     history,
@@ -45,8 +46,13 @@ export const useTagStore = defineStore('useTagStore', () => {
   const addTagList = (tag: ITag) => {
     const { fullPath } = tag
     const isExist = tagList.value.some(item => item.fullPath === fullPath)
-    if (!isExist)
-      tagList.value.push(tag)
+    if (!isExist) {
+      const historyIndex = findIndex(tagList.value, item => item.fullPath === historyPath.value)
+      if (historyIndex === -1)
+        tagList.value.push(tag)
+      else
+        tagList.value.splice(historyIndex + 1, 0, tag)
+    }
   }
   const delTagList = async (tag: ITag) => {
     const { fullPath } = tag
@@ -64,7 +70,6 @@ export const useTagStore = defineStore('useTagStore', () => {
     index !== -1 && tagList.value.splice(index, 1)
     await delCache(tag)
   }
-  const isMounted = useMounted()
 
   // tag 下拉菜单
   const tagDropdownOptions = ref<_DropdownOption[]>([
@@ -102,38 +107,29 @@ export const useTagStore = defineStore('useTagStore', () => {
       icon: () => <SvgIcon lineIcon={'ic:twotone-refresh'} />,
     },
   ])
+  const _delCache = async <T extends ITag>(Fn: (item: T, index: number) => boolean, path: string) => {
+    const residueTagList = filter(tagList.value, Fn) as T[]
+    const excludeTagList = difference(tagList.value, residueTagList)
+    tagList.value = residueTagList
+    await delCache(excludeTagList)
+    await router.push(path)
+  }
   const tagDropdownClick = async (key: ActionTypes, tag: ITag) => {
     const { fullPath: selectTagFullPath } = tag
     const actionFn = {
       closeAll: async () => {
-        await router.push({
-          path: tagList.value[0].fullPath,
-        })
-        // await useSleep(300)
-        tagList.value = filter(tagList.value, item => !isUndefined(item.isAffix))
+        await _delCache(item => !isUndefined(item.isAffix), tagList.value[0].fullPath)
       },
       closeOther: async () => {
-        await router.push({
-          path: selectTagFullPath,
-        })
-        // await useSleep(300)
-        tagList.value = filter(tagList.value, item => item.isAffix || item.fullPath === selectTagFullPath)
+        await _delCache(item => item.isAffix || item.fullPath === selectTagFullPath, selectTagFullPath)
       },
       closeRight: async () => {
         const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
-        await router.push({
-          path: selectTagFullPath,
-        })
-        // await useSleep(300)
-        tagList.value = filter(tagList.value, (item, i) => item.isAffix || i <= index)
+        await _delCache((item, i) => item.isAffix || i <= index, selectTagFullPath)
       },
       closeLeft: async () => {
         const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
-        await router.push({
-          path: selectTagFullPath,
-        })
-        // await useSleep(300)
-        tagList.value = filter(tagList.value, (item, i) => item.isAffix || i >= index)
+        await _delCache((item, i) => item.isAffix || i >= index, selectTagFullPath)
       },
       refresh: async () => {
         setAttrs('isRefreshPage', false)
@@ -156,8 +152,10 @@ export const useTagStore = defineStore('useTagStore', () => {
     const action = actionFn[key] || actionFn.default
     await action()
   }
-
-  watch(route, (to) => {
+  const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
+  const isMounted = useMounted()
+  watch(route, async (to) => {
+    // 确保所有的固定路由都已经加载完毕
     !isMounted.value && (
       forEach(allAffixRoutes, (item) => {
         addTagList(createTag(item))
@@ -165,9 +163,15 @@ export const useTagStore = defineStore('useTagStore', () => {
     )
     addTagList(createTag(to))
     historyPath.value = to.fullPath
+    await nextTick()
+    await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
   }, {
     immediate: true,
     flush: 'post',
+  })
+  const { width: windowWidth } = useWindowSize()
+  watch([windowWidth, isCollapsed], async () => {
+    await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
   })
   return {
     tagList,
@@ -175,6 +179,10 @@ export const useTagStore = defineStore('useTagStore', () => {
     delTagList,
     tagDropdownOptions,
     tagDropdownClick,
+    scrollRef,
+    scrollTo,
+    contentRef,
+    containerRef,
   }
 }, {
   persist: {

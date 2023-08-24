@@ -7,8 +7,5 @@ export function autoRouter(): PluginOption {
     importMode: 'async',
     exclude: ['**/_*', '**/_*/**/*'],
     dts: 'src/types/auto-router.d.ts',
-    // getRouteName: (file) => {
-    //   return getFileBasedRouteName(file)
-    // },
   })
 }

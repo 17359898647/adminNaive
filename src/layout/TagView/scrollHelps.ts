@@ -15,7 +15,6 @@ export function scrollHelps(options?: {
   const scrollRef = ref<InstanceType<typeof NScrollbar>>()
   const containerRef = ref<HTMLElement>()
   // const { left: TransitionRefLeft } = useElementBounding(contentRef)
-  const { width: windowWidth } = useWindowSize()
   const TransitionRefLeft = computed(() => {
     return (isCollapsed.value ? isCollapsedWidth.value : isSiderWidth.value) + isContentPadding.value
   })
@@ -23,6 +22,8 @@ export function scrollHelps(options?: {
   const centerWidth = computed(() => parentWidth.value / 2)
   const scrollTo = debounce(
     async (index: number) => {
+      if (index < 0)
+        return
       // 动画时间
       await useSleep(animationTime * 1000)
       const childrenEl = contentRef.value?.children[index] as HTMLElement
@@ -35,15 +36,12 @@ export function scrollHelps(options?: {
         behavior: 'smooth',
       })
     },
-    300,
+    500,
     {
       leading: true,
       maxWait: 1000,
     },
   )
-  watch([windowWidth, isCollapsed], async () => {
-    await scrollTo(10)
-  })
   return {
     contentRef,
     containerRef,

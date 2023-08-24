@@ -3,20 +3,15 @@ import { NScrollbar } from 'naive-ui'
 import type { CSSProperties } from 'vue'
 import { inject } from 'vue'
 import { useSort } from '@/composables/useSort'
-import { scrollHelps } from '@/layout/TagView/scrollHelps'
 import type { ActionTypes, ITag } from '@/store/modules/useTagStore'
 import { useTagStore } from '@/store/modules/useTagStore'
 
 const { isTagViewHeight, isContentPadding } = inject(layoutProvide)!
-const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
 const tagStore = useTagStore()
-const { tagList, tagDropdownOptions } = storeToRefs(tagStore)
+const { tagList, tagDropdownOptions, contentRef, containerRef, scrollRef } = storeToRefs(tagStore)
 const { delTagList: closeTag, tagDropdownClick } = tagStore
 const { isDrag } = useSort(contentRef, tagList, {
   animation: 300,
-})
-tryOnMounted(async () => {
-  await scrollTo(4)
 })
 function getKey<T extends ITag, K extends keyof ITag>(tag: T, key: K) {
   return tag[key]

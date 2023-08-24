@@ -17,8 +17,8 @@ const mainStyle = computed(() => {
     }px`,
     paddingTop: `${
       isFixedHeader.value
-        ? isHeaderHeight.value + isTagViewHeight.value + isContentPadding.value
-        : isContentPadding.value
+        ? isHeaderHeight.value + isTagViewHeight.value
+        : 0
     }px`,
     paddingLeft: `${isContentPadding.value}px`,
     paddingRight: `${isContentPadding.value}px`,
