@@ -1,24 +1,35 @@
 import { debounce } from 'lodash-es'
 import type { NScrollbar } from 'naive-ui'
+import { inject } from 'vue'
+import { layoutProvide } from '@/store/modules/useLayoutStore'
 
-export function scrollHelps() {
+export function scrollHelps(options?: {
+  animationTime: number
+}) {
+  const { animationTime } = {
+    animationTime: 0.3,
+    ...options,
+  }
+  const { isSiderWidth, isCollapsedWidth, isCollapsed, isContentPadding } = inject(layoutProvide)!
   const contentRef = ref<HTMLElement>()
   const scrollRef = ref<InstanceType<typeof NScrollbar>>()
   const containerRef = ref<HTMLElement>()
-  const { left: TransitionRefLeft } = useElementBounding(contentRef)
+  // const { left: TransitionRefLeft } = useElementBounding(contentRef)
+  const { width: windowWidth } = useWindowSize()
+  const TransitionRefLeft = computed(() => {
+    return (isCollapsed.value ? isCollapsedWidth.value : isSiderWidth.value) + isContentPadding.value
+  })
   const { width: parentWidth } = useElementSize(containerRef)
   const centerWidth = computed(() => parentWidth.value / 2)
-
   const scrollTo = debounce(
     async (index: number) => {
+      // 动画时间
+      await useSleep(animationTime * 1000)
       const childrenEl = contentRef.value?.children[index] as HTMLElement
       if (!childrenEl)
         return
-      const { left } = useElementBounding(childrenEl)
-      // 动画时间
-      await useSleep(300)
-
-      const resultDistance = left.value - TransitionRefLeft.value - centerWidth.value
+      const { left, width } = childrenEl.getBoundingClientRect()
+      const resultDistance = left - TransitionRefLeft.value - centerWidth.value + width / 2
       scrollRef.value?.scrollBy({
         left: resultDistance,
         behavior: 'smooth',
@@ -30,7 +41,9 @@ export function scrollHelps() {
       maxWait: 1000,
     },
   )
-
+  watch([windowWidth, isCollapsed], async () => {
+    await scrollTo(10)
+  })
   return {
     contentRef,
     containerRef,

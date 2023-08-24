@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
+import HKeelAlive from '@/layout/HKeepAlive/HKeepAlive.vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { isHeaderHeight, isFooterHeight, isFixedHeader, isFixedFooter, isContentPadding, isTagViewHeight } = inject(layoutProvide)!
@@ -30,22 +31,7 @@ const mainStyle = computed(() => {
     class="flex flex-1 flex-col bg-#fafafc dark:bg-#101014"
     :style="mainStyle"
   >
-    <RouterView v-slot="{ Component, route }">
-      <Transition
-        appear
-        enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out"
-        leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out"
-        mode="out-in"
-      >
-        <KeepAlive>
-          <component
-            :is="Component"
-            :key="route.fullPath"
-            class="flex-1"
-          />
-        </KeepAlive>
-      </Transition>
-    </RouterView>
+    <HKeelAlive />
   </main>
 </template>
 

@@ -3,13 +3,13 @@ definePage({
   meta: {
     isTitle: '首页',
     lineIcon: 'material-symbols:home',
-    isOrder: 9,
+    isAffix: true,
   },
 })
 </script>
 
 <template>
-  <div red>
-    home
-  </div>
+  <NCard title="home">
+    <NInput />
+  </NCard>
 </template>

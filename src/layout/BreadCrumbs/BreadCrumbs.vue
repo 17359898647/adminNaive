@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { isUndefined } from 'lodash-es'
 import type { CSSProperties } from 'vue'
-import { createBreadcrumb, createDropdownOptions, deepFindBreadcrumb, routes } from '@/layout/BreadCrumbs/helps'
+import { createBreadcrumb, createDropdownOptions, deepFindBreadcrumb } from '@/layout/BreadCrumbs/helps'
+import { allRoutes } from '@/router/helps/allRoutes'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { setAttrs, isCollapsed, isHeaderHeight, isContentPadding } = inject(layoutProvide)!
@@ -17,7 +18,8 @@ const isCollapsedIcon = computed(() => {
       }
 })
 const route = useRoute()
-const allBreadcrumb = ref(createBreadcrumb(routes))
+const router = useRouter()
+const allBreadcrumb = ref(createBreadcrumb(allRoutes))
 const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.path, allBreadcrumb.value)
 })
@@ -44,22 +46,24 @@ const breadcrumb = computed(() => {
     </NPopover>
     <NBreadcrumb>
       <NBreadcrumbItem
-        v-for="{ path, meta: { isTitle, lineIcon, localIcon }, children } in breadcrumb"
+        v-for="{ path, meta, children } in breadcrumb"
         :key="path"
       >
         <NDropdown
           :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
           size="small"
-          @select="routerPath => {
-            routerPush({ path: routerPath })
+          @select="name => {
+            router.push({
+              name,
+            })
           }"
         >
           <div class="flex gap-2">
             <SvgIcon
-              :lineIcon="lineIcon"
-              :localIcon="localIcon"
+              :lineIcon="meta?.lineIcon"
+              :localIcon="meta?.localIcon"
             />
-            <span>{{ isTitle }}</span>
+            <span>{{ meta?.isTitle }}</span>
           </div>
         </NDropdown>
       </NBreadcrumbItem>

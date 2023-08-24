@@ -1,9 +1,10 @@
-import { isString } from 'lodash-es'
+import { forEach, has, isString } from 'lodash-es'
 import { setupLayouts } from 'virtual:generated-layouts'
 import type { App } from 'vue'
-import type { Router } from 'vue-router'
+import type { RouteRecordRaw, Router } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { htmlTitle } from '@/composables/useTitle'
+import { enhanceAutoRouter } from '@/router/helps/enhanceAutoRouter'
 
 function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
@@ -31,11 +32,24 @@ function setupRouterGuard(router: Router) {
     loadingError()
   })
 }
-
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   extendRoutes: (routers) => {
     console.log(routers)
+    const createMeta = (_routers: RouteRecordRaw[]) => {
+      forEach(_routers, (item) => {
+        const { path } = item
+        if (has(enhanceAutoRouter, path)) {
+          item.meta = {
+            ...(item.meta || {}),
+            ...enhanceAutoRouter[path],
+          }
+        }
+        if (item.children)
+          createMeta(item.children)
+      })
+    }
+    createMeta(routers)
     const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
     return [
       ...setupLayouts(routers.filter((item) => {

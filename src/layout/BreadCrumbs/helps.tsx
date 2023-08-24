@@ -1,10 +1,8 @@
-import { forEach, isUndefined } from 'lodash-es'
+import { forEach, isString, isUndefined } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
-import { sortMenu } from '@/router/helps/getAllRouterFiles'
 
-export { routes } from 'vue-router/auto/routes'
 type BreadcrumbType = RouteRecordRaw & { parentPath?: string }
 export function createBreadcrumb(router: RouteRecordRaw[]): Record<string, BreadcrumbType> {
   const resultMap: Record<string, BreadcrumbType> = {}
@@ -20,7 +18,7 @@ export function createBreadcrumb(router: RouteRecordRaw[]): Record<string, Bread
       resultMap[path] = breadcrumb
     })
   }
-  deep(sortMenu(router))
+  deep(router)
   return resultMap
 }
 export function deepFindBreadcrumb(parentPath: string, breadcrumb: Record<string, BreadcrumbType>) {
@@ -47,13 +45,14 @@ export function createDropdownOptions(breadcrumbs: RouteRecordRaw[]): DropdownOp
       meta,
       children,
       path,
+      name,
     } = breadcrumb
     const { isHidden, lineIcon, localIcon, isTitle } = meta!
     if (isUndefined(isHidden)) {
       result.push({
         icon: () => <SvgIcon lineIcon={lineIcon} localIcon={localIcon}/>,
         label: isTitle,
-        key: path,
+        key: isString(name) ? name : path,
         children: isUndefined(children) ? undefined : createDropdownOptions(children),
       })
     }

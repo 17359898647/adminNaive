@@ -17,7 +17,9 @@ definePage({
     title="404 资源不存在"
   >
     <template #footer>
-      <n-button>找点乐子吧</n-button>
+      <NButton @click="() => $router.push('/')">
+        找点乐子吧
+      </NButton>
     </template>
   </n-result>
 </template>

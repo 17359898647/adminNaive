@@ -17,7 +17,7 @@
     "types": [
       "vite/client",
       "naive-ui/volar",
-      "src/types/auto-router.d.ts",
+      "./src/types/auto-router.d.ts",
       "vite-plugin-vue-layouts/client"
     ],
     "paths": {

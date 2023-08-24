@@ -1,9 +1,8 @@
 import { isUndefined, map } from 'lodash-es'
 import type { MenuOption } from 'naive-ui'
-import type { RouteRecordRaw } from 'vue-router'
-import { routes } from 'vue-router/auto/routes'
-import { routerPush } from '@/composables/routerPush'
-import { sortMenu } from '@/router/helps/getAllRouterFiles'
+import type { RouteRecordName, RouteRecordRaw } from 'vue-router'
+import type { RouteNamedMap } from 'vue-router/auto/routes'
+import { allRoutes } from '@/router/helps/allRoutes'
 
 export type _MenuOption = MenuOption & {
   lineIcon?: string
@@ -11,42 +10,43 @@ export type _MenuOption = MenuOption & {
 }
 export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
-  const allMenuPath = new Set<string>()
+  const router = useRouter()
+  const allMenuName = new Set<RouteRecordName>()
   const createMenuOptions = (router: RouteRecordRaw[]): _MenuOption[] => {
-    return map(sortMenu(router), (item) => {
-      const { path, children, meta } = item
-      const { lineIcon, localIcon, isHidden, isTitle } = meta!
-      allMenuPath.add(path)
+    return map(router, (item) => {
+      const { path, name, children, meta } = item
+      const { lineIcon, localIcon, isHidden, isTitle } = meta || {}
+      name && allMenuName.add(name)
       return {
-        key: path,
+        key: name || path,
         show: !isHidden,
+        children: isUndefined(children) ? undefined : createMenuOptions(children),
         localIcon,
         lineIcon,
         label: isTitle,
-        children: isUndefined(children) ? undefined : createMenuOptions(children),
       } as _MenuOption
     })
   }
-  const menuOptions = ref(createMenuOptions(routes))
+  const menuOptions = ref(createMenuOptions(allRoutes))
 
   const openKeys = ref<string[]>([])
   const setOpenKeys = (keys: string[]) => {
     openKeys.value = keys
   }
   const selectKey = ref < string | null>(null)
-  const setSelectKey = async (path: string) => {
-    if (/^http(s)?:\/\//.test(path)) {
-      window.open(path, '_blank')
+  const setSelectKey = async (name: keyof RouteNamedMap) => {
+    if (/^http(s)?:\/\//.test(name)) {
+      window.open(name, '_blank')
       return
     }
-    await routerPush({
-      path,
+    await router.push({
+      name,
     })
-    selectKey.value = path
+    selectKey.value = name
   }
   watchEffect(() => {
-    const { path } = route
-    if (allMenuPath.has(path))
+    const { path, name } = route
+    if (allMenuName.has(name))
       selectKey.value = path
   }, {
     flush: 'post',

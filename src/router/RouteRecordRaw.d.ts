@@ -20,7 +20,7 @@ declare module 'vue-router' {
     /** 是否是固定页，默认不固定
      * @default undefined
      * */
-    isAffix?: false
+    isAffix?: true
     /** 是否隐藏在菜单,面包屑中隐藏，默认不隐藏
      * @default undefined
      **/
