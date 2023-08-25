@@ -19,7 +19,7 @@ export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () =
       exclude.value = unCache
     }
     else {
-      exclude.value.push(createReg(tag))
+      exclude.value = concat(exclude.value, [createReg(tag)])
       await nextTick()
       exclude.value = unCache
     }
