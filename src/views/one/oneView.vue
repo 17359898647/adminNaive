@@ -8,9 +8,7 @@ definePage({
 </script>
 
 <template>
-  <NCard>
-    一级路由
-  </NCard>
+  <NCard title="一级路由" />
 </template>
 
 <style scoped>

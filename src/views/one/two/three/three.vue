@@ -8,7 +8,7 @@ definePage({
 </script>
 
 <template>
-  <NCard>
+  <NCard title="三级路由">
     <NInput />
   </NCard>
 </template>

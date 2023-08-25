@@ -4,7 +4,7 @@ import type { App } from 'vue'
 import type { RouteRecordRaw, Router } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { htmlTitle } from '@/composables/useTitle'
-import { enhanceAutoRouter } from '@/router/helps/enhanceAutoRouter'
+import { enhanceAutoRouter } from '@/views/enhanceAutoRouter'
 
 function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {

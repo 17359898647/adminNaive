@@ -15,7 +15,10 @@ const { exclude } = storeToRefs(cacheStore)
       leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out"
       mode="out-in"
     >
-      <KeepAlive :exclude="exclude">
+      <KeepAlive
+        :exclude="exclude"
+        :max="2"
+      >
         <component
           :is="Component"
           v-if="isRefreshPage"

@@ -3,14 +3,13 @@ definePage({
   meta: {
     isTitle: '二级路由',
     lineIcon: 'material-symbols:roundabout-right',
+
   },
 })
 </script>
 
 <template>
-  <NCard>
-    二级路由
-  </NCard>
+  <NCard title="二级路由" />
 </template>
 
 <style scoped>

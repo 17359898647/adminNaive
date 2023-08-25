@@ -1,7 +1,6 @@
 import type { RouteMeta } from 'vue-router'
-import type { RouteNamedMap } from 'vue-router/auto/routes'
 
-export const enhanceAutoRouter: Record<string | keyof RouteNamedMap, RouteMeta> = {
+export const enhanceAutoRouter: Record<string, RouteMeta> = {
   '/OutsideChain': {
     isTitle: '外链',
     lineIcon: 'twemoji:couple-with-heart-man-man-light-skin-tone-dark-skin-tone',
@@ -18,5 +17,9 @@ export const enhanceAutoRouter: Record<string | keyof RouteNamedMap, RouteMeta> 
   three: {
     isTitle: '三级路由',
     isOrder: 10,
+  },
+  '/Assembly': {
+    isTitle: '组件',
+    lineIcon: 'logos:webcomponents',
   },
 }
