@@ -22,15 +22,6 @@ const allBreadcrumb = ref(createBreadcrumb(unref(allRouters)))
 const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })
-watchDeep(
-  breadcrumb,
-  (e) => {
-    console.log(e, route.name, allBreadcrumb)
-  },
-  {
-    immediate: true,
-  },
-)
 </script>
 
 <template>
