@@ -3,6 +3,8 @@ import { TransitionPresets, useTransition } from '@vueuse/core'
 import { isNumber } from 'lodash-es'
 import { computed, onMounted, ref, watch, watchEffect } from 'vue'
 
+defineOptions({ name: 'CountTo' })
+
 const props = withDefaults(defineProps<Props>(), {
   startValue: 0,
   endValue: new Date().getFullYear(),
@@ -18,8 +20,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emits>()
-
-defineOptions({ name: 'CountTo' })
 
 type TansitionKey = keyof typeof TransitionPresets
 

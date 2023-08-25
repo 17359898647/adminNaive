@@ -18,11 +18,19 @@ const isCollapsedIcon = computed(() => {
       }
 })
 const route = useRoute()
-const router = useRouter()
 const allBreadcrumb = ref(createBreadcrumb(unref(allRouters)))
 const breadcrumb = computed(() => {
-  return deepFindBreadcrumb(route.path, allBreadcrumb.value)
+  return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })
+watchDeep(
+  breadcrumb,
+  (e) => {
+    console.log(e, route.name, allBreadcrumb)
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <template>
@@ -46,14 +54,14 @@ const breadcrumb = computed(() => {
     </NPopover>
     <NBreadcrumb>
       <NBreadcrumbItem
-        v-for="{ path, meta, children } in breadcrumb"
-        :key="path"
+        v-for="{ name, meta, children } in breadcrumb"
+        :key="name"
       >
         <NDropdown
           :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
           size="small"
           @select="name => {
-            router.push({
+            $router.push({
               name,
             })
           }"

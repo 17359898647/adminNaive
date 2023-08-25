@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRequest } from '@/api'
+import { request } from '@/api'
 
 interface RootObject {
   userId: number
@@ -14,7 +14,7 @@ definePage({
   },
 })
 const api = ref('1')
-const { execute, isLoading } = useRequest<RootObject>({
+const { execute, isLoading, data } = request<RootObject>({
   url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
   onSuccess: (res) => {
     console.log(res)
@@ -27,12 +27,20 @@ const { execute, isLoading } = useRequest<RootObject>({
 
 <template>
   <NCard title="网络测试">
-    <NButton
-      :loading="isLoading"
-      @click="() => execute()"
+    <NSpace
+      :size="10"
+      vertical
     >
-      触发
-    </NButton>
-    <NInput v-model:value="api" />
+      <NButton
+        :loading="isLoading"
+        @click="() => execute()"
+      >
+        触发
+      </NButton>
+      <NInput v-model:value="api" />
+      <NCard>
+        <pre v-html="JSON.stringify(toValue(data), null, 2)" />
+      </NCard>
+    </NSpace>
   </NCard>
 </template>

@@ -5,7 +5,7 @@ import { routes } from 'vue-router/auto/routes'
 import type { asyncComponentType } from '@/router/helps/setComponentName'
 import { setComponentName } from '@/router/helps/setComponentName'
 
-function sortRouter(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
+export function sortRouter(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const listClone = cloneDeep(list)
   const deepSort = (_list: RouteRecordRaw[]) => {
     forEach(_list, async (item) => {
@@ -19,7 +19,7 @@ function sortRouter(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   return deepSort(unref(listClone))
 }
 
-function findAffix(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
+export function findAffix(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
   forEach(unref(list), (item) => {
     const { children, meta } = item
@@ -31,7 +31,7 @@ function findAffix(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   return result
 }
 
-function findUnKeepAlive(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
+export function findUnKeepAlive(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
   forEach(unref(list), (item) => {
     const { children, meta } = item

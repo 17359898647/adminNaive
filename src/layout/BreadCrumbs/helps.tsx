@@ -1,40 +1,40 @@
-import { forEach, isString, isUndefined } from 'lodash-es'
+import { forEach, isUndefined } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 
-type BreadcrumbType = RouteRecordRaw & { parentPath?: string }
+type BreadcrumbType = RouteRecordRaw & { parentName?: string }
 export function createBreadcrumb(router: RouteRecordRaw[]): Record<string, BreadcrumbType> {
   const resultMap: Record<string, BreadcrumbType> = {}
-  const deep = (router: RouteRecordRaw[], parentPath?: string) => {
+  const deep = (router: RouteRecordRaw[], parentName?: string) => {
     forEach(router, (item) => {
-      const { children, path } = item
+      const { children, path, name } = item
       const breadcrumb: BreadcrumbType = {
         ...item,
-        parentPath,
+        parentName,
       }
       if (!isUndefined(children) && children?.length > 0)
         deep(children, path)
-      resultMap[path] = breadcrumb
+      resultMap[String(name) || path] = breadcrumb
     })
   }
   deep(router)
   return resultMap
 }
-export function deepFindBreadcrumb(parentPath: string, breadcrumb: Record<string, BreadcrumbType>) {
+export function deepFindBreadcrumb(name: string, breadcrumb: Record<string, BreadcrumbType>) {
   const result: RouteRecordRaw[] = []
   const deepFind = (deepPath: string) => {
     forEach(breadcrumb, (item) => {
-      const { parentPath, path } = item
-      if (deepPath === path) {
-        if (!isUndefined(parentPath))
-          deepFind(parentPath)
+      const { parentName, name } = item
+      if (deepPath === name) {
+        if (!isUndefined(parentName))
+          deepFind(parentName)
 
         result.push(item)
       }
     })
   }
-  deepFind(parentPath)
+  deepFind(name)
   return result
 }
 
@@ -52,7 +52,7 @@ export function createDropdownOptions(breadcrumbs: RouteRecordRaw[]): DropdownOp
       result.push({
         icon: () => <SvgIcon lineIcon={lineIcon} localIcon={localIcon}/>,
         label: isTitle,
-        key: isString(name) ? name : path,
+        key: String(name) || path,
         children: isUndefined(children) ? undefined : createDropdownOptions(children),
       })
     }
