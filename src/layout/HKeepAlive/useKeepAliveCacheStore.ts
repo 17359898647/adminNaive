@@ -24,9 +24,6 @@ export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () =
       exclude.value = unCache
     }
   }
-  watchDeep(exclude, (e) => {
-    console.log('exclude', e)
-  })
   return {
     exclude,
     delCache,

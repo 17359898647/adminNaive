@@ -19,7 +19,7 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
       paddingTop: `${isHeaderHeight - 6}px`,
     }"
     :nativeScrollbar="false"
-    :showTrigger="true"
+    showTrigger="bar"
     :width="isSiderWidth"
     @update-collapsed="_setAttrs"
   >

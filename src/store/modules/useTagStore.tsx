@@ -67,7 +67,7 @@ export const useTagStore = defineStore('useTagStore', () => {
         undo()
         hasCurrent = some(tagList.value, item => item.fullPath === historyPath.value)
       }
-      await router.push(historyPath.value)
+      await router.push(historyPath.value === _historyPath ? tagList.value[0].fullPath : historyPath.value)
     }
     const index = findIndex(tagList.value, item => item.fullPath === fullPath)
     index !== -1 && tagList.value.splice(index, 1)
@@ -168,7 +168,6 @@ export const useTagStore = defineStore('useTagStore', () => {
     )
     addTagList(createTag(to))
     historyPath.value = to.fullPath
-    await nextTick()
     await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
   }, {
     immediate: true,
