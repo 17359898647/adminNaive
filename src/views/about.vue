@@ -4,6 +4,7 @@ definePage({
     isTitle: '关于',
     lineIcon: 'material-symbols:roundabout-right',
     isOrder: 99,
+    isKeepAlive: false,
   },
 })
 </script>

@@ -12,7 +12,6 @@ export async function setComponentName(asyncComponent: asyncComponentType, name:
   try {
     const component = await asyncComponent()
     if (!isUndefined(component.default)) {
-      console.log('component.default', component.default, name)
       assign(component.default, { name })
       return () => component
     }

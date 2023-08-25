@@ -8,7 +8,7 @@ export const enhanceAutoRouter: Record<string | keyof RouteNamedMap, RouteMeta> 
     isOrder: 999,
   },
   '/one': {
-    isTitle: '多级路由',
+    isTitle: '嵌套路由',
     isOrder: 1,
   },
   two: {

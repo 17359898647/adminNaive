@@ -11,12 +11,21 @@ export type _MenuOption = MenuOption & {
 export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const allMenuName = new Set<RouteRecordName>()
+  const allMenuName = ref(new Set<RouteRecordName>())
+  const createAllMenuName = (router: RouteRecordRaw[]): void => {
+    map(router, (item) => {
+      const { name, children } = item
+      name && allMenuName.value.add(name)
+      if (isUndefined(children))
+        return
+      createAllMenuName(children)
+    })
+  }
   const createMenuOptions = (router: RouteRecordRaw[]): _MenuOption[] => {
     return map(router, (item) => {
       const { path, name, children, meta } = item
       const { lineIcon, localIcon, isHidden, isTitle } = meta || {}
-      name && allMenuName.add(name)
+      name && allMenuName.value.add(name)
       return {
         key: name || path,
         show: !isHidden,
@@ -44,12 +53,12 @@ export const useMenuStore = defineStore('useMenuStore', () => {
     })
     selectKey.value = name
   }
+  const isMounted = useMounted()
   watchEffect(() => {
-    const { path, name } = route
-    if (allMenuName.has(name))
-      selectKey.value = path
-  }, {
-    flush: 'post',
+    !isMounted.value && createAllMenuName(allRoutes)
+    const { name } = route
+    if (allMenuName.value.has(name))
+      selectKey.value = name
   })
   return {
     menuOptions,

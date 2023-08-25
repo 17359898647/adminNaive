@@ -46,5 +46,6 @@ function findUnKeepAlive(list: RouteRecordRaw[]): RouteRecordRaw[] {
 }
 
 export const allRoutes = sortRouter(routes)
+console.log(allRoutes)
 export const allAffixRoutes = findAffix(allRoutes)
 export const allUnKeepAliveRoutes = findUnKeepAlive(allRoutes)
