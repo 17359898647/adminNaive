@@ -2,7 +2,7 @@ import { isUndefined, map } from 'lodash-es'
 import type { MenuOption } from 'naive-ui'
 import type { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import type { RouteNamedMap } from 'vue-router/auto/routes'
-import { allRoutes } from '@/router/helps/allRoutes'
+import { allRouters } from '@/router/helps/allRouters'
 
 export type _MenuOption = MenuOption & {
   lineIcon?: string
@@ -36,7 +36,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
       } as _MenuOption
     })
   }
-  const menuOptions = ref(createMenuOptions(allRoutes))
+  const menuOptions = ref(createMenuOptions(unref(allRouters)))
 
   const openKeys = ref<string[]>([])
   const setOpenKeys = (keys: string[]) => {
@@ -55,7 +55,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
   }
   const isMounted = useMounted()
   watchEffect(() => {
-    !isMounted.value && createAllMenuName(allRoutes)
+    !isMounted.value && createAllMenuName(unref(allRouters))
     const { name } = route
     if (allMenuName.value.has(name))
       selectKey.value = name

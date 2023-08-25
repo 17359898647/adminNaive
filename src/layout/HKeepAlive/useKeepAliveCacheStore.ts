@@ -1,6 +1,6 @@
 import { concat, isArray, map } from 'lodash-es'
 import type { RouteRecordRaw } from 'vue-router'
-import { allUnKeepAliveRoutes } from '@/router/helps/allRoutes'
+import { allUnKeepAliveRouters } from '@/router/helps/allRouters'
 import type { ITag } from '@/store/modules/useTagStore'
 
 function createReg(tag: ITag | (RouteRecordRaw & {
@@ -10,7 +10,7 @@ function createReg(tag: ITag | (RouteRecordRaw & {
   return new RegExp(`${String(name || fullPath)}`)
 }
 export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () => {
-  const unCache = map(allUnKeepAliveRoutes, item => createReg(item))
+  const unCache = map(unref(allUnKeepAliveRouters), item => createReg(item))
   const exclude = ref<RegExp[]>(unCache)
   const delCache = async (tag: ITag | ITag[]) => {
     if (isArray(tag)) {

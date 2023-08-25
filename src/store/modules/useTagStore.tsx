@@ -7,7 +7,7 @@ import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { useSleep } from '@/composables/useSleep'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 import { scrollHelps } from '@/layout/TagView/scrollHelps'
-import { allAffixRoutes } from '@/router/helps/allRoutes'
+import { allAffixRouters } from '@/router/helps/allRouters'
 import { useLayoutStore } from '@/store/modules/useLayoutStore'
 
 export type ActionTypes = 'closeAll' | 'closeOther' | 'closeRight' | 'closeLeft' | 'refresh' | 'fullScreen'
@@ -162,7 +162,7 @@ export const useTagStore = defineStore('useTagStore', () => {
   watch(route, async (to) => {
     // 确保所有的固定路由都已经加载完毕
     !isMounted.value && (
-      forEach(allAffixRoutes, (item) => {
+      forEach(unref(allAffixRouters), (item) => {
         addTagList(createTag(item))
       })
     )

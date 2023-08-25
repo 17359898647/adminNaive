@@ -1,14 +1,13 @@
+import type { MaybeRef } from '@vueuse/core'
 import { cloneDeep, forEach, isUndefined, sortBy } from 'lodash-es'
 import type { RouteRecordRaw } from 'vue-router/auto'
 import { routes } from 'vue-router/auto/routes'
 import type { asyncComponentType } from '@/router/helps/setComponentName'
 import { setComponentName } from '@/router/helps/setComponentName'
 
-function sortRouter(list: RouteRecordRaw[]): RouteRecordRaw[] {
+function sortRouter(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const listClone = cloneDeep(list)
-  let index = 0
   const deepSort = (_list: RouteRecordRaw[]) => {
-    index++
     forEach(_list, async (item) => {
       if (item.children && item.children.length >= 1)
         item.children = deepSort(item.children)
@@ -17,13 +16,12 @@ function sortRouter(list: RouteRecordRaw[]): RouteRecordRaw[] {
     })
     return sortBy(_list, item => item.meta?.isOrder ?? 0)
   }
-  const result = deepSort(listClone)
-  return result
+  return deepSort(unref(listClone))
 }
 
-function findAffix(list: RouteRecordRaw[]): RouteRecordRaw[] {
+function findAffix(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
-  forEach(list, (item) => {
+  forEach(unref(list), (item) => {
     const { children, meta } = item
     if (meta?.isAffix)
       result.push(item)
@@ -33,9 +31,9 @@ function findAffix(list: RouteRecordRaw[]): RouteRecordRaw[] {
   return result
 }
 
-function findUnKeepAlive(list: RouteRecordRaw[]): RouteRecordRaw[] {
+function findUnKeepAlive(list: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
-  forEach(list, (item) => {
+  forEach(unref(list), (item) => {
     const { children, meta } = item
     if (meta?.isKeepAlive === false)
       result.push(item)
@@ -45,7 +43,6 @@ function findUnKeepAlive(list: RouteRecordRaw[]): RouteRecordRaw[] {
   return result
 }
 
-export const allRoutes = sortRouter(routes)
-console.log(allRoutes)
-export const allAffixRoutes = findAffix(allRoutes)
-export const allUnKeepAliveRoutes = findUnKeepAlive(allRoutes)
+export const allRouters = shallowRef(sortRouter(routes))
+export const allAffixRouters = shallowRef(findAffix(allRouters))
+export const allUnKeepAliveRouters = shallowRef(findUnKeepAlive(allRouters))
