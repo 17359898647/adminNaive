@@ -1,8 +1,8 @@
 import { difference, filter, findIndex, forEach, isUndefined, some } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import { watch } from 'vue'
-import type { RouteRecordName } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw } from 'vue-router/auto'
+import type { RouteNamedMap } from 'vue-router/auto/routes'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { useSleep } from '@/composables/useSleep'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
@@ -17,7 +17,7 @@ interface _DropdownOption extends Omit<DropdownOption, 'key'> {
 }
 export interface ITag extends RouteMeta {
   fullPath: string
-  name?: RouteRecordName
+  name?: keyof RouteNamedMap
 }
 type ICreateTag = (route: RouteLocationNormalizedLoaded | (RouteRecordRaw & {
   fullPath?: string
@@ -43,7 +43,7 @@ export const useTagStore = defineStore('useTagStore', () => {
     return {
       ...meta!,
       fullPath: fullPath || path,
-      name,
+      name: name as keyof RouteNamedMap,
     }
   }
   const addTagList = (tag: ITag) => {

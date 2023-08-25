@@ -13,9 +13,6 @@ const { delTagList: closeTag, tagDropdownClick } = tagStore
 const { isDrag } = useSort(contentRef, tagList, {
   animation: 300,
 })
-function getKey<T extends ITag, K extends keyof ITag>(tag: T, key: K) {
-  return tag[key]
-}
 const { x, y, setShowDropRef, showDropRef, changePosition } = useDropdown()
 const selectTag = ref<ITag>()
 function contextmenu(e: MouseEvent, tag: ITag) {
@@ -74,7 +71,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
                   :localIcon="tag.localIcon"
                 />
               </template>
-              <span class="cursor-pointer">{{ getKey(tag, 'isTitle') }}</span>
+              <span class="cursor-pointer">{{ tag.isTitle }}</span>
             </NTag>
           </div>
         </TransitionGroup>
