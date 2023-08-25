@@ -9,7 +9,7 @@ definePage({
 
 <template>
   <NCard>
-    三级路由
+    <NInput />
   </NCard>
 </template>
 

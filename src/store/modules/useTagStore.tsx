@@ -1,8 +1,10 @@
 import { difference, filter, findIndex, forEach, isUndefined, some } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import { watch } from 'vue'
+import type { RouteRecordName } from 'vue-router'
 import type { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw } from 'vue-router/auto'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
+import { useSleep } from '@/composables/useSleep'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 import { scrollHelps } from '@/layout/TagView/scrollHelps'
 import { allAffixRoutes } from '@/router/helps/allRoutes'
@@ -13,11 +15,9 @@ export type ActionTypes = 'closeAll' | 'closeOther' | 'closeRight' | 'closeLeft'
 interface _DropdownOption extends Omit<DropdownOption, 'key'> {
   key: ActionTypes
 }
-// export interface ITag extends RouteMeta {
-//   fullPath: string
-// }
-export type ITag = RouteMeta & {
+export interface ITag extends RouteMeta {
   fullPath: string
+  name?: RouteRecordName
 }
 type ICreateTag = (route: RouteLocationNormalizedLoaded | (RouteRecordRaw & {
   fullPath?: string
@@ -35,12 +35,15 @@ export const useTagStore = defineStore('useTagStore', () => {
     undo,
     history,
     canUndo,
-  } = useRefHistory(historyPath)
+  } = useRefHistory(historyPath, {
+    capacity: 10,
+  })
   const createTag: ICreateTag = (route) => {
-    const { meta, path, fullPath } = route
+    const { meta, path, fullPath, name } = route
     return {
       ...meta!,
       fullPath: fullPath || path,
+      name,
     }
   }
   const addTagList = (tag: ITag) => {
@@ -108,11 +111,13 @@ export const useTagStore = defineStore('useTagStore', () => {
     },
   ])
   const _delCache = async <T extends ITag>(Fn: (item: T, index: number) => boolean, path: string) => {
+    await router.push(path)
+    // 动画时间
+    await useSleep(300)
     const residueTagList = filter(tagList.value, Fn) as T[]
     const excludeTagList = difference(tagList.value, residueTagList)
     tagList.value = residueTagList
     await delCache(excludeTagList)
-    await router.push(path)
   }
   const tagDropdownClick = async (key: ActionTypes, tag: ITag) => {
     const { fullPath: selectTagFullPath } = tag
