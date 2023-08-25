@@ -28,7 +28,7 @@ const mainStyle = computed(() => {
 
 <template>
   <main
-    class="flex flex-1 flex-col bg-#fafafc dark:bg-#101014"
+    class="flex flex-col bg-#fafafc dark:bg-#101014"
     :style="mainStyle"
   >
     <HKeelAlive />
