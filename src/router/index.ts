@@ -1,10 +1,10 @@
-import { forEach, isString } from 'lodash-es'
+import { isString } from 'lodash-es'
 import { setupLayouts } from 'virtual:generated-layouts'
 import type { App } from 'vue'
-import type { RouteRecordRaw, Router } from 'vue-router'
+import type { Router } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router/auto'
+import { routerHelper } from './helps/allRouters'
 import { htmlTitle } from '@/composables/useTitle'
-import { setMetaAndName } from '@/views/enhanceAutoRouter'
 
 function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
@@ -35,22 +35,16 @@ function setupRouterGuard(router: Router) {
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   extendRoutes: (routers) => {
-    const deepCreateMeta = (_routers: RouteRecordRaw[]) => {
-      forEach(_routers, (item) => {
-        if (item.children)
-          deepCreateMeta(item.children)
-        setMetaAndName(item)
-      })
-    }
-    deepCreateMeta(routers)
-    console.table(routers)
+    const { createRouterHelper } = routerHelper()
+    const { resultRouter } = createRouterHelper(routers)
     const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
+    console.log(resultRouter)
     return [
-      ...setupLayouts(routers.filter((item) => {
+      ...setupLayouts(resultRouter.filter((item) => {
         const { path, name } = item
         return !excludeReg.test(path) && !excludeReg.test(isString(name) ? name : '')
       })),
-      ...routers.filter((item) => {
+      ...resultRouter.filter((item) => {
         const { path, name } = item
         return excludeReg.test(path) || excludeReg.test(isString(name) ? name : '')
       }),

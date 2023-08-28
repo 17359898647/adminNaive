@@ -7,7 +7,7 @@ import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { useSleep } from '@/composables/useSleep'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 import { scrollHelps } from '@/layout/TagView/scrollHelps'
-import { allAffixRouters } from '@/router/helps/allRouters'
+import { routerHelper } from '@/router/helps/allRouters'
 import { useLayoutStore } from '@/store/modules/useLayoutStore'
 
 export type ActionTypes = 'closeAll' | 'closeOther' | 'closeRight' | 'closeLeft' | 'refresh' | 'fullScreen'
@@ -31,6 +31,7 @@ export const useTagStore = defineStore('useTagStore', () => {
   const { delCache } = useKeepAliveCacheStore()
   const { setAttrs } = layoutStore
   const { isCollapsed } = storeToRefs(layoutStore)
+  const { allAffixRouters } = routerHelper()
   const {
     undo,
     history,

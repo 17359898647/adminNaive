@@ -2,9 +2,10 @@
 import { isUndefined } from 'lodash-es'
 import type { CSSProperties } from 'vue'
 import { createBreadcrumb, createDropdownOptions, deepFindBreadcrumb } from '@/layout/BreadCrumbs/helps'
-import { allRouters } from '@/router/helps/allRouters'
+import { routerHelper } from '@/router/helps/allRouters'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
+const { allRouters } = routerHelper()
 const { setAttrs, isCollapsed, isHeaderHeight, isContentPadding } = inject(layoutProvide)!
 const isCollapsedIcon = computed(() => {
   return isCollapsed.value
@@ -18,7 +19,7 @@ const isCollapsedIcon = computed(() => {
       }
 })
 const route = useRoute()
-const allBreadcrumb = ref(createBreadcrumb(unref(allRouters)))
+const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })

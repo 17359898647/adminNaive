@@ -1,31 +1,38 @@
+import type { AxiosRequestHeaders } from 'axios'
 import axios from 'axios'
-import type { AxiosResponse } from 'axios'
-import type { useRequestParams } from '@/composables/uesRequest'
-import { useRequest } from '@/composables/uesRequest'
+import type { useRequestParams, useRequestReturn } from '@/composables/useRequest'
+import { useRequest } from '@/composables/useRequest'
 
 const instance = axios.create({
-  baseURL: ' ',
+  baseURL: 'https://jsonplaceholder.typicode.com',
   timeout: 10000,
   headers: {
     'content-type': 'application/json',
   },
   withCredentials: false,
 })
+
+/**
+ * 请求拦截器
+ * */
 instance.interceptors.request.use(
   (config) => {
     const { headers } = config
     config.headers = {
       Authorization: 'userToken',
       ...headers,
-    } as any
+    } as AxiosRequestHeaders
     return config
   },
   (error) => {
     return Promise.reject(error)
   },
 )
+/**
+ * 响应拦截器
+ * */
 instance.interceptors.response.use(
-  (response: AxiosResponse<any>) => {
+  (response) => {
     return response
   },
   (error) => {
@@ -38,6 +45,7 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-export function request<T = any>(options: useRequestParams<T>) {
-  return useRequest<T>(instance, options)
-}
+export type dataFormat<T = any> = T
+
+export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
+export const request: requestFn = options => useRequest(instance, options)

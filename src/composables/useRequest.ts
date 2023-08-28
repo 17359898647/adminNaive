@@ -1,6 +1,7 @@
 import type { MaybeRefOrGetter } from '@vueuse/core/index'
+import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
 import { useAxios } from '@vueuse/integrations/useAxios'
-import type { AxiosInstance, AxiosProgressEvent, AxiosRequestConfig } from 'axios/index'
+import type { AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, Method } from 'axios'
 import { isUndefined } from 'lodash-es'
 
 const transformParams = reactify((url: string, params?: Record<string, any>) => {
@@ -13,7 +14,7 @@ export interface useRequestParams<T = any> {
   params?: MaybeRefOrGetter<Record<string, any>>
   data?: MaybeRefOrGetter<Record<string, any>>
   headers?: MaybeRefOrGetter<Record<string, any>>
-  method?: MaybeRefOrGetter<'get' | 'post' | 'put' | 'delete'>
+  method?: MaybeRefOrGetter<Method>
   immediate?: MaybeRefOrGetter<boolean>
   baseURL?: MaybeRefOrGetter<string>
   refetch?: MaybeRefOrGetter<boolean>
@@ -23,8 +24,13 @@ export interface useRequestParams<T = any> {
   onFinish?: () => void
   onUploadProgress?: (e: AxiosProgressEvent) => void
   onDownloadProgress?: (e: AxiosProgressEvent) => void
+  resetOnExecute?: MaybeRefOrGetter<boolean>
 }
-export function useRequest<T = unknown>(instance: AxiosInstance, options: useRequestParams<T>) {
+
+export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> extends Omit<StrictUseAxiosReturn<T, R, D>, 'execute'> {
+  execute: (executeUrl?: MaybeRefOrGetter<string>) => Promise<useRequestReturn<T, R, D>>
+}
+export function useRequest<T = unknown>(instance: AxiosInstance, options: useRequestParams<T>): useRequestReturn<T> {
   const {
     url = '',
     baseURL,
@@ -35,12 +41,12 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     data,
     initialData,
     immediate = true,
+    resetOnExecute = false,
     onError,
     onSuccess,
     onFinish,
     onDownloadProgress,
     onUploadProgress,
-
   } = options
   const _url = transformParams(url, params)
   const axiosConfig = computed(() => {
@@ -62,7 +68,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     instance,
     {
       initialData: toValue(initialData),
-      resetOnExecute: true,
+      resetOnExecute: toValue(resetOnExecute),
       shallow: true,
       immediate: toValue(immediate),
       onError,
@@ -83,9 +89,15 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
   })
   return {
     ..._useAxios,
+    data: computed({
+      get: () => {
+        return _useAxios.data.value
+      },
+      set: val => _useAxios.data.value = val,
+    }),
     execute: (executeUrl?: MaybeRefOrGetter<string>) => {
       const _executeUrl = toValue(executeUrl)
-      return _useAxios.execute(isUndefined(_executeUrl) ? _url.value : _executeUrl)
+      return _useAxios.execute(isUndefined(_executeUrl) ? _url.value : _executeUrl) as Promise<useRequestReturn<T>>
     },
   }
 }

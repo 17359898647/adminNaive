@@ -9,18 +9,16 @@ const enhanceAutoRouter: Record<string, RouteMeta> = {
     isOrder: 999,
   },
   '/one': {
-    isTitle: '嵌套路由',
-    isOrder: 1,
+    isTitle: '一级父路由',
     lineIcon: 'fluent:glance-default-12-filled',
   },
   two: {
-    isTitle: '二级路由',
-    isOrder: 1,
+    isTitle: '二级父路由',
     lineIcon: 'fluent:glance-default-12-filled',
+    isOrder: -1,
   },
   three: {
-    isTitle: '三级路由',
-    isOrder: 10,
+    isTitle: '三级父路由',
     lineIcon: 'fluent:glance-default-12-filled',
   },
   '/Assembly': {

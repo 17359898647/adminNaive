@@ -17,8 +17,10 @@
     "types": [
       "vite/client",
       "naive-ui/volar",
+      "vitest/globals",
       "./src/types/auto-router.d.ts",
-      "vite-plugin-vue-layouts/client"
+      "vite-plugin-vue-layouts/client",
+      "vite-plugin-svg-icons/client"
     ],
     "paths": {
       "@/*": ["src/*"]

@@ -23,7 +23,7 @@ const { exclude } = storeToRefs(cacheStore)
           :is="Component"
           v-if="isRefreshPage"
           :key="route.fullPath"
-          class="flex-1"
+          class="flex-1 overflow-hidden"
         />
       </KeepAlive>
     </Transition>

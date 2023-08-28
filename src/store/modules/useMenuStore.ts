@@ -2,7 +2,7 @@ import { isUndefined, map } from 'lodash-es'
 import type { MenuOption } from 'naive-ui'
 import type { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import type { RouteNamedMap } from 'vue-router/auto/routes'
-import { allRouters } from '@/router/helps/allRouters'
+import { routerHelper } from '@/router/helps/allRouters'
 
 export type _MenuOption = MenuOption & {
   lineIcon?: string
@@ -12,6 +12,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
   const router = useRouter()
   const allMenuName = ref(new Set<RouteRecordName>())
+  const { allRouters } = routerHelper()
   const createAllMenuName = (router: RouteRecordRaw[]): void => {
     map(router, (item) => {
       const { name, children } = item
