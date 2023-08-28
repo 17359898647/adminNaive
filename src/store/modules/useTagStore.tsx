@@ -1,4 +1,4 @@
-import { difference, filter, findIndex, forEach, isUndefined, some } from 'lodash-es'
+import { difference, filter, findIndex, isUndefined, map, some } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import { watch } from 'vue'
 import type { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw } from 'vue-router/auto'
@@ -22,8 +22,16 @@ export interface ITag extends RouteMeta {
 type ICreateTag = (route: RouteLocationNormalizedLoaded | (RouteRecordRaw & {
   fullPath?: string
 })) => ITag
+
+const createTag: ICreateTag = (route) => {
+  const { meta, path, fullPath, name } = route
+  return {
+    ...meta!,
+    fullPath: fullPath || path,
+    name: name as keyof RouteNamedMap,
+  }
+}
 export const useTagStore = defineStore('useTagStore', () => {
-  const tagList = ref<ITag[]>([])
   const route = useRoute()
   const router = useRouter()
   const historyPath = ref(route.fullPath)
@@ -32,6 +40,7 @@ export const useTagStore = defineStore('useTagStore', () => {
   const { setAttrs } = layoutStore
   const { isCollapsed } = storeToRefs(layoutStore)
   const { allAffixRouters } = routerHelper()
+  const tagList = ref<ITag[]>(map(allAffixRouters.value, item => createTag(item)))
   const {
     undo,
     history,
@@ -39,14 +48,6 @@ export const useTagStore = defineStore('useTagStore', () => {
   } = useRefHistory(historyPath, {
     capacity: 10,
   })
-  const createTag: ICreateTag = (route) => {
-    const { meta, path, fullPath, name } = route
-    return {
-      ...meta!,
-      fullPath: fullPath || path,
-      name: name as keyof RouteNamedMap,
-    }
-  }
   const addTagList = (tag: ITag) => {
     const { fullPath } = tag
     const isExist = tagList.value.some(item => item.fullPath === fullPath)
@@ -159,24 +160,20 @@ export const useTagStore = defineStore('useTagStore', () => {
     await action()
   }
   const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
-  const isMounted = useMounted()
-  watch(route, async (to) => {
-    // 确保所有的固定路由都已经加载完毕
-    !isMounted.value && (
-      forEach(unref(allAffixRouters), (item) => {
-        addTagList(createTag(item))
-      })
-    )
-    addTagList(createTag(to))
-    historyPath.value = to.fullPath
+  tryOnBeforeMount(async () => {
+    addTagList(createTag(route))
+    historyPath.value = route.fullPath
     await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
+  })
+  watch(route, async (to) => {
+    addTagList(createTag(to))
+    await scrollTo(findIndex(tagList.value, item => item.fullPath === to.fullPath))
   }, {
-    immediate: true,
     flush: 'post',
   })
   const { width: windowWidth } = useWindowSize()
   watch([windowWidth, isCollapsed], async () => {
-    await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
+    await scrollTo(findIndex(tagList.value, item => item.fullPath === route.fullPath))
   })
   return {
     tagList,
