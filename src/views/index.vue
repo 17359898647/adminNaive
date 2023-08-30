@@ -11,5 +11,6 @@ definePage({
 <template>
   <NCard title="home">
     <NInput />
+    <div class="h-200vh" />
   </NCard>
 </template>

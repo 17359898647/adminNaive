@@ -20,6 +20,7 @@ provide(layoutProvide, {
       <HeaderView />
       <ContentView />
       <FooterView />
+      <BackTop />
     </NLayoutContent>
   </NLayout>
 </template>

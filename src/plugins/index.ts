@@ -1,4 +1,4 @@
-import type { ConfigEnv, PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
 import { autoComponents } from './autoComponents'
 import { autoImport } from './autoImport'
 import { autoRouter } from './autoRouter'
@@ -9,6 +9,6 @@ import { pluginLayouts } from './pluginLayouts'
 import { toEdit } from './toEdit'
 import { viteDevtools } from './viteDevtools'
 
-export function installPlugin(_env?: ConfigEnv): PluginOption[] {
+export function installPlugin(_env?: keyof ImportMeta['env']): PluginOption[] {
   return [autoImport(), createIcon(), createGzip(), toEdit(), enhanceLog(), autoRouter(), viteDevtools(), autoComponents(), pluginLayouts()]
 }
