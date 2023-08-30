@@ -1,5 +1,5 @@
 import type { MaybeRef } from '@vueuse/core'
-import { cloneDeep, forEach, isUndefined, sortBy } from 'lodash-es'
+import { assign, cloneDeep, forEach, isFunction, isUndefined, sortBy } from 'lodash-es'
 import type { RouteRecordRaw } from 'vue-router/auto'
 import type { asyncComponentType } from '@/router/helps/setComponentName'
 import { setComponentName } from '@/router/helps/setComponentName'
@@ -8,10 +8,14 @@ import { setMetaAndName } from '@/views/enhanceAutoRouter'
 function sortRouter(routerList: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const deepSort = (_list: RouteRecordRaw[]) => {
     forEach(_list, async (item) => {
-      if (item.children && item.children.length >= 1)
-        item.children = deepSort(item.children)
-      if (!isUndefined(item.component))
-        await setComponentName(item.component as asyncComponentType, String(item.name || ''))
+      const { children, name, component } = item
+      if (children && children.length >= 1)
+        item.children = deepSort(children)
+      if (isFunction(component)) {
+        assign(item, {
+          component: () => setComponentName(component as asyncComponentType, String(name)),
+        })
+      }
     })
     return sortBy(_list, item => item.meta?.isOrder ?? 0)
   }
@@ -87,10 +91,7 @@ export function routerHelper() {
     allRouters.value = sortRouter(metaRouter)
     allAffixRouters.value = findAffix(allRouters)
     allUnKeepAliveRouters.value = findUnKeepAlive(allRouters)
-    const resultRouter = setRouterRedirect(allRouters)
-    return {
-      resultRouter,
-    }
+    return setRouterRedirect(allRouters)
   }
 
   return {

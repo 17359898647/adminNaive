@@ -35,8 +35,9 @@ function setupRouterGuard(router: Router) {
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   extendRoutes: (routers) => {
+    console.log(routers)
     const { createRouterHelper } = routerHelper()
-    const { resultRouter } = createRouterHelper(routers)
+    const resultRouter = createRouterHelper(routers)
     const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
     console.log(resultRouter)
     return [
@@ -51,7 +52,6 @@ export const router = createRouter({
     ]
   },
 })
-
 export async function installRouter(app: App) {
   app.use(router)
   setupRouterGuard(router)

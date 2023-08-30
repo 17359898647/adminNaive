@@ -45,7 +45,7 @@ describe('createRouter', () => {
       name: '/one',
     }]
     const { allAffixRouters, allRouters, allUnKeepAliveRouters, createRouterHelper } = routerHelper()
-    const { resultRouter } = createRouterHelper(demoRouter as RouteRecordRaw[])
+    const resultRouter = createRouterHelper(demoRouter as RouteRecordRaw[])
     expect(allRouters.value).toMatchInlineSnapshot(`
       [
         {
