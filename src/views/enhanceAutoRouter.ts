@@ -8,7 +8,7 @@ const enhanceAutoRouter: Record<RoutePathUnion | string, RouteMeta> = {
   '/OutsideChain': {
     isTitle: '外链',
     lineIcon: 'twemoji:couple-with-heart-man-man-light-skin-tone-dark-skin-tone',
-    isOrder: 999,
+    isOrder: Number.POSITIVE_INFINITY,
   },
   '/one': {
     isTitle: '一级父路由',

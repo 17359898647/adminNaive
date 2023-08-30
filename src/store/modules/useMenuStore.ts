@@ -33,7 +33,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
         children: isUndefined(children) ? undefined : createMenuOptions(children),
         localIcon,
         lineIcon,
-        label: isTitle,
+        label: isTitle || path,
       } as _MenuOption
     })
   }

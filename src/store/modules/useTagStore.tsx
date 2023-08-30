@@ -167,6 +167,7 @@ export const useTagStore = defineStore('useTagStore', () => {
   })
   watch(route, async (to) => {
     addTagList(createTag(to))
+    historyPath.value = to.fullPath
     await scrollTo(findIndex(tagList.value, item => item.fullPath === to.fullPath))
   }, {
     flush: 'post',

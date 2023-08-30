@@ -1,14 +1,13 @@
 import type { MaybeRefOrGetter } from '@vueuse/core'
-import { useSortable } from '@vueuse/integrations/useSortable'
 import type { UseSortableOptions } from '@vueuse/integrations/useSortable'
+import { useSortable } from '@vueuse/integrations/useSortable'
 
-type optionsPick = Partial<Pick<UseSortableOptions, 'onStart' | 'onEnd' | 'animation'>>
-
-export function useSort<T>(el: MaybeRefOrGetter<HTMLElement | null | undefined>, list: MaybeRefOrGetter<T[]>, options?: optionsPick) {
+export function useSort<T>(el: MaybeRefOrGetter<HTMLElement | null | undefined>, list: MaybeRefOrGetter<T[]>, options?: UseSortableOptions) {
   const {
     onStart,
     onEnd,
     animation = 300,
+    ...e
   } = options || {}
   const [isDrag, setDrag] = useToggle(false)
   useSortable(el, list, {
@@ -25,6 +24,7 @@ export function useSort<T>(el: MaybeRefOrGetter<HTMLElement | null | undefined>,
       }, animation)
     },
     animation,
+    ...e,
   })
   return {
     isDrag,

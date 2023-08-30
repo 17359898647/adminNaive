@@ -12,6 +12,9 @@ const { tagList, tagDropdownOptions, contentRef, containerRef, scrollRef } = sto
 const { delTagList: closeTag, tagDropdownClick } = tagStore
 const { isDrag } = useSort(contentRef, tagList, {
   animation: 300,
+  forceFallback: true,
+  scrollSpeed: 6,
+  scrollSensitivity: 50,
 })
 const { x, y, setShowDropRef, showDropRef, changePosition } = useDropdown()
 const selectTag = ref<ITag>()
@@ -25,7 +28,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
 <template>
   <div
     ref="containerRef"
-    class="bg-#fafafc text-center dark:bg-#101014"
+    class="demo relative bg-#fafafc text-center dark:bg-#101014"
     :style="{
       height: `${isTagViewHeight}px`,
       padding: `0 ${isContentPadding}px`,
