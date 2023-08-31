@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import { isUndefined } from 'lodash-es'
 import type { CSSProperties } from 'vue'
+import Collaps from '@/layout/BreadCrumbs/Collaps.vue'
+import Dark from '@/layout/BreadCrumbs/Dark.vue'
+import FullScreen from '@/layout/BreadCrumbs/fullScreen.vue'
 import { createBreadcrumb, createDropdownOptions, deepFindBreadcrumb } from '@/layout/BreadCrumbs/helps'
 import { routerHelper } from '@/router/helps/allRouters'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { allRouters } = routerHelper()
-const { setAttrs, isCollapsed, isHeaderHeight, isContentPadding } = inject(layoutProvide)!
-const isCollapsedIcon = computed(() => {
-  return isCollapsed.value
-    ? {
-        icon: 'line-md:menu-fold-right',
-        title: '展开菜单',
-      }
-    : {
-        icon: 'line-md:menu-unfold-left',
-        title: '收起菜单',
-      }
-})
+const { isHeaderHeight, isContentPadding } = inject(layoutProvide)!
 const route = useRoute()
 const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {
@@ -33,17 +25,9 @@ const breadcrumb = computed(() => {
       padding: `0 ${isContentPadding}px`,
     } as CSSProperties"
   >
-    <NPopover trigger="hover">
-      <template #trigger>
-        <SvgIcon
-          :key="isCollapsedIcon.icon"
-          :lineIcon="isCollapsedIcon.icon"
-          :size="24"
-          @click="setAttrs('isCollapsed', !isCollapsed)"
-        />
-      </template>
-      <span>{{ isCollapsedIcon.title }}</span>
-    </NPopover>
+    <Collaps />
+    <FullScreen />
+    <Dark />
     <NBreadcrumb>
       <NBreadcrumbItem
         v-for="{ name, meta, children } in breadcrumb"

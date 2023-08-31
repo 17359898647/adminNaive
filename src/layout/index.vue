@@ -3,7 +3,7 @@ import { layoutProvide, useLayoutStore } from '@/store/modules/useLayoutStore'
 
 const layoutStore = useLayoutStore()
 const { setAttrs } = layoutStore
-const allValue = storeToRefs(layoutStore)
+const { fullScreenRef, ...allValue } = storeToRefs(layoutStore)
 provide(layoutProvide, {
   ...allValue,
   setAttrs,
@@ -11,18 +11,23 @@ provide(layoutProvide, {
 </script>
 
 <template>
-  <NLayout
+  <div
+    ref="fullScreenRef"
     class="h-full w-full"
-    hasSider
   >
-    <SiderView />
-    <NLayoutContent :nativeScrollbar="false">
-      <HeaderView />
-      <ContentView />
-      <FooterView />
-      <BackTop />
-    </NLayoutContent>
-  </NLayout>
+    <NLayout
+      class="h-full w-full"
+      hasSider
+    >
+      <SiderView />
+      <NLayoutContent :nativeScrollbar="false">
+        <HeaderView />
+        <ContentView />
+        <FooterView />
+        <BackTop />
+      </NLayoutContent>
+    </NLayout>
+  </div>
 </template>
 
 <style scoped>

@@ -1,3 +1,4 @@
+import type { MaybeRefOrGetter } from '@vueuse/core'
 import { toRefs } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
 
@@ -43,11 +44,14 @@ export interface settingType {
   isContentPadding: number
   isDark: boolean
   themeColor: string
+  isFullscreen: boolean
 }
 
 export const useLayoutStore = defineStore(
   'useLayoutStore',
   () => {
+    const fullScreenRef = ref()
+    const { isFullscreen, enter, exit } = useFullscreen(fullScreenRef)
     const layoutAttrs = reactive<settingType>({
       isCollapsed: false,
       isRefreshPage: true,
@@ -69,17 +73,31 @@ export const useLayoutStore = defineStore(
       isBreadcrumbShowIcon: false,
       themeColor: '#1890ff',
       isDark: isDark as unknown as boolean,
+      isFullscreen: isFullscreen.value,
     })
-    const setAttrs = <T extends keyof settingType>(key: T, value: settingType[T]) => {
-      layoutAttrs[key] = value
-      console.log(key, layoutAttrs[key])
+    const setAttrs = <T extends keyof settingType>(key: T, value: MaybeRefOrGetter<settingType[T]>) => {
+      layoutAttrs[key] = toValue(value)
     }
+    watch(() => layoutAttrs.isFullscreen, () => {
+      if (layoutAttrs.isFullscreen)
+        enter()
+      else
+        exit()
+    })
     return {
       ...toRefs(layoutAttrs),
+      fullScreenRef,
       setAttrs,
     }
   },
-  { persist: true },
+  {
+    persist: {
+      afterRestore: (ctx) => {
+        console.log(ctx)
+        ctx.store.$state.isFullscreen = false
+      },
+    },
+  },
 )
 export type settingTypeRef = {
   [T in keyof settingType]: Ref<settingType[T]>
