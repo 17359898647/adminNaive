@@ -11,23 +11,19 @@ provide(layoutProvide, {
 </script>
 
 <template>
-  <div
+  <NLayout
     ref="fullScreenRef"
     class="h-full w-full"
+    hasSider
   >
-    <NLayout
-      class="h-full w-full"
-      hasSider
-    >
-      <SiderView />
-      <NLayoutContent :nativeScrollbar="false">
-        <HeaderView />
-        <ContentView />
-        <FooterView />
-        <BackTop />
-      </NLayoutContent>
-    </NLayout>
-  </div>
+    <SiderView />
+    <NLayoutContent :nativeScrollbar="false">
+      <HeaderView />
+      <ContentView />
+      <FooterView />
+      <BackTop />
+    </NLayoutContent>
+  </NLayout>
 </template>
 
 <style scoped>
