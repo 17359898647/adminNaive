@@ -49,7 +49,7 @@ const ShowOrEdit = defineComponent({
           <NPopover>
             {{
               default: () => (
-                  <span>{inputValue.value}</span>
+                  <span>{props.value}</span>
               ),
               trigger: () => (
                 isEdit.value
