@@ -47,7 +47,7 @@ export function createDropdownOptions(breadcrumbs: RouteRecordRaw[]): DropdownOp
       path,
       name,
     } = breadcrumb
-    const { isHidden, lineIcon, localIcon, isTitle } = meta!
+    const { isHidden, lineIcon, localIcon, isTitle } = meta || {}
     if (isUndefined(isHidden)) {
       result.push({
         icon: () => <SvgIcon lineIcon={lineIcon} localIcon={localIcon}/>,

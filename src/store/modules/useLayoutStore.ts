@@ -93,7 +93,6 @@ export const useLayoutStore = defineStore(
   {
     persist: {
       afterRestore: (ctx) => {
-        console.log(ctx)
         ctx.store.$state.isFullscreen = false
       },
     },

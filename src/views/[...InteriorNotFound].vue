@@ -5,12 +5,13 @@ definePage({
     isTitle: '404',
     changeTitle: false,
     isHidden: true,
+    isKeepAlive: false,
   },
 })
 </script>
 
 <template>
-  <n-result
+  <NResult
     class="h-full w-full flex-center flex-col"
     description="生活总归带点荒谬"
     status="404"
@@ -21,5 +22,5 @@ definePage({
         找点乐子吧
       </NButton>
     </template>
-  </n-result>
+  </NResult>
 </template>

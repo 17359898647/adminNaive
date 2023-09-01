@@ -34,7 +34,7 @@ const createTag: ICreateTag = (route) => {
 export const useTagStore = defineStore('useTagStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const historyPath = ref(route.fullPath)
+  const historyPath = ref()
   const layoutStore = useLayoutStore()
   const { delCache } = useKeepAliveCacheStore()
   const { setAttrs } = layoutStore
@@ -49,9 +49,9 @@ export const useTagStore = defineStore('useTagStore', () => {
     capacity: 10,
   })
   const addTagList = (tag: ITag) => {
-    const { fullPath } = tag
+    const { fullPath, isHidden } = tag
     const isExist = tagList.value.some(item => item.fullPath === fullPath)
-    if (!isExist) {
+    if (!isExist && !isHidden) {
       const historyIndex = findIndex(tagList.value, item => item.fullPath === historyPath.value)
       if (historyIndex === -1)
         tagList.value.push(tag)
@@ -69,7 +69,13 @@ export const useTagStore = defineStore('useTagStore', () => {
         undo()
         hasCurrent = some(tagList.value, item => item.fullPath === historyPath.value)
       }
-      await router.push(historyPath.value === _historyPath ? tagList.value[0].fullPath : historyPath.value)
+      await router.push(historyPath.value === _historyPath
+        ? tagList.value[0].fullPath
+        : (historyPath.value ?? tagList.value[0].fullPath),
+      )
+    }
+    else {
+      await router.push(tagList.value[0].fullPath)
     }
     const index = findIndex(tagList.value, item => item.fullPath === fullPath)
     index !== -1 && tagList.value.splice(index, 1)
@@ -162,13 +168,15 @@ export const useTagStore = defineStore('useTagStore', () => {
   const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
   tryOnBeforeMount(async () => {
     addTagList(createTag(route))
-    historyPath.value = route.fullPath
+    console.log(route.fullPath, !route.meta.isHidden)
+    !route.meta.isHidden && (historyPath.value = route.fullPath)
     await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
   })
-  watch(route, async (to) => {
-    addTagList(createTag(to))
-    historyPath.value = to.fullPath
-    await scrollTo(findIndex(tagList.value, item => item.fullPath === to.fullPath))
+  watch(() => route.fullPath, async () => {
+    addTagList(createTag(route))
+    console.log(route.fullPath, !route.meta.isHidden)
+    !route.meta.isHidden && (historyPath.value = route.fullPath)
+    await scrollTo(findIndex(tagList.value, item => item.fullPath === route.fullPath))
   }, {
     flush: 'post',
   })

@@ -23,6 +23,7 @@ const { data, columns, isLoading } = useTable<tableData>({
   params: () => ({
     demo: api.value,
   }),
+  refetch: false,
   resetOnExecute: true,
   columns: [
     {
@@ -60,7 +61,7 @@ const paginationReactive = computed(() => ({
   },
 } as PaginationProps))
 const dataReactive = computed(() => {
-  return slice(data.value, (api.value - 1) * 20, api.value * 20)
+  return slice(data.value, (api.value - 1) * 10, api.value * 10)
 })
 </script>
 
@@ -73,14 +74,12 @@ const dataReactive = computed(() => {
     title="网络测试"
   >
     <NDataTable
-      class="flex-shrink-0 flex-grow"
       :columns="columns"
       :data="dataReactive"
       :loading="isLoading"
       :pagination="paginationReactive"
       :remote="true"
       :rowKey="(row) => row.id"
-      :virtualScroll="true"
       @update:checked-row-keys="console.log"
     />
   </NCard>

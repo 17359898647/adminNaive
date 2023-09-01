@@ -8,20 +8,26 @@ export type _MenuOption = MenuOption & {
   lineIcon?: string
   localIcon?: string
 }
+function createAllMenuName(router: RouteRecordRaw[]) {
+  const result = new Set<RouteRecordName>()
+  const deep = (router: RouteRecordRaw[]) => {
+    map(router, (item) => {
+      const { name, children, meta } = item
+      if (name && !meta?.isHidden)
+        result.add(name)
+      if (isUndefined(children))
+        return
+      deep(children)
+    })
+  }
+  deep(router)
+  return result
+}
 export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const allMenuName = ref(new Set<RouteRecordName>())
   const { allRouters } = routerHelper()
-  const createAllMenuName = (router: RouteRecordRaw[]): void => {
-    map(router, (item) => {
-      const { name, children } = item
-      name && allMenuName.value.add(name)
-      if (isUndefined(children))
-        return
-      createAllMenuName(children)
-    })
-  }
+  const allMenuName = ref(createAllMenuName(unref(allRouters)))
   const createMenuOptions = (router: RouteRecordRaw[]): _MenuOption[] => {
     return map(router, (item) => {
       const { path, name, children, meta } = item
@@ -54,9 +60,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
     })
     selectKey.value = name
   }
-  const isMounted = useMounted()
   watchEffect(() => {
-    !isMounted.value && createAllMenuName(unref(allRouters))
     const { name } = route
     if (allMenuName.value.has(name))
       selectKey.value = name
