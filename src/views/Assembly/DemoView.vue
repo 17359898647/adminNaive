@@ -5,6 +5,7 @@ definePage({
     lineIcon: 'teenyicons:ab-testing-outline',
   },
 })
+const el = ref()
 </script>
 
 <template>

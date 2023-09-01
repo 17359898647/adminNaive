@@ -31,7 +31,7 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-turbo-console": "^0.0.9",
-    "vite-plugin-vue-devtools": "1.0.0-rc.2",
+    "vite-plugin-vue-devtools": "^0.5.1",
     "vite-plugin-vue-inspector": "^3.6.0",
     "vite-plugin-vue-layouts": "^0.8.0",
     "vue": "^3.3.4",

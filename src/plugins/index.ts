@@ -10,5 +10,5 @@ import { toEdit } from './toEdit'
 import { viteDevtools } from './viteDevtools'
 
 export function installPlugin(_env?: keyof ImportMeta['env']): PluginOption[] {
-  return [autoImport(), createIcon(), createGzip(), toEdit(), enhanceLog(), autoRouter(), viteDevtools(), autoComponents(), pluginLayouts()]
+  return [autoImport(), createIcon(), createGzip(), toEdit(), enhanceLog(), autoRouter(), autoComponents(), pluginLayouts(), viteDevtools()]
 }

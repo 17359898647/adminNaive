@@ -38,7 +38,7 @@ export const useTagStore = defineStore('useTagStore', () => {
   const layoutStore = useLayoutStore()
   const { delCache } = useKeepAliveCacheStore()
   const { setAttrs } = layoutStore
-  const { isCollapsed } = storeToRefs(layoutStore)
+  const { isCollapsed, isFullscreen } = storeToRefs(layoutStore)
   const { allAffixRouters } = routerHelper()
   const tagList = ref<ITag[]>(map(allAffixRouters.value, item => createTag(item)))
   const {
@@ -84,14 +84,15 @@ export const useTagStore = defineStore('useTagStore', () => {
 
   // tag 下拉菜单
   const tagDropdownOptions = ref<_DropdownOption[]>([
-    // {
-    //   label: isFullscreen.value ? '退出全屏' : '进入全屏',
-    //   key: 'fullScreen',
-    //   icon: () => (
-    //     <SvgIcon lineIcon={isFullscreen.value ? 'ant-design:shrink-outlined' : 'ant-design:expand-alt-outlined'} />
-    //   ),
-    //   disabled: !isSupported.value,
-    // },
+    {
+      label: () => <span>{
+        isFullscreen.value ? '关闭全屏' : '开启全屏'
+      }</span>,
+      key: 'fullScreen',
+      icon: () => (
+        <SvgIcon lineIcon={isFullscreen.value ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'} />
+      ),
+    },
     {
       label: '关闭所有',
       key: 'closeAll',
@@ -150,13 +151,7 @@ export const useTagStore = defineStore('useTagStore', () => {
         setAttrs('isRefreshPage', true)
       },
       fullScreen: async () => {
-        console.log('fullScreen')
-        // !isUndefined(selectTagFullPath)
-        // && !layoutStore.isFullscreen
-        // && (await routerPush({
-        //   path: selectTagFullPath,
-        // }))
-        // layoutStore.setAttrs('isFullscreen', !layoutStore.isFullscreen)
+        setAttrs('isFullscreen', !isFullscreen.value)
       },
       default: () => {
         console.error(new Error('actionTag type error'))
@@ -174,7 +169,6 @@ export const useTagStore = defineStore('useTagStore', () => {
   })
   watch(() => route.fullPath, async () => {
     addTagList(createTag(route))
-    console.log(route.fullPath, !route.meta.isHidden)
     !route.meta.isHidden && (historyPath.value = route.fullPath)
     await scrollTo(findIndex(tagList.value, item => item.fullPath === route.fullPath))
   }, {

@@ -4,8 +4,9 @@ import type { MessageOptions } from 'naive-ui'
 import { createDiscreteApi } from 'naive-ui'
 import type { LoadingBarProviderProps } from 'naive-ui/es/loading-bar'
 import type { Ref, VNodeChild } from 'vue'
+import { isVNode } from 'vue'
 
-export type msgType = string | (() => VNodeChild)
+export type ContentType = string | (() => VNodeChild)
 export const loadingBarProviderProps = ref<LoadingBarProviderProps>({
   themeOverrides: {},
 })
@@ -45,19 +46,25 @@ type createRef<T> = {
   [P in keyof T]: MaybeRef<T[P]>
 }
 export function createMsg(
-  msg: MaybeRefOrGetter<msgType>,
+  msg: MaybeRefOrGetter<ContentType>,
   options?: MaybeRef<createRef<PickMessageOptions>>,
 ) {
   const optionsCopy = ref({
     ...defaultMessageOptions,
     ...toValue(options),
   })
-  const { destroy, content, type, duration } = toRefs(message.create(toValue(msg), toValue(optionsCopy)))
+  const _msg = (isVNode(toValue(msg)) ? msg : toValue(msg)) as ContentType
+  const {
+    destroy,
+    content,
+    type,
+    duration,
+  } = toRefs(message.create(_msg, toValue(optionsCopy)))
   const changeType = (ParamsType: MaybeRefOrGetter<MessageOptions['type']>) => {
     type.value = toValue(ParamsType)!
     // console.log("修改类型", type!.value);
   }
-  const changeContent = (ParamsContent: MaybeRefOrGetter<msgType>) => {
+  const changeContent = (ParamsContent: MaybeRefOrGetter<ContentType>) => {
     content!.value = toValue(ParamsContent)!
   }
   const scope = effectScope()

@@ -36,9 +36,10 @@ export function scrollHelps(options?: {
         behavior: 'smooth',
       })
     },
-    500,
+    300,
     {
       leading: true,
+      trailing: true,
       maxWait: 1000,
     },
   )
