@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import { findIndex, slice, throttle } from 'lodash-es'
 import type { PaginationProps } from 'naive-ui'
-import { NDataTable, NInput, NPopover, NSwitch } from 'naive-ui'
+import { NDataTable, NEllipsis, NInput, NSwitch } from 'naive-ui'
 import type { PropType } from 'vue'
 import { useTable } from '@/composables/useTable'
 
@@ -41,17 +41,14 @@ const ShowOrEdit = defineComponent({
     return () => (
         <div style={{
           'min-height': '22px',
-          'white-space': 'nowrap',
-          overflow: 'hidden',
-          'text-overflow': 'ellipsis',
         }} onClick={handleOnClick}
         >
-          <NPopover>
+          <NEllipsis >
             {{
-              default: () => (
-                  <span>{props.value}</span>
+              tooltip: () => (
+                <span >{props.value}</span>
               ),
-              trigger: () => (
+              default: () => (
                 isEdit.value
                   ? (
                   <NInput
@@ -61,10 +58,15 @@ const ShowOrEdit = defineComponent({
                     onChange={handleChange} onBlur={handleChange}
                   />
                     )
-                  : <span>{props.value}</span>
+                  : <span style={{
+                    'white-space': 'nowrap',
+                    overflow: 'hidden',
+                    'text-overflow': 'ellipsis',
+                    width: '100%',
+                  }}>{props.value}</span>
               ),
             }}
-          </NPopover>
+          </NEllipsis>
         </div>
     )
   },
