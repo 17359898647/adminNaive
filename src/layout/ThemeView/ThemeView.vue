@@ -1,9 +1,11 @@
 <script setup lang="ts">
 // const drawerShow = ref(false)
 import type { CSSProperties } from 'vue'
+import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const [drawerShow, setDrawerShow] = useToggle(false)
-const drawerWidth = ref(300)
+const { setAttrs, themeColor } = inject(layoutProvide)!
+const drawerWidth = ref(500)
 // 动画时间
 const animationTime = ref(300)
 const transitionTime = computed(() => {
@@ -46,7 +48,19 @@ const iconRotate = computed(() => {
         :show="drawerShow"
         :width="drawerWidth"
         @update:show="setDrawerShow"
-      />
+      >
+        <NDivider>
+          主题颜色
+        </NDivider>
+        <NColorPicker
+          :modes="['hex']"
+          :showAlpha="false"
+          :value="themeColor"
+          @update-value="(e:string) => {
+            setAttrs('themeColor', e)
+          }"
+        />
+      </NDrawer>
     </div>
   </div>
 </template>

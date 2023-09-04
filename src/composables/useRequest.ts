@@ -41,7 +41,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     data,
     initialData,
     immediate = true,
-    resetOnExecute = false,
+    resetOnExecute = true,
     onError,
     onSuccess,
     onFinish,

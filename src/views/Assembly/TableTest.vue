@@ -138,14 +138,14 @@ const { data, columns, isLoading } = useTable<tableData>({
 })
 const paginationReactive = computed(() => ({
   page: api.value,
-  pageCount: Math.ceil(data.value!.length / 100),
+  pageCount: Math.ceil(data.value!.length / 50),
   onUpdatePage: (page) => {
     api.value = page
     console.log(api.value)
   },
 } as PaginationProps))
 const dataReactive = computed(() => {
-  return slice(data.value, (api.value - 1) * 100, api.value * 100)
+  return slice(data.value, (api.value - 1) * 50, api.value * 50)
 })
 const tableRef = ref<InstanceType<typeof NDataTable>>()
 </script>
