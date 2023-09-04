@@ -1,5 +1,8 @@
 <script lang="tsx" setup>
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+
+const themeStore = useThemeStore()
+const { themeDefault } = storeToRefs(themeStore)
 </script>
 
 <template>
@@ -9,6 +12,7 @@ import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
     :inlineThemeDisabled="true"
     :locale="zhCN"
     :theme="isDark ? darkTheme : null"
+    :themeOverrides="themeDefault"
   >
     <router-view />
     <NGlobalStyle />

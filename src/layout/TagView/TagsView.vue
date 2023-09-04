@@ -65,7 +65,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
             <NTag
               :bordered="false"
               :closable="tag.isAffix !== true"
-              :type="$route.fullPath === tag.fullPath ? 'success' : 'default'"
+              :type="$route.fullPath === tag.fullPath ? 'info' : 'default'"
               @close="() => closeTag(tag)"
             >
               <template #icon>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ThemeView from '@/layout/ThemeView/ThemeView.vue'
 import { layoutProvide, useLayoutStore } from '@/store/modules/useLayoutStore'
 
 const layoutStore = useLayoutStore()
@@ -23,6 +24,7 @@ provide(layoutProvide, {
       <FooterView />
       <BackTop />
     </NLayoutContent>
+    <ThemeView />
   </NLayout>
 </template>
 

@@ -14,7 +14,7 @@ const { message, dialog, notification, loadingBar } = createDiscreteApi(
   ['message', 'dialog', 'notification', 'loadingBar'],
   {
     messageProviderProps: {
-      // max: 3,
+      max: 3,
     },
     notificationProviderProps: {
       // max: 3,
