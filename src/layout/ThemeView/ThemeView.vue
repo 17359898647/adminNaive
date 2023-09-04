@@ -8,7 +8,7 @@ const drawerWidth = ref(300)
 const animationTime = ref(300)
 const transitionTime = computed(() => {
   return {
-    transition: `all ${animationTime.value}ms ${drawerShow.value ? 'var(--cubic-bezier-ease-out)' : 'var(--cubic-bezier-ease-in-out)'}`,
+    transition: `all ${animationTime.value}ms ${drawerShow.value ? 'cubic-bezier(0, 0, .2, 1)' : 'cubic-bezier(0, 0, .2, 1)'}`,
   } as CSSProperties
 })
 const buttonStyle = computed(() => {
@@ -29,9 +29,9 @@ const iconRotate = computed(() => {
 </script>
 
 <template>
-  <NEl>
+  <div>
     <div
-      class="absolute right-0 top-1/2 z-2100 h-40px w-40px flex-center red rounded"
+      class="absolute right-0 top-1/2 z-2100 h-40px w-40px flex-center cursor-pointer rounded bg-primary"
       :style="buttonStyle"
       @click="setDrawerShow(!drawerShow)"
     >
@@ -43,9 +43,10 @@ const iconRotate = computed(() => {
     </div>
     <div>
       <NDrawer
-        v-model:show="drawerShow"
+        :show="drawerShow"
         :width="drawerWidth"
+        @update:show="setDrawerShow"
       />
     </div>
-  </NEl>
+  </div>
 </template>

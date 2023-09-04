@@ -15,7 +15,7 @@ export const LoadingView = defineComponent({
   setup(props) {
     return () => (
       <div class="absolute inset-0 flex-center">
-        <svg class="gegga w-0">
+        <svg class="w-0">
           <defs>
             <filter id="gegga">
               <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
@@ -82,7 +82,7 @@ export const LoadingView = defineComponent({
           />
           <circle class="strecken" cx="100" cy="100" r="64"/>
         </svg>
-        <div class={['absolute']}>{props.isTitle}</div>
+        <div class={['absolute text-red']}>{props.isTitle}</div>
       </div>
     )
   },
@@ -92,7 +92,6 @@ export function loadingFn(config?: { timeOut?: number; isTitle?: string }) {
   const { timeOut = 0, isTitle = '' } = assign(
     {
       timeOut: 0.5,
-      isTitle: '标题',
     },
     config,
   )
