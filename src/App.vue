@@ -3,9 +3,6 @@ import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 
 const themeStore = useThemeStore()
 const { themeDefault } = storeToRefs(themeStore)
-const a = 123
-const b = 321
-console.log(a, b)
 </script>
 
 <template>
