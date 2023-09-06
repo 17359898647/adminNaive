@@ -163,7 +163,6 @@ export const useTagStore = defineStore('useTagStore', () => {
   const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
   tryOnBeforeMount(async () => {
     addTagList(createTag(route))
-    console.log(route.fullPath, !route.meta.isHidden)
     !route.meta.isHidden && (historyPath.value = route.fullPath)
     await scrollTo(findIndex(tagList.value, item => item.fullPath === historyPath.value))
   })
