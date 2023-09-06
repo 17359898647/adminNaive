@@ -13,7 +13,6 @@ definePage({
   meta: {
     isTitle: '表格测试',
     lineIcon: 'material-symbols:home',
-    isKeepAlive: false,
   },
 })
 const ShowOrEdit = defineComponent({
@@ -43,7 +42,9 @@ const ShowOrEdit = defineComponent({
           'min-height': '22px',
         }} onClick={handleOnClick}
         >
-          <NEllipsis >
+          <NEllipsis tooltip={{
+            flip: false,
+          }}>
             {{
               tooltip: () => (
                 <span >{props.value}</span>

@@ -14,7 +14,7 @@ provide(layoutProvide, {
 <template>
   <NLayout
     ref="fullScreenRef"
-    class="h-full w-full"
+    class="h-full w-full overflow-hidden"
     hasSider
   >
     <SiderView />
