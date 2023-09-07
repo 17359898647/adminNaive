@@ -13,6 +13,7 @@ definePage({
   meta: {
     isTitle: '表格测试',
     lineIcon: 'material-symbols:home',
+    isKeepAlive: false,
   },
 })
 const ShowOrEdit = defineComponent({
@@ -30,11 +31,10 @@ const ShowOrEdit = defineComponent({
         inputRef.value?.focus()
       })
     }
-    function _handleChange() {
+    const handleChange = throttle(() => {
       props.onUpdateValue?.(inputValue.value as any)
       isEdit.value = false
-    }
-    const handleChange = throttle(_handleChange, 1000, {
+    }, 1000, {
       trailing: false,
     })
     return () => (
@@ -84,6 +84,7 @@ const { data, columns, isLoading } = useTable<tableData>({
   params: () => ({
     demo: api.value,
   }),
+  retry: 3,
   initialData: [],
   resetOnExecute: false,
   columns: [
@@ -157,7 +158,7 @@ const tableRef = ref<InstanceType<typeof NDataTable>>()
       display: 'flex',
       flexDirection: 'column',
     }"
-    title="网络测试"
+    title="表格测试"
   >
     <NDataTable
       ref="tableRef"
@@ -169,6 +170,7 @@ const tableRef = ref<InstanceType<typeof NDataTable>>()
       :pagination="paginationReactive"
       :remote="true"
       :rowKey="(row) => row.id"
+      :scrollX="300"
       :virtualScroll="true"
       @update:checked-row-keys="console.log"
     />

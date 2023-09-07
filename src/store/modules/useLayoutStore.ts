@@ -80,10 +80,7 @@ export const useLayoutStore = defineStore(
       layoutAttrs[key] = toValue(value)
     }
     watch(() => layoutAttrs.isFullscreen, () => {
-      if (layoutAttrs.isFullscreen)
-        enter()
-      else
-        exit()
+      layoutAttrs.isFullscreen ? enter() : exit()
     })
     return {
       ...toRefs(layoutAttrs),

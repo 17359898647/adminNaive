@@ -16,11 +16,15 @@ definePage({
 const api = ref('1')
 const { execute, isLoading, data } = request<RootObject>({
   url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
+  retry: 3,
   onSuccess: (res) => {
     console.log(res)
   },
   onError: (err) => {
     console.log(err)
+  },
+  onFinish: () => {
+    console.log('finish')
   },
 })
 </script>

@@ -31,7 +31,7 @@ const iconRotate = computed(() => {
 </script>
 
 <template>
-  <div>
+  <Teleport to="body">
     <div
       class="absolute right-0 top-1/2 z-2100 h-40px w-40px flex-center cursor-pointer rounded bg-primary"
       :style="buttonStyle"
@@ -62,5 +62,5 @@ const iconRotate = computed(() => {
         />
       </NDrawer>
     </div>
-  </div>
+  </teleport>
 </template>
