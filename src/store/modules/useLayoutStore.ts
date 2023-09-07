@@ -46,12 +46,13 @@ export interface settingType {
   themeColor: string
   isFullscreen: boolean
 }
-
+// NOTE (布局配置  2023-9-7 14:43)
 export const useLayoutStore = defineStore(
   'useLayoutStore',
   () => {
-    const fullScreenRef = ref()
-    const { isFullscreen, enter, exit } = useFullscreen(fullScreenRef)
+    const { isFullscreen, enter, exit } = useFullscreen(
+      document.documentElement,
+    )
     const layoutAttrs = reactive<settingType>({
       isCollapsed: false,
       isRefreshPage: true,
@@ -86,7 +87,6 @@ export const useLayoutStore = defineStore(
     })
     return {
       ...toRefs(layoutAttrs),
-      fullScreenRef,
       setAttrs,
     }
   },

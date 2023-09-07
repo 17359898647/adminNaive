@@ -23,6 +23,7 @@ function createAllMenuName(router: RouteRecordRaw[]) {
   deep(router)
   return result
 }
+// NOTE (菜单配置  2023-9-7 14:43)
 export const useMenuStore = defineStore('useMenuStore', () => {
   const route = useRoute()
   const router = useRouter()

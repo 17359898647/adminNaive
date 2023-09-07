@@ -4,7 +4,7 @@ import { layoutProvide, useLayoutStore } from '@/store/modules/useLayoutStore'
 
 const layoutStore = useLayoutStore()
 const { setAttrs } = layoutStore
-const { fullScreenRef, ...allValue } = storeToRefs(layoutStore)
+const { ...allValue } = storeToRefs(layoutStore)
 provide(layoutProvide, {
   ...allValue,
   setAttrs,
@@ -13,7 +13,6 @@ provide(layoutProvide, {
 
 <template>
   <NLayout
-    ref="fullScreenRef"
     class="h-full w-full overflow-hidden"
     hasSider
   >

@@ -31,6 +31,7 @@ const createTag: ICreateTag = (route) => {
     name: name as keyof RouteNamedMap,
   }
 }
+// NOTE (tag 栏  2023-9-7 , 14:42 14:42)
 export const useTagStore = defineStore('useTagStore', () => {
   const route = useRoute()
   const router = useRouter()

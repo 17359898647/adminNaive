@@ -6,7 +6,7 @@ import { getColorPalettes, getRgbOfColor } from '@/store/utils/setHemlVar'
 
 type ThemeVars = Exclude<GlobalThemeOverrides['common'], undefined>
 type ThemeVarsKeys = keyof ThemeVars
-/** 添加css vars至html */
+// NOTE (添加css vars至html  2023-9-7 14:44)
 function addThemeCssVarsToHtml(themeVars: ThemeVars) {
   const keys = Object.keys(themeVars) as ThemeVarsKeys[]
   const style: string[] = []
@@ -30,6 +30,7 @@ function addThemeCssVarsToHtml(themeVars: ThemeVars) {
   const styleStr = style.join(';')
   document.documentElement.style.cssText += styleStr
 }
+// NOTE (主题配置  2023-9-7 14:44)
 export const useThemeStore = defineStore(
   'useThemeStore',
   () => {
