@@ -1,6 +1,7 @@
 import { includes } from 'lodash-es'
 import App from '@/App.vue'
 import { loadingFn } from '@/components/LoadingView/LoadingView'
+import { installDirective } from '@/directive'
 import { setupAssets } from '@/plugins/setupAssets'
 import { installRouter } from '@/router'
 import { installPinia } from '@/store'
@@ -16,11 +17,12 @@ async function setupApp() {
   meta.name = 'naive-ui-style'
   document.head.appendChild(meta)
   setupAssets()
+  installPinia(app)
+  installDirective(app)
   await loadingFn({
     isTitle: '加载中',
     timeOut: 0.3,
   })
-  installPinia(app)
   await installRouter(app)
   app.mount('#app')
 }

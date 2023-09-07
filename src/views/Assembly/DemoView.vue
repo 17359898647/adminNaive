@@ -1,16 +1,9 @@
 <script setup lang="ts">
-definePage({
-  meta: {
-    isTitle: '测试组件',
-    lineIcon: 'teenyicons:ab-testing-outline',
-  },
-})
+import { NCard } from 'naive-ui'
 </script>
 
 <template>
-  <NCard title="测试组件" />
+  <NCard>
+    <NInput />
+  </NCard>
 </template>
-
-<style scoped>
-
-</style>
