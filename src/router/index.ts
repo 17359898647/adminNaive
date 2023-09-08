@@ -22,7 +22,7 @@ function setupRouterGuard(router: Router) {
         isTitle,
         changeTitle,
       },
-    } = to as unknown as routerObject
+    } = to
     changeTitle !== false && (htmlTitle.value = isTitle)
     loadingFinish()
   })
@@ -37,7 +37,7 @@ export const router = createRouter({
   extendRoutes: (routers) => {
     const { createRouterHelper } = routerHelper()
     const resultRouter = createRouterHelper(routers)
-    const excludeReg = /^\/(base|login)|ExteriorNotFoundView/
+    const excludeReg = /^\/(base|login|ExteriorNotFoundView)/
     console.log(resultRouter)
     return [
       ...setupLayouts(resultRouter.filter((item) => {

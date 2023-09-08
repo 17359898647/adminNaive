@@ -8,7 +8,6 @@ import { useTable } from '@/composables/useTable'
 function PreView({ data }: { data: any }) {
   return <pre>{JSON.stringify(data, null, 2)}</pre>
 }
-
 definePage({
   meta: {
     isTitle: '表格测试',
