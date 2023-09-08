@@ -30,7 +30,8 @@ const transformParams = reactify((url: string, params?: Record<string, any>) => 
 * */
 export interface useRequestParams<T = any> {
   url?: MaybeRefOrGetter<string>
-  retry?: number
+  retry?: MaybeRefOrGetter<number>
+  shallow?: MaybeRefOrGetter<boolean>
   params?: MaybeRefOrGetter<Record<string, any>>
   data?: MaybeRefOrGetter<Record<string, any>>
   headers?: MaybeRefOrGetter<Record<string, any>>
@@ -63,6 +64,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     immediate = true,
     resetOnExecute = true,
     retry,
+    shallow = true,
     onError,
     onSuccess,
     onFinish,
@@ -83,7 +85,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
       onUploadProgress,
     } as AxiosRequestConfig
   })
-  let _retry = retry
+  let _retry = toValue(retry)
   let isSuccessful = false
   const _useAxios = useAxios<T>(
     _url.value,
@@ -92,7 +94,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     {
       initialData: toValue(initialData),
       resetOnExecute: toValue(resetOnExecute),
-      shallow: true,
+      shallow: toValue(shallow),
       immediate: toValue(immediate),
       onError: (err) => {
         if (isNumber(_retry) && _retry-- > 0 && (err as AxiosError).code !== 'ERR_CANCELED') {
@@ -109,7 +111,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
         if (isNumber(_retry) && _retry >= 0 && !isSuccessful)
           return
         isSuccessful = false
-        _retry = retry
+        _retry = toValue(retry)
         onFinish && onFinish()
       },
     },

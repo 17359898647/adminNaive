@@ -1,8 +1,8 @@
 <script lang="tsx" setup>
-import { findIndex, slice, throttle } from 'lodash-es'
+import { findIndex, slice } from 'lodash-es'
 import type { PaginationProps } from 'naive-ui'
-import { NDataTable, NEllipsis, NInput, NSwitch } from 'naive-ui'
-import type { PropType } from 'vue'
+import { NDataTable, NSwitch } from 'naive-ui'
+import ShowOrEdit from './_ShowOrEdit.vue'
 import { useTable } from '@/composables/useTable'
 
 function PreView({ data }: { data: any }) {
@@ -14,62 +14,6 @@ definePage({
     isTitle: '表格测试',
     lineIcon: 'material-symbols:home',
     isKeepAlive: false,
-  },
-})
-const ShowOrEdit = defineComponent({
-  props: {
-    value: [String, Number] as PropType<string | number>,
-    onUpdateValue: [Function, Array] as PropType<(v: string | number) => void>,
-  },
-  setup(props) {
-    const isEdit = ref(false)
-    const inputRef = ref<InstanceType<typeof NInput> | null>(null)
-    const inputValue = ref(props.value)
-    function handleOnClick() {
-      isEdit.value = true
-      nextTick(() => {
-        inputRef.value?.focus()
-      })
-    }
-    const handleChange = throttle(() => {
-      props.onUpdateValue?.(inputValue.value as any)
-      isEdit.value = false
-    }, 1000, {
-      trailing: false,
-    })
-    return () => (
-        <div style={{
-          'min-height': '22px',
-        }} onClick={handleOnClick}
-        >
-          <NEllipsis tooltip={{
-            flip: false,
-          }}>
-            {{
-              tooltip: () => (
-                <span >{props.value}</span>
-              ),
-              default: () => (
-                isEdit.value
-                  ? (
-                  <NInput
-                    ref={inputRef}
-                    value={inputValue.value as any}
-                    onUpdateValue={e => inputValue.value = e}
-                    onChange={handleChange} onBlur={handleChange}
-                  />
-                    )
-                  : <span style={{
-                    'white-space': 'nowrap',
-                    overflow: 'hidden',
-                    'text-overflow': 'ellipsis',
-                    width: '100%',
-                  }}>{props.value}</span>
-              ),
-            }}
-          </NEllipsis>
-        </div>
-    )
   },
 })
 interface tableData {
@@ -84,6 +28,7 @@ const { data, columns, isLoading } = useTable<tableData>({
   params: () => ({
     demo: api.value,
   }),
+  shallow: false,
   retry: 3,
   initialData: [],
   resetOnExecute: false,
@@ -103,9 +48,7 @@ const { data, columns, isLoading } = useTable<tableData>({
       align: 'center',
       render(row) {
         const index = findIndex(data.value, item => item.id === row.id)!
-        return <ShowOrEdit value={row.title} onUpdateValue={(v) => {
-          data.value![index].title = v as string
-          triggerRef(data)
+        return <ShowOrEdit v-model={data.value![index].title} onFinish={() => {
           createMsg(() => (
               <PreView data={data.value![index]} />
           ), {
@@ -125,7 +68,6 @@ const { data, columns, isLoading } = useTable<tableData>({
                 value={row.completed}
                 onUpdateValue={(v) => {
                   data.value![index].completed = v as boolean
-                  triggerRef(data)
                   createMsg(() => (
                       <PreView data={data.value![index]} />
                   ), {
