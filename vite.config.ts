@@ -33,7 +33,16 @@ export default defineConfig({
     vueJsx(),
     UnoCSS(),
   ],
-
+  build: {
+    reportCompressedSize: false,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
+  },
   // https://github.com/vitest-dev/vitest
   test: {
     environment: 'jsdom',

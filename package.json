@@ -27,6 +27,7 @@
     "pinia-plugin-persistedstate": "^3.2.0",
     "sass": "^1.66.1",
     "sortablejs": "^1.15.0",
+    "terser": "^5.19.4",
     "unocss-preset-extra": "^0.5.2",
     "unplugin-vue-router": "^0.6.4",
     "vite-plugin-compression": "^0.5.1",
