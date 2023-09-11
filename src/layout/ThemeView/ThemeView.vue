@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // const drawerShow = ref(false)
+import { debounce } from 'lodash-es'
 import type { CSSProperties } from 'vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
@@ -28,18 +29,24 @@ const iconRotate = computed(() => {
     transition: `all ${800}ms cubic-bezier(.62,-0.14,.62,2)`,
   } as CSSProperties
 })
+
+const _setAttrs = debounce(setAttrs, 300, {
+  leading: true,
+  trailing: false,
+  maxWait: 300,
+})
 </script>
 
 <template>
   <Teleport to="body">
     <div
-      class="absolute right-0 top-1/2 z-2100 h-40px w-40px flex-center cursor-pointer rounded bg-primary"
+      class="absolute right-0 top-1/2 z-2100 h-36px w-36px flex-center cursor-pointer rounded bg-primary"
       :style="buttonStyle"
       @click="setDrawerShow(!drawerShow)"
     >
       <SvgIcon
         lineIcon="material-symbols:settings"
-        size="30"
+        size="26"
         :style="iconRotate"
       />
     </div>
@@ -57,7 +64,7 @@ const iconRotate = computed(() => {
           :showAlpha="false"
           :value="themeColor"
           @update-value="(e:string) => {
-            setAttrs('themeColor', e)
+            _setAttrs('themeColor', e)
           }"
         />
       </NDrawer>
