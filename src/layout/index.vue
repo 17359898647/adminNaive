@@ -14,7 +14,7 @@ provide(layoutProvide, {
 <template>
   <NLayout
     class="h-full w-full overflow-hidden"
-    hasSider
+    :hasSider="true"
   >
     <SiderView />
     <NLayoutContent :nativeScrollbar="false">

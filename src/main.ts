@@ -19,11 +19,12 @@ async function setupApp() {
   setupAssets()
   installPinia(app)
   installDirective(app)
-  await loadingFn({
+  const loadingApp = await loadingFn({
     isTitle: '加载中',
     timeOut: 0.3,
   })
   await installRouter(app)
+  loadingApp.unmount()
   app.mount('#app')
 }
 

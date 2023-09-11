@@ -88,7 +88,7 @@ export const LoadingView = defineComponent({
   },
 })
 
-export function loadingFn(config?: { timeOut?: number; isTitle?: string }) {
+export async function loadingFn(config?: { timeOut?: number; isTitle?: string }) {
   const { timeOut = 0, isTitle = '' } = assign(
     {
       timeOut: 0.5,
@@ -96,6 +96,7 @@ export function loadingFn(config?: { timeOut?: number; isTitle?: string }) {
     config,
   )
   const appLoading = createApp(<LoadingView isTitle={isTitle}/>)
-  appLoading.mount('#appLoading')
-  return useSleep(timeOut * 1000)
+  appLoading.mount('#app')
+  await useSleep(timeOut * 1000)
+  return appLoading
 }
