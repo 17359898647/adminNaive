@@ -30,7 +30,7 @@ const iconRotate = computed(() => {
   } as CSSProperties
 })
 
-const _setAttrs = debounce(setAttrs, 300, {
+const setAttrsDeBounce = debounce(setAttrs, 300, {
   leading: true,
   trailing: false,
   maxWait: 300,
@@ -64,7 +64,7 @@ const _setAttrs = debounce(setAttrs, 300, {
           :showAlpha="false"
           :value="themeColor"
           @update-value="(e:string) => {
-            _setAttrs('themeColor', e)
+            setAttrsDeBounce('themeColor', e)
           }"
         />
       </NDrawer>
