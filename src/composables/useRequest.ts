@@ -101,18 +101,18 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
           _useAxios.execute(_url.value, axiosConfig.value)
           return
         }
-        onError && onError(err)
+        onError?.(err)
       },
       onSuccess: (data: T) => {
         isSuccessful = true
-        onSuccess && onSuccess(data)
+        onSuccess?.(data)
       },
       onFinish: () => {
         if (isNumber(_retry) && _retry >= 0 && !isSuccessful)
           return
         isSuccessful = false
         _retry = toValue(retry)
-        onFinish && onFinish()
+        onFinish?.()
       },
     },
   )
