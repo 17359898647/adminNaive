@@ -28,6 +28,7 @@ const breadcrumb = computed(() => {
     <Collaps />
     <FullScreen />
     <Dark />
+    <Refresh />
     <NBreadcrumb>
       <NBreadcrumbItem
         v-for="{ name, meta, children } in breadcrumb"

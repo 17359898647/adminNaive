@@ -23,7 +23,7 @@ type ICreateTag = (route: RouteLocationNormalizedLoaded | (RouteRecordRaw & {
   fullPath?: string
 })) => ITag
 
-const createTag: ICreateTag = (route) => {
+export const createTag: ICreateTag = (route) => {
   const { meta, path, fullPath, name } = route
   return {
     ...meta!,
@@ -82,7 +82,6 @@ export const useTagStore = defineStore('useTagStore', () => {
     index !== -1 && tagList.value.splice(index, 1)
     await delCache(tag)
   }
-
   // tag 下拉菜单
   const tagDropdownOptions = ref<_DropdownOption[]>([
     {
@@ -180,14 +179,14 @@ export const useTagStore = defineStore('useTagStore', () => {
   })
   return {
     tagList,
-    createTag,
-    delTagList,
     tagDropdownOptions,
-    tagDropdownClick,
     scrollRef,
     scrollTo,
     contentRef,
     containerRef,
+    createTag,
+    delTagList,
+    tagDropdownClick,
   }
 }, {
   persist: {

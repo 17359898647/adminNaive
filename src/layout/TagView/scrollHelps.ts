@@ -12,7 +12,7 @@ export function scrollHelps(options?: {
   }
   const { isSiderWidth, isCollapsedWidth, isCollapsed, isContentPadding } = inject(layoutProvide)!
   const contentRef = ref<HTMLElement>()
-  const scrollRef = ref<InstanceType<typeof NScrollbar>>()
+  const scrollRef = shallowRef<InstanceType<typeof NScrollbar>>()
   const containerRef = ref<HTMLElement>()
   // const { left: TransitionRefLeft } = useElementBounding(contentRef)
   const TransitionRefLeft = computed(() => {

@@ -90,7 +90,7 @@ const paginationReactive = computed(() => ({
 const dataReactive = computed(() => {
   return slice(data.value, (api.value - 1) * 50, api.value * 50)
 })
-const tableRef = ref<InstanceType<typeof NDataTable>>()
+const tableRef = shallowRef<InstanceType<typeof NDataTable>>()
 </script>
 
 <template>
