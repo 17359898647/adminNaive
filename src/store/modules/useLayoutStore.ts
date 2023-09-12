@@ -2,48 +2,48 @@ import type { MaybeRefOrGetter } from '@vueuse/core'
 import { toRefs } from '@vueuse/core'
 import type { InjectionKey, Ref } from 'vue'
 
-/**
- * isCollapse : 是否折叠;
- * isInverted : 是否反转色;
- * isFixedFooter : 是否固定底部;
- * isFixedHeader : 是否固定头部;
- * isSiderWidth : 侧边栏宽度;
- * isHeaderHeight : 头部高度;
- * isFooterHeight : 底部高度;
- * isTagViewHeight : 标签栏高度;
- * isAccordion : 是否手风琴模式;
- * isShow-trigger : 是否显示触发器;
- * isCollapsedWidth : 折叠宽度;
- * isBgColor : 背景色;
- * isNDrawerShow : 是否显示抽屉;
- * isTagViewShow : 是否显示标签栏;
- * isTagViewShowIcon : 是否显示标签栏图标;
- * isBreadcrumbShow : 是否显示面包屑;
- * isBreadcrumbShowIcon : 是否显示面包屑图标;
- * isDark : 是否暗黑模式;
- * isFullscreen : 是否全屏;
- */
 export interface settingType {
+  /** 是否折叠 */
   isCollapsed: boolean
+  /** 是否刷新页面 */
   isRefreshPage: boolean
+  /** 是否手风琴模式 */
   isAccordion: boolean
-  isShowTrigger: boolean | 'bar' | 'arrow-circle'
-  isFixedFooter: boolean
-  isFixedHeader: boolean
-  isTagViewShow: boolean
-  isTagViewShowIcon: boolean
-  isNDrawerShow: boolean
+  /** 是否显示触发器 */
+  isShowTrigger: 'bar' | 'arrow-circle' | undefined
+  /** 是否反转色 */
   isInverted: boolean
-  isBreadcrumbShow: boolean
-  isBreadcrumbShowIcon: boolean
+  /** 是否固定底部 */
+  isFixedFooter: boolean
+  /** 是否固定头部 */
+  isFixedHeader: boolean
+  /** 是否显示抽屉 */
+  isNDrawerShow: boolean
+  /** 折叠宽度 */
   isCollapsedWidth: number
+  /** 侧边栏宽度 */
   isSiderWidth: number
+  /** 头部高度 */
   isHeaderHeight: number
+  /** 底部高度 */
   isFooterHeight: number
+  /** 标签栏高度 */
   isTagViewHeight: number
+  /** 是否显示标签栏 */
+  isTagViewShow: boolean
+  /** 是否显示标签栏图标 */
+  isTagViewShowIcon: boolean
+  /** 内容内边距 */
   isContentPadding: number
-  isDark: boolean
+  /** 是否显示面包屑 */
+  isBreadcrumbShow: boolean
+  /** 是否显示面包屑图标 */
+  isBreadcrumbShowIcon: boolean
+  /** 主题色 */
   themeColor: string
+  /** 是否暗黑模式 */
+  isDark: boolean
+  /** 是否全屏 */
   isFullscreen: boolean
 }
 // NOTE (布局配置  2023-9-7 14:43)
@@ -56,7 +56,7 @@ export const useLayoutStore = defineStore(
     const layoutAttrs = reactive<settingType>({
       isCollapsed: false,
       isRefreshPage: true,
-      isAccordion: true,
+      isAccordion: false,
       isShowTrigger: 'bar',
       isInverted: true,
       isFixedFooter: true,

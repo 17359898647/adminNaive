@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
-const { isCollapsed, setAttrs, isHeaderHeight, isCollapsedWidth, isSiderWidth } = inject(layoutProvide)!
+const { isCollapsed, setAttrs, isHeaderHeight, isCollapsedWidth, isSiderWidth, isShowTrigger } = inject(layoutProvide)!
 const time = useDateFormat(
   useNow(),
   computed(() => (isCollapsed.value ? 'HH:mm:ss' : 'YYYY-MM-DD HH:mm:ss')),
@@ -19,7 +19,7 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
       paddingTop: `${isHeaderHeight - 6}px`,
     }"
     :nativeScrollbar="false"
-    showTrigger="bar"
+    :showTrigger="isShowTrigger"
     :width="isSiderWidth"
     @update-collapsed="_setAttrs"
   >

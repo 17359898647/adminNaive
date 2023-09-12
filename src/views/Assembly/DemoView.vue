@@ -7,8 +7,26 @@ definePage({
     isOrder: Number.POSITIVE_INFINITY,
   },
 })
+const [show, setShow] = useToggle(false)
+const cardRef = shallowRef<HTMLElement>()
+useAnimate({
+  el: cardRef,
+})
 </script>
 
 <template>
-  <NCard title="测试组件" />
+  <NCard title="测试组件">
+    <NButton @click="() => setShow()">
+      测试
+    </NButton>
+    <NCard
+      ref="cardRef"
+      title="标题"
+    >
+      <div
+        v-if="show"
+        class="h-20vh red"
+      />
+    </NCard>
+  </NCard>
 </template>

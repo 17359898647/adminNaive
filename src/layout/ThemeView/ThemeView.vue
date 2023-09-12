@@ -52,6 +52,7 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
     </div>
     <div>
       <NDrawer
+        :nativeScrollbar="false"
         :show="drawerShow"
         :width="drawerWidth"
         @update:show="setDrawerShow"

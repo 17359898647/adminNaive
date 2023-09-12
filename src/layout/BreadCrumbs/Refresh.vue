@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const { tagDropdownClick: Refresh } = useTagStore()
-const isFullScreen = computed(() => {
+const { tagDropdownClick: RefreshMethods } = useTagStore()
+const isRefresh = computed(() => {
   return {
-    icon: 'line-md:loading-alt-loop',
+    icon: 'ic:twotone-refresh',
     title: '刷新',
   }
 })
@@ -12,13 +12,13 @@ const isFullScreen = computed(() => {
   <NPopover trigger="hover">
     <template #trigger>
       <SvgIcon
-        :key="isFullScreen.icon"
-        :lineIcon="isFullScreen.icon"
+        :key="isRefresh.icon"
+        :lineIcon="isRefresh.icon"
         :size="24"
-        @click="Refresh('refresh', createTag($route))"
+        @click="RefreshMethods('refresh', createTag($route))"
       />
     </template>
-    <span>{{ isFullScreen.title }}</span>
+    <span>{{ isRefresh.title }}</span>
   </NPopover>
 </template>
 

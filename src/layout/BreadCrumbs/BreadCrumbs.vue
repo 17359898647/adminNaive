@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import autoAnimate from '@formkit/auto-animate'
 import { isUndefined } from 'lodash-es'
 import { NBreadcrumb } from 'naive-ui'
 import type { CSSProperties } from 'vue'
@@ -18,11 +17,9 @@ const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })
 const breadcrumbRef = shallowRef<InstanceType<typeof NBreadcrumb>>()
-onMounted(() => {
-  const childRef = unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement
-  autoAnimate(childRef, {
-    duration: 3000,
-  })
+const childRef = computed(() => unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement)
+useAnimate({
+  el: childRef,
 })
 </script>
 
