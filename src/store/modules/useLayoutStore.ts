@@ -83,20 +83,22 @@ export const useLayoutStore = defineStore(
       layoutAttrs.isFullscreen ? enter() : exit()
     })
     return {
-      ...toRefs(layoutAttrs),
+      ...toRefs(readonly(layoutAttrs)),
       setAttrs,
+      layoutAttrs,
     }
   },
   {
     persist: {
+      paths: ['layoutAttrs'],
       afterRestore: (ctx) => {
-        ctx.store.$state.isFullscreen = false
+        ctx.store.setAttrs('isFullscreen', false)
       },
     },
   },
 )
 export type settingTypeRef = {
-  [T in keyof settingType]: Ref<settingType[T]>
+  [T in keyof settingType]: Readonly<Ref<settingType[T]>>
 }
 export const layoutProvide = Symbol('layoutProvide') as InjectionKey<settingTypeRef & {
   setAttrs: <T extends keyof settingType>(key: T, value: settingType[T]) => void
