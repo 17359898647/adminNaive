@@ -2,7 +2,7 @@
 const { tagDropdownClick: Refresh } = useTagStore()
 const isFullScreen = computed(() => {
   return {
-    icon: 'ic:twotone-refresh',
+    icon: 'line-md:loading-alt-loop',
     title: '刷新',
   }
 })

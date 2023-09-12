@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import autoAnimate from '@formkit/auto-animate'
 import { isUndefined } from 'lodash-es'
+import { NBreadcrumb } from 'naive-ui'
 import type { CSSProperties } from 'vue'
 import Collaps from '@/layout/BreadCrumbs/Collaps.vue'
 import Dark from '@/layout/BreadCrumbs/Dark.vue'
@@ -15,6 +17,13 @@ const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })
+const breadcrumbRef = shallowRef<InstanceType<typeof NBreadcrumb>>()
+onMounted(() => {
+  const childRef = unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement
+  autoAnimate(childRef, {
+    duration: 3000,
+  })
+})
 </script>
 
 <template>
@@ -29,7 +38,7 @@ const breadcrumb = computed(() => {
     <FullScreen />
     <Dark />
     <Refresh />
-    <NBreadcrumb>
+    <NBreadcrumb ref="breadcrumbRef">
       <NBreadcrumbItem
         v-for="{ name, meta, children } in breadcrumb"
         :key="name"
