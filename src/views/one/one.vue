@@ -8,7 +8,10 @@ definePage({
 </script>
 
 <template>
-  <NCard title="一级子路由" />
+  <NCard title="一级子路由">
+    <NH5>缓存一级子路由</NH5>
+    <NInput />
+  </NCard>
 </template>
 
 <style scoped>

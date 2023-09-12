@@ -11,8 +11,9 @@ const enhanceAutoRouter: Record<RoutePathUnion | string, RouteMeta> = {
     isOrder: Number.POSITIVE_INFINITY,
   },
   '/one': {
-    isTitle: '一级父路由',
+    isTitle: '嵌套路由',
     lineIcon: 'fluent:glance-default-12-filled',
+    isOrder: Number.POSITIVE_INFINITY,
   },
   two: {
     isTitle: '二级父路由',
