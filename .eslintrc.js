@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
+    'yml/no-empty-mapping-value': 'off',
     'vue/component-name-in-template-casing': ['error', 'PascalCase'],
     'linebreak-style': ['error', 'unix'],
     'vue/multi-word-component-names': 'off',
