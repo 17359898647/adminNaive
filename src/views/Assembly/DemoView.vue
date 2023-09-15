@@ -17,7 +17,7 @@ useAnimate({
 <template>
   <NCard title="测试组件">
     <RippleButton @click="() => setShow()">
-      测试
+      测试pnpm
     </RippleButton>
     <NCard
       ref="cardRef"
