@@ -16,9 +16,9 @@ useAnimate({
 
 <template>
   <NCard title="测试组件">
-    <NButton @click="() => setShow()">
+    <RippleButton @click="() => setShow()">
       测试
-    </NButton>
+    </RippleButton>
     <NCard
       ref="cardRef"
       title="标题"

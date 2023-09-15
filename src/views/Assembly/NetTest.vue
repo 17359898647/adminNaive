@@ -35,12 +35,12 @@ const { execute, isLoading, data } = request<RootObject>({
       :size="10"
       vertical
     >
-      <NButton
+      <RippleButton
         :loading="isLoading"
         @click="() => execute()"
       >
         触发
-      </NButton>
+      </RippleButton>
       <NInput v-model:value="api" />
       <NCard>
         <pre v-html="JSON.stringify(toValue(data), null, 2)" />
