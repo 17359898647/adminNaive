@@ -13,6 +13,8 @@ defineProps<ButtonProps>()
 const emits = defineEmits<{
   click: [e: MouseEvent]
 }>()
+const attrs = useAttrs()
+const buttonType = computed(() => attrs.type ?? 'primary')
 const buttonRef = shallowRef<InstanceType<typeof NButton>>()
 function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, event: MouseEvent) {
   const _el = unrefElement(el)
@@ -30,7 +32,7 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
     width: `${radius / 100}px`,
     height: `${radius / 100}px`,
     borderRadius: '50%',
-    backgroundColor: '#4b4b4b',
+    backgroundColor: `rgb(var(--${buttonType.value}-color-active))`,
     left: `${x}px`,
     top: `${y}px`,
   } as CSSProperties
@@ -64,7 +66,6 @@ function buttonClick(event: MouseEvent) {
   emits('click', event)
   createRipple(unrefElement(buttonRef), event)
 }
-const attrs = useAttrs()
 const propsComputed = computed(() => {
   const { ..._attrs } = attrs
   return {

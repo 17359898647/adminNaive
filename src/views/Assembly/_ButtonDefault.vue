@@ -1,65 +1,60 @@
 <template>
   <NCard title="普通按钮">
     <NSpace>
-      <RippleButton
-        :secondary="true"
-        strong
-      >
+      <RippleButton strong>
         Default
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="tertiary"
       >
         Tertiary
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="primary"
       >
         Primary
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="info"
       >
         Info
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="success"
       >
         Success
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="warning"
       >
         Warning
       </RippleButton>
       <RippleButton
-        :secondary="true"
+
         strong
         type="error"
       >
         Error
       </RippleButton>
       <RippleButton
-
         round
-        :secondary="true"
         strong
       >
         Default
       </RippleButton>
       <RippleButton
         round
-        :secondary="true"
+
         strong
         type="primary"
       >
@@ -67,7 +62,7 @@
       </RippleButton>
       <RippleButton
         round
-        :secondary="true"
+
         strong
         type="info"
       >
@@ -75,7 +70,7 @@
       </RippleButton>
       <RippleButton
         round
-        :secondary="true"
+
         strong
         type="success"
       >
@@ -83,7 +78,7 @@
       </RippleButton>
       <RippleButton
         round
-        :secondary="true"
+
         strong
         type="warning"
       >
@@ -91,7 +86,7 @@
       </RippleButton>
       <RippleButton
         round
-        :secondary="true"
+
         strong
         type="error"
       >
