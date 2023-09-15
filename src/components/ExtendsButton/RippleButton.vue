@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { MaybeComputedElementRef, MaybeElement } from '@vueuse/core'
-import { assign, throttle } from 'lodash-es'
+import { assign, ceil, divide, max, throttle } from 'lodash-es'
 import { NButton } from 'naive-ui'
 import type { CSSProperties } from 'vue'
 import type { ButtonProps } from './type'
@@ -14,7 +14,6 @@ const emits = defineEmits<{
   click: [e: MouseEvent]
 }>()
 const attrs = useAttrs()
-const buttonType = computed(() => attrs.type ?? 'primary')
 const buttonRef = shallowRef<InstanceType<typeof NButton>>()
 function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, event: MouseEvent) {
   const _el = unrefElement(el)
@@ -22,19 +21,21 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
     return
   const { clientX, clientY } = event
   const { left, top, width, height } = _el.getBoundingClientRect()
-  const radius = Math.max(width, height)
+  const radius = ceil(divide(max([width, height])!, 100))
   // 获取点击位置相对于el的位置
   const x = clientX - left
   const y = clientY - top
   const div = document.createElement('div')
   const style = {
     position: 'absolute',
-    width: `${radius / 100}px`,
-    height: `${radius / 100}px`,
+    width: `${radius}px`,
+    height: `${radius}px`,
     borderRadius: '50%',
-    backgroundColor: `rgb(var(--${buttonType.value}-color-active))`,
+    backgroundColor: 'rgba(255, 255, 255, .5)',
     left: `${x}px`,
     top: `${y}px`,
+    transformOrigin: 'center',
+    transform: 'translate(-50%, -50%) scale(10)',
   } as CSSProperties
   assign(div.style, style)
   _el.insertBefore(div, _el.firstChild)
@@ -42,14 +43,16 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
   const animate = div.animate([
     {
       transform: 'scale(10)',
+      borderRadius: '50%',
       opacity: 1,
     },
     {
-      transform: 'scale(200)',
+      transform: 'scale(300)',
+      borderRadius: '50%',
       opacity: 0,
     },
   ], {
-    duration: 500,
+    duration: 1000,
   })
   animate.onfinish = () => {
     _el.removeChild(div)
