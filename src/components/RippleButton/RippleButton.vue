@@ -36,6 +36,7 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
     top: `${y}px`,
     transformOrigin: 'center',
     transform: 'translate(-50%, -50%) scale(10)',
+    pointerEvents: 'none',
   } as CSSProperties
   assign(div.style, style)
   _el.insertBefore(div, _el.firstChild)
