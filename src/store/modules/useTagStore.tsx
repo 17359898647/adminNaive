@@ -1,4 +1,4 @@
-import { difference, filter, findIndex, isUndefined, map, some } from 'lodash-es'
+import { difference, filter, findIndex, forEach, isUndefined, map, some } from 'lodash-es'
 import type { DropdownOption } from 'naive-ui'
 import { watch } from 'vue'
 import type { RouteLocationNormalizedLoaded, RouteMeta, RouteRecordRaw } from 'vue-router/auto'
@@ -125,7 +125,10 @@ export const useTagStore = defineStore('useTagStore', () => {
     await useSleep(300)
     const residueTagList = filter(tagList.value, Fn) as T[]
     const excludeTagList = difference(tagList.value, residueTagList)
-    tagList.value = residueTagList
+    forEach(excludeTagList, (item) => {
+      const index = findIndex(tagList.value, item)
+      index !== -1 && tagList.value.splice(index, 1)
+    })
     await delCache(excludeTagList)
   }
   const tagDropdownClick = async (key: ActionTypes, tag: ITag) => {
