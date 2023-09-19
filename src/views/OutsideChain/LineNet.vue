@@ -10,5 +10,5 @@ definePage({
 </script>
 
 <template>
-  naive ui
+  在线预览
 </template>
