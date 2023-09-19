@@ -37,7 +37,8 @@
     "vite-plugin-vue-inspector": "^3.7.1",
     "vite-plugin-vue-layouts": "^0.8.0",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.41.0",

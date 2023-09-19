@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { NCard } from 'naive-ui'
+import { useAutoAnimate } from '@/composables/useAutoAnimate'
 
 definePage({
   meta: {
@@ -9,7 +10,7 @@ definePage({
 })
 const [show, setShow] = useToggle(false)
 const cardRef = shallowRef<HTMLElement>()
-useAnimate({
+useAutoAnimate({
   el: cardRef,
 })
 </script>

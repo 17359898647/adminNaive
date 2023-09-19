@@ -9,9 +9,7 @@ definePage({
 </script>
 
 <template>
-  <NCard title="about">
-    <NInput />
-  </NCard>
+  <NCard title="关于" />
 </template>
 
 <style scoped>

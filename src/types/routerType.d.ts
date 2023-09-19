@@ -26,11 +26,16 @@ interface routeMeta {
    * */
   isKeepAlive?: false
 }
-
-interface routerObject extends Omit<import('vue-router').RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {
+type RouteRecordRaw=import('vue-router').RouteRecordRaw
+interface routerObject extends Omit<RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {
   parentPath?: string
-  component?: import('vue-router').RouteRecordRaw['component'] | routerTypeKeys
+  component?: RouteRecordRaw['component'] | routerTypeKeys
   meta: routeMeta
   children?: routerObject[]
   name?: 'ExteriorNotFoundView' | 'InteriorNotFound' | string
 }
+
+type RouteNamedMap=import('vue-router/auto/routes').RouteNamedMap
+type RoutePathUnion = RouteNamedMap[keyof RouteNamedMap]['path']
+type RouteNameUnion = keyof RouteNamedMap
+type IEnhanceAutoRouter=Record<RoutePathUnion | string, import('vue-router/auto').RouteMeta>

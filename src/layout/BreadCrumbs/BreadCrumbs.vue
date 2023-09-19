@@ -18,7 +18,7 @@ const breadcrumb = computed(() => {
 })
 const breadcrumbRef = shallowRef<InstanceType<typeof NBreadcrumb>>()
 const childRef = computed(() => unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement)
-useAnimate({
+useAutoAnimate({
   el: childRef,
 })
 </script>

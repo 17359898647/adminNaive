@@ -12,6 +12,7 @@ function renderMenuIcon(option: _MenuOption) {
 const MenuStore = useMenuStore()
 const { setOpenKeys, setSelectKey } = MenuStore
 const { openKeys, selectKey, menuOptions } = storeToRefs(MenuStore)
+console.log(menuOptions.value, 99)
 </script>
 
 <template>

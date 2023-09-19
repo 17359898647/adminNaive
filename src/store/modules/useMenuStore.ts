@@ -45,7 +45,6 @@ export const useMenuStore = defineStore('useMenuStore', () => {
     })
   }
   const menuOptions = ref(createMenuOptions(unref(allRouters)))
-
   const openKeys = ref<string[]>([])
   const setOpenKeys = (keys: string[]) => {
     openKeys.value = keys
@@ -76,6 +75,6 @@ export const useMenuStore = defineStore('useMenuStore', () => {
 },
 {
   persist: {
-    paths: ['openKeys', 'selectKey'],
+    paths: ['openKeys', 'selectKey', 'menuOptions'],
   },
 })

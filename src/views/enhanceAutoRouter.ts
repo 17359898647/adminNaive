@@ -1,34 +1,29 @@
-import { has, isUndefined } from 'lodash-es'
-import type { RouteMeta, RouteRecordRaw } from 'vue-router/auto'
-import type { RouteNamedMap } from 'vue-router/auto/routes'
+import { forEach, has, isPlainObject, isUndefined } from 'lodash-es'
+import type { RouteRecordRaw } from 'vue-router/auto'
 
-export type RoutePathUnion = RouteNamedMap[keyof RouteNamedMap]['path']
-export type RouteNameUnion = keyof RouteNamedMap
-const enhanceAutoRouter: Record<RoutePathUnion | string, RouteMeta> = {
-  '/OutsideChain': {
-    isTitle: '外链',
-    lineIcon: 'twemoji:couple-with-heart-man-man-light-skin-tone-dark-skin-tone',
-    isOrder: Number.POSITIVE_INFINITY,
+const enhanceAutoRouterModule = import.meta.glob(
+  './**/index.ts',
+  {
+    eager: true,
   },
-  '/one': {
-    isTitle: '嵌套路由',
-    lineIcon: 'fluent:glance-default-12-filled',
-    isOrder: Number.POSITIVE_INFINITY,
-  },
-  two: {
-    isTitle: '二级父路由',
-    lineIcon: 'fluent:glance-default-12-filled',
-    isOrder: Number.NEGATIVE_INFINITY,
-  },
-  three: {
-    isTitle: '三级父路由',
-    lineIcon: 'fluent:glance-default-12-filled',
-    isOrder: Number.NEGATIVE_INFINITY,
-  },
-  '/Assembly': {
-    isTitle: '组件',
-    lineIcon: 'logos:webcomponents',
-  },
+) as Record<'default', IEnhanceAutoRouter>
+function getRouterName(path: string) {
+  const pathWithoutIndex = path.replace(/\/index\.ts$/, '').replace(/\./g, '')
+  const pathWithoutIndexArr = pathWithoutIndex.split('/')
+  return pathWithoutIndexArr.length <= 2 ? pathWithoutIndex : pathWithoutIndexArr.slice(-1)[0]
+}
+function getEnhanceAutoRouterModule() {
+  const result: IEnhanceAutoRouter = {}
+  forEach(enhanceAutoRouterModule, (item, path) => {
+    const routerName = getRouterName(path)
+    if (isPlainObject(item.default))
+      result[routerName] = item.default || {}
+  })
+  return result
+}
+
+const enhanceAutoRouter: IEnhanceAutoRouter = {
+  ...getEnhanceAutoRouterModule(),
 }
 export function setMetaAndName(route: RouteRecordRaw) {
   const { path, name } = route
