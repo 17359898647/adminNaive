@@ -37,7 +37,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
       return {
         key: name || path,
         show: !isHidden,
-        children: isUndefined(children) ? undefined : createMenuOptions(children),
+        children: isUndefined(children) ? [] : createMenuOptions(children),
         localIcon,
         lineIcon,
         label: isTitle || path,
