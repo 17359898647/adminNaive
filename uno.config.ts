@@ -1,8 +1,8 @@
 import {
   defineConfig,
   presetAttributify,
+  presetUno,
   presetWebFonts,
-  presetWind,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -10,7 +10,7 @@ import { presetExtra } from 'unocss-preset-extra'
 
 export default defineConfig({
   presets: [
-    presetWind(),
+    presetUno,
     presetAttributify(),
     presetExtra(),
     presetWebFonts({

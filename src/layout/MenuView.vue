@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { cloneDeep, map } from 'lodash-es'
+import { map } from 'lodash-es'
 import { computed } from 'vue'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
@@ -15,20 +15,22 @@ const MenuStore = useMenuStore()
 const { setOpenKeys, setSelectKey } = MenuStore
 const { openKeys, selectKey, menuOptions } = storeToRefs(MenuStore)
 const menuOptionsComputed = computed(() => {
-  const cloneMenuOptions = cloneDeep(menuOptions.value)
-  const deepMap = (options: _MenuOption[]) => {
+  const deepMap = (options: _MenuOption[]): _MenuOption[] => {
     return map(options, (option) => {
-      const { children } = option
-      if (children && children.length)
-        option.children = deepMap(children)
-      else
-        delete option.children
-
-      return option
+      const { children, ...rest } = option
+      if (children && children.length) {
+        return {
+          ...rest,
+          children: deepMap(children),
+        }
+      }
+      else {
+        return rest
+      }
     })
   }
   // @ts-expect-error
-  return deepMap(cloneMenuOptions)
+  return deepMap(menuOptions.value)
 })
 </script>
 
