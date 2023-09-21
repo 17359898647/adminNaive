@@ -10,7 +10,8 @@ import { routerHelper } from '@/router/helps/allRouters'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { allRouters } = routerHelper()
-const { isHeaderHeight, isContentPadding } = inject(layoutProvide)!
+const { isHeaderHeight, isContentPadding, isSupported } = inject(layoutProvide)!
+console.log(isSupported, 99)
 const route = useRoute()
 const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {
@@ -32,7 +33,7 @@ useAutoAnimate({
     } as CSSProperties"
   >
     <Collaps />
-    <FullScreen />
+    <FullScreen v-if="isSupported" />
     <Dark />
     <Refresh />
     <NBreadcrumb ref="breadcrumbRef">

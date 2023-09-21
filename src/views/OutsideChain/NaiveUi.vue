@@ -1,13 +1,13 @@
 <script setup lang="ts">
 definePage({
-  name: 'https://www.naiveui.com/zh-CN/light',
   meta: {
     isTitle: 'Naive Ui',
     lineIcon: 'logos:naiveui',
+    isIframe: true,
   },
 })
 </script>
 
 <template>
-  naive ui
+  <iframe src="https://www.naiveui.com/zh-CN/light" />
 </template>

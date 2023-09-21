@@ -81,16 +81,32 @@ function deepCreateMeta(routerList: MaybeRef<RouteRecordRaw[]>) {
   })
   return result
 }
+function deepCreateIframe(routerList: MaybeRef<RouteRecordRaw[]>) {
+  const result: RouteRecordRaw[] = []
+  const deepFilter = (routes: RouteRecordRaw[]) => {
+    forEach(routes, (item) => {
+      if (item.meta?.isIframe)
+        result.push(item)
+
+      if (item.children)
+        deepFilter(item.children)
+    })
+  }
+  deepFilter(unref(routerList))
+  return result
+}
 
 const allRouters = shallowRef<RouteRecordRaw[]>([])
 const allAffixRouters = shallowRef<RouteRecordRaw[]>([])
 const allUnKeepAliveRouters = shallowRef<RouteRecordRaw[]>([])
+const allIframeRouters = shallowRef<RouteRecordRaw[]>([])
 export function routerHelper() {
   const createRouterHelper = (list: MaybeRef<RouteRecordRaw[]>) => {
     const metaRouter = deepCreateMeta(unref(list))
     allRouters.value = sortRouter(metaRouter)
     allAffixRouters.value = findAffix(allRouters)
     allUnKeepAliveRouters.value = findUnKeepAlive(allRouters)
+    allIframeRouters.value = deepCreateIframe(allRouters)
     return setRouterRedirect(allRouters)
   }
 
@@ -98,6 +114,7 @@ export function routerHelper() {
     allRouters,
     allAffixRouters,
     allUnKeepAliveRouters,
+    allIframeRouters,
     createRouterHelper,
   }
 }

@@ -45,12 +45,14 @@ export interface settingType {
   isDark: boolean
   /** 是否全屏 */
   isFullscreen: boolean
+  /** 是否支持全屏 */
+  isSupported: boolean
 }
 // NOTE (布局配置  2023-9-7 14:43)
 export const useLayoutStore = defineStore(
   'useLayoutStore',
   () => {
-    const { isFullscreen, enter, exit } = useFullscreen(
+    const { isFullscreen, enter, exit, isSupported } = useFullscreen(
       document.documentElement,
     )
     const layoutAttrs = reactive<settingType>({
@@ -59,8 +61,8 @@ export const useLayoutStore = defineStore(
       isAccordion: false,
       isShowTrigger: 'bar',
       isInverted: true,
-      isFixedFooter: true,
-      isFixedHeader: true,
+      isFixedFooter: false,
+      isFixedHeader: false,
       isNDrawerShow: false,
       isCollapsedWidth: 60,
       isSiderWidth: 200,
@@ -75,6 +77,7 @@ export const useLayoutStore = defineStore(
       themeColor: '#1890ff',
       isDark: isDark as unknown as boolean,
       isFullscreen: isFullscreen.value,
+      isSupported: isSupported.value,
     })
     const setAttrs = <T extends keyof settingType>(key: T, value: MaybeRefOrGetter<settingType[T]>) => {
       layoutAttrs[key] = toValue(value)

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 definePage({
   meta: {
-    isTitle: 'Vue Js',
-    lineIcon: 'logos:vue',
+    isTitle: 'VueUse',
+    lineIcon: 'logos:vueuse',
     isIframe: true,
   },
 })
 </script>
 
 <template>
-  <iframe src="https://cn.vuejs.org/" />
+  <iframe src="https://vueuse.org/" />
 </template>
-

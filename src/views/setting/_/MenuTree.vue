@@ -13,6 +13,10 @@ function getChildren(index: number) {
   return menuOptions?.value?.[index] as _MenuOption & { children: _MenuOption[] }
 }
 const { copy } = useClipboard()
+const expandedNames = ref([])
+onActivated(()=>{
+  console.log('menuOptions', expandedNames)
+})
 </script>
 
 <template>
@@ -33,19 +37,27 @@ const { copy } = useClipboard()
     >
       <NCard
         v-if="show"
+        :key="key"
         @click="(e) => {
           e.stopPropagation()
-          copy(String(key) || '')
-          createMsg(
-            `复制成功${key}`,
-            {
-              type: 'success',
-            },
-          )
         }"
       >
-        <span>{{ label }}</span>
-        <MenuTree v-model:menuOptions="getChildren(index).children" />
+        <KeepAlive>
+          <NCollapse
+            v-if="getChildren(index).children && getChildren(index).children.length"
+            :key="key"
+            v-model:expandedNames="expandedNames"
+            displayDirective="show"
+          >
+            <NCollapseItem :title="label">
+              <MenuTree v-model:menuOptions="getChildren(index).children" />
+            </NCollapseItem>
+          </NCollapse>
+          <div v-else>
+            <span>{{ label }}</span>
+            <MenuTree v-model:menuOptions="getChildren(index).children" />
+          </div>
+        </KeepAlive>
       </NCard>
     </template>
   </Draggable>
