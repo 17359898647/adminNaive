@@ -30,8 +30,8 @@ const paddingAttribute = computed(()=>{
   >
     <Transition
       appear
-      enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation_keepAlive"
-      leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation_keepAlive"
+      enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
+      leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
     >
       <KeepAlive :exclude="exclude">
         <Component
@@ -52,7 +52,7 @@ const paddingAttribute = computed(()=>{
 </template>
 
 <style scoped>
-.absolute_orientation_keepAlive{
+.absolute_orientation{
   top:v-bind(topAttribute);
   bottom:v-bind(bottomAttribute);
   left:v-bind(paddingAttribute);

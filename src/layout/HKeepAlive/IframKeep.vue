@@ -67,8 +67,8 @@ function isVshow(name?: RouteRecordName | null) {
   <Transition
     v-for="{ name, component } in demoCom"
     appear
-    enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out absolute absolute_orientation"
-    leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out absolute absolute_orientation"
+    enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
+    leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
   >
     <div
       v-if="isVif(name)"

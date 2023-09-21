@@ -11,7 +11,6 @@ import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { allRouters } = routerHelper()
 const { isHeaderHeight, isContentPadding, isSupported } = inject(layoutProvide)!
-console.log(isSupported, 99)
 const route = useRoute()
 const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {

@@ -17,7 +17,7 @@ onUpdated(() => {
     :theme="isDark ? darkTheme : null"
     :themeOverrides="themeDefault"
   >
-    <router-view />
+    <RouterView />
     <NGlobalStyle />
   </NConfigProvider>
 </template>
