@@ -12,7 +12,6 @@ const { menuOptions } = useVModels(props)
 function getChildren(index: number) {
   return menuOptions?.value?.[index] as _MenuOption & { children: _MenuOption[] }
 }
-const { copy } = useClipboard()
 const expandedNames = ref([])
 onActivated(()=>{
   console.log('menuOptions', expandedNames)
