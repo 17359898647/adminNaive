@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs } from '@vueuse/core'
 import { forEach, isFunction, isString, some } from 'lodash-es'
 import type { Component } from 'vue'
 import { inject } from 'vue'
@@ -13,7 +14,7 @@ const props = defineProps<{
   routeName?: RouteRecordName | null
   isIframe?: boolean
 }>()
-
+const { routeName } = toRefs(props)
 const {  isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight } = inject(layoutProvide)!
 
 const {  allIframeRouters } = routerHelper()
@@ -52,10 +53,12 @@ onMounted(()=>{
 })
 const cacheStore = useKeepAliveCacheStore()
 const { exclude } = storeToRefs(cacheStore)
+const delayRouteName = refDebounced(routeName!, 500)
 function isVif(name?: RouteRecordName | null) {
-  return props.routeName === name ?
-      !some(exclude.value, item => item.test(isString(name) ? name : ''))
-      && isRefreshPage.value : true
+  const result = delayRouteName.value === name ?
+      (!some(exclude.value, item => item.test(isString(name) ? name : '')) && isRefreshPage.value)
+    : true
+  return result
 }
 function isVshow(name?: RouteRecordName | null) {
   return props.routeName === name && props.isIframe
