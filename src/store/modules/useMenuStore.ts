@@ -74,6 +74,6 @@ export const useMenuStore = defineStore('useMenuStore', () => {
   }
 }, {
   persist: {
-    paths: ['openKeys', 'selectKey'],
+    paths: ['openKeys', 'selectKey', 'menuOptions'],
   },
 })
