@@ -18,14 +18,10 @@ jobs:
         with:
           version: 8
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: pnpm
-      - name: Install and Build
-        run: |
-          pnpm install
-          pnpm run build
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun build
 
       - name: Deploy # 部署
         uses: JamesIves/github-pages-deploy-action@v4.3.3
