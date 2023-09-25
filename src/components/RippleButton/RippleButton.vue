@@ -17,37 +17,24 @@ const emits = defineEmits<{
 }>()
 const attrs = useAttrs()
 const buttonRef = shallowRef<InstanceType<typeof NButton>>()
-let immobilizationStyle: {
-  left: number
-  top: number
-  width: number
-  height: number
-  borderTopLeftRadius: string
-  borderTopRightRadius: string
-  borderBottomLeftRadius: string
-  borderBottomRightRadius: string
-}
 function getImmobilizationStyle(el: HTMLElement) {
-  if (!immobilizationStyle) {
-    const { left, top, width, height } = el.getBoundingClientRect()
-    const {
-      borderTopLeftRadius,
-      borderTopRightRadius,
-      borderBottomLeftRadius,
-      borderBottomRightRadius,
-    } = getComputedStyle(el)
-    immobilizationStyle = {
-      left,
-      top,
-      width,
-      height,
-      borderTopLeftRadius,
-      borderTopRightRadius,
-      borderBottomLeftRadius,
-      borderBottomRightRadius,
-    }
+  const { left, top, width, height } = el.getBoundingClientRect()
+  const {
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+  } = getComputedStyle(el)
+  return {
+    left,
+    top,
+    width,
+    height,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
   }
-  return immobilizationStyle
 }
 function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, event: MouseEvent) {
   const _el = unrefElement(el)

@@ -70,7 +70,7 @@ function isVshow(name?: RouteRecordName | null) {
   <!-- eslint-disable-next-line vue/valid-v-for -->
   <Transition
     v-for="{ name, component } in demoCom"
-    appear
+    :appear="true"
     enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
     leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
   >

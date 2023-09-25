@@ -38,7 +38,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
       ref="scrollRef"
       :size="0"
       trigger="none"
-      xScrollable
+      :xScrollable="true"
     >
       <div
         ref="contentRef"
@@ -52,7 +52,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
           :name="isDrag ? undefined : 'tags'"
         >
           <div
-            v-for="tag in tagList"
+            v-for="tag in tagList as ITag[]"
             :key="tag.fullPath"
             class="z-10 select-none"
             @click="() => {

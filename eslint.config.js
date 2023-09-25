@@ -79,6 +79,7 @@ export default antfu(
         },
       }],
       'vue/prefer-true-attribute-shorthand': [2, 'never'],
+      'ts/ban-ts-comment': 'off',
     },
   },
   /*
@@ -92,7 +93,7 @@ export default antfu(
       ...eslint_config_standard_jsx.rules,
       'react/jsx-max-props-per-line': [2, {
         maximum: 1,
-        when: 'multiline',
+        when: 'always',
       }],
       'react/jsx-indent': [2, 2],
       'react/jsx-sort-props': [2, {
