@@ -54,7 +54,6 @@ export type PickDialogOptions = Partial<
  * @description 弹出提示框
  * @param options
  * @return
- * @param options
  */
 export function createDialog(options?: PickDialogOptions) {
   const optionsCopy = { ...defaultDialogOptions, ...options }
