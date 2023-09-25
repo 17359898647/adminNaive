@@ -6,7 +6,11 @@ import ShowOrEdit from './_ShowOrEdit.vue'
 import { useTable } from '@/composables/useTable'
 
 function PreView({ data }: { data: any }) {
-  return <pre>{JSON.stringify(data, null, 2)}</pre>
+  return (
+    <pre>
+      {JSON.stringify(data, null, 2)}
+    </pre>
+  )
 }
 definePage({
   meta: {
@@ -47,13 +51,18 @@ const { data, columns, isLoading } = useTable<tableData>({
       align: 'center',
       render(row) {
         const index = findIndex(data.value, item => item.id === row.id)!
-        return <ShowOrEdit v-model={data.value![index].title} onFinish={() => {
-          createMsg(() => (
-              <PreView data={data.value![index]} />
-          ), {
-            type: 'success',
-          })
-        }} />
+        return (
+          <ShowOrEdit
+            v-model={data.value![index].title}
+            onFinish={() => {
+              createMsg(() => (
+                <PreView data={data.value![index]} />
+              ), {
+                type: 'success',
+              })
+            }}
+          />
+        )
       },
     },
     {
@@ -63,17 +72,17 @@ const { data, columns, isLoading } = useTable<tableData>({
       render(row) {
         const index = findIndex(data.value, item => item.id === row.id)!
         return (
-            <NSwitch
-                value={row.completed}
-                onUpdateValue={(v) => {
-                  data.value![index].completed = v as boolean
-                  createMsg(() => (
-                      <PreView data={data.value![index]} />
-                  ), {
-                    type: 'success',
-                  })
-                }}
-            />
+          <NSwitch
+            value={row.completed}
+            onUpdateValue={(v) => {
+              data.value![index].completed = v as boolean
+              createMsg(() => (
+                <PreView data={data.value![index]} />
+              ), {
+                type: 'success',
+              })
+            }}
+          />
         )
       },
     },

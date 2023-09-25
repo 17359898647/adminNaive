@@ -1,5 +1,7 @@
 import antfu from '@antfu/eslint-config'
 import plugin from '@unocss/eslint-plugin'
+import eslint_config_standard_jsx from 'eslint-config-standard-jsx'
+import react from 'eslint-plugin-react'
 import vuePlugin from 'eslint-plugin-vue'
 
 export default antfu(
@@ -13,18 +15,21 @@ export default antfu(
     },
     rules: plugin.configs.recommended.rules,
   },
+  /**
+   * vue rules
+   */
   {
     rules: {
       'yml/no-empty-mapping-value': 'off',
-      'vue/component-name-in-template-casing': ['error', 'PascalCase'],
-      'linebreak-style': ['error', 'unix'],
+      'vue/component-name-in-template-casing': [2, 'PascalCase'],
+      'linebreak-style': [2, 'unix'],
       'vue/multi-word-component-names': 'off',
-      'vue/html-indent': ['error', 2],
+      'vue/html-indent': [2, 2],
       '@typescript-eslint/no-unused-vars': 'off',
       'no-console': 'off',
-      'quote-props': ['error', 'as-needed'],
+      'quote-props': [2, 'as-needed'],
       'vue/attributes-order': [
-        'error',
+        2,
         {
           order: [
             'DEFINITION',
@@ -43,7 +48,7 @@ export default antfu(
         },
       ],
       'import/order': [
-        'error',
+        2,
         {
           'newlines-between': 'never',
           alphabetize: {
@@ -57,7 +62,7 @@ export default antfu(
       '@typescript-eslint/ban-ts-comment': 'off',
       '@typescript-eslint/consistent-type-assertions': 0,
       'prefer-promise-reject-errors': 'off',
-      'vue/first-attribute-linebreak': ['error', {
+      'vue/first-attribute-linebreak': [2, {
         singleline: 'beside',
         multiline: 'below',
       }],
@@ -65,13 +70,52 @@ export default antfu(
         ignore: ['custom-prop'],
       }],
       'vue/prop-name-casing': [1, 'camelCase'],
-      'vue/max-attributes-per-line': ['error', {
+      'vue/max-attributes-per-line': [2, {
         singleline: {
           max: 1,
         },
         multiline: {
           max: 1,
         },
+      }],
+      'vue/prefer-true-attribute-shorthand': [2, 'never'],
+    },
+  },
+  /*
+  * jsx rules
+  * */
+  {
+    plugins: {
+      react,
+    },
+    rules: {
+      ...eslint_config_standard_jsx.rules,
+      'react/jsx-max-props-per-line': [2, {
+        maximum: 1,
+        when: 'multiline',
+      }],
+      'react/jsx-indent': [2, 2],
+      'react/jsx-sort-props': [2, {
+        callbacksLast: true,
+        shorthandFirst: true,
+        shorthandLast: false,
+        ignoreCase: false,
+        noSortAlphabetically: false,
+        reservedFirst: true,
+        multiline: 'last',
+      }],
+      'react/jsx-boolean-value': [2, 'always'],
+      'react/jsx-one-expression-per-line': [2, {
+        allow: 'literal',
+      }],
+      'react/jsx-wrap-multilines': [2, {
+        declaration: 'parens-new-line',
+        assignment: 'parens-new-line',
+        return: 'parens-new-line',
+        arrow: 'parens-new-line',
+        condition: 'parens-new-line',
+        logical: 'parens-new-line',
+        prop: 'parens-new-line',
       }],
     },
   },

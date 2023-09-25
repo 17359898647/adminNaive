@@ -1,4 +1,4 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 
 const themeStore = useThemeStore()

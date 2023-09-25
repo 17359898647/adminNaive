@@ -1,110 +1,106 @@
 <template>
   <NCard title="普通按钮">
     <NSpace>
-      <RippleButton strong>
+      <RippleButton :strong="true">
         Default
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="tertiary"
       >
         Tertiary
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="primary"
       >
         Primary
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="info"
       >
         Info
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="success"
       >
         Success
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="warning"
       >
         Warning
       </RippleButton>
       <RippleButton
 
-        strong
+        :strong="true"
         type="error"
       >
         Error
       </RippleButton>
       <RippleButton
-        round
-        strong
+        :round="true"
+        :strong="true"
       >
         Default
       </RippleButton>
       <RippleButton
-        round
+        :round="true"
 
-        strong
+        :strong="true"
         type="primary"
       >
         Primary
       </RippleButton>
       <RippleButton
-        round
-
-        strong
+        :round="true"
+        :strong="true"
         type="info"
       >
         Info
       </RippleButton>
       <RippleButton
-        round
-
-        strong
+        :round="true"
+        :strong="true"
         type="success"
       >
         Success
       </RippleButton>
       <RippleButton
-        round
-
-        strong
+        :round="true"
+        :strong="true"
         type="warning"
       >
         Warning
       </RippleButton>
       <RippleButton
-        round
-
-        strong
+        :round="true"
+        :strong="true"
         type="error"
       >
         Error
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
       >
         <template #icon>
           <SvgIcon lineIcon="mdi:square-inc-cash" />
         </template>
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
         type="primary"
       >
         <template #icon>
@@ -112,9 +108,9 @@
         </template>
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
         type="info"
       >
         <template #icon>
@@ -122,9 +118,9 @@
         </template>
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
         type="success"
       >
         <template #icon>
@@ -132,9 +128,9 @@
         </template>
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
         type="warning"
       >
         <template #icon>
@@ -142,9 +138,9 @@
         </template>
       </RippleButton>
       <RippleButton
-        circle
-        secondary
-        strong
+        :circle="true"
+        :secondary="true"
+        :strong="true"
         type="error"
       >
         <template #icon>

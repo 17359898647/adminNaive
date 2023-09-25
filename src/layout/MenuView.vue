@@ -9,7 +9,13 @@ import { useMenuStore } from '@/store/modules/useMenuStore'
 const { isCollapsedWidth, isAccordion } = inject(layoutProvide)!
 function renderMenuIcon(option: _MenuOption) {
   const { localIcon, lineIcon } = option as _MenuOption
-  return <SvgIcon lineIcon={lineIcon} localIcon={localIcon} size={24} />
+  return (
+    <SvgIcon
+      lineIcon={lineIcon}
+      localIcon={localIcon}
+      size={24}
+    />
+  )
 }
 const MenuStore = useMenuStore()
 const { setOpenKeys, setSelectKey } = MenuStore
@@ -29,6 +35,7 @@ const menuOptionsComputed = computed(() => {
       }
     })
   }
+  // eslint-disable-next-line ts/ban-ts-comment
   // @ts-expect-error
   return deepMap(menuOptions.value)
 })

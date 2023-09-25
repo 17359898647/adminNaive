@@ -84,9 +84,13 @@ export const useTagStore = defineStore('useTagStore', () => {
   // tag 下拉菜单
   const tagDropdownOptions = ref<_DropdownOption[]>([
     {
-      label: () => <span>{
+      label: () => (
+        <span>
+          {
         isFullscreen.value ? '关闭全屏' : '开启全屏'
-      }</span>,
+      }
+        </span>
+      ),
       key: 'fullScreen',
       icon: () => (
         <SvgIcon lineIcon={isFullscreen.value ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'} />
@@ -95,27 +99,27 @@ export const useTagStore = defineStore('useTagStore', () => {
     {
       label: '关闭所有',
       key: 'closeAll',
-      icon: () => <SvgIcon lineIcon={'ant-design:close-outlined'} />,
+      icon: () => <SvgIcon lineIcon='ant-design:close-outlined' />,
     },
     {
       label: '关闭其他',
       key: 'closeOther',
-      icon: () => <SvgIcon lineIcon={'ant-design:swap-outlined'} />,
+      icon: () => <SvgIcon lineIcon='ant-design:swap-outlined' />,
     },
     {
       label: '关闭右侧',
       key: 'closeRight',
-      icon: () => <SvgIcon lineIcon={'ant-design:swap-right-outlined'} />,
+      icon: () => <SvgIcon lineIcon='ant-design:swap-right-outlined' />,
     },
     {
       label: '关闭左侧',
       key: 'closeLeft',
-      icon: () => <SvgIcon lineIcon={'ant-design:swap-left-outlined'} />,
+      icon: () => <SvgIcon lineIcon='ant-design:swap-left-outlined' />,
     },
     {
       label: '刷新当前页',
       key: 'refresh',
-      icon: () => <SvgIcon lineIcon={'ic:twotone-refresh'} />,
+      icon: () => <SvgIcon lineIcon='ic:twotone-refresh' />,
     },
   ])
   const _delCache = async <T extends ITag>(Fn: (item: T, index: number) => boolean, path: string) => {

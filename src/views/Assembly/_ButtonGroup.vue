@@ -2,12 +2,12 @@ import { NButtonGroup } from 'naive-ui';
 <template>
   <NCard title="按钮组">
     <NSpace>
-      <NButtonGroup vertical>
-        <RippleButton round>
+      <NButtonGroup :vertical="true">
+        <RippleButton :round="true">
           <SvgIcon />
           活着
         </RippleButton>
-        <RippleButton ghost>
+        <RippleButton :ghost="true">
           <SvgIcon />
           不多
         </RippleButton>
@@ -18,7 +18,7 @@ import { NButtonGroup } from 'naive-ui';
       </NButtonGroup>
       <NButtonGroup
         size="large"
-        vertical
+        :vertical="true"
       >
         <RippleButton>
           <SvgIcon />
@@ -29,8 +29,8 @@ import { NButtonGroup } from 'naive-ui';
           刚好
         </RippleButton>
         <RippleButton
-          ghost
-          round
+          :ghost="true"
+          :round="true"
         >
           <SvgIcon />
           够用
@@ -38,7 +38,7 @@ import { NButtonGroup } from 'naive-ui';
       </NButtonGroup>
       <NButtonGroup size="small">
         <RippleButton
-          round
+          :round="true"
           type="default"
         >
           <SvgIcon />
@@ -54,15 +54,15 @@ import { NButtonGroup } from 'naive-ui';
         </RippleButton>
       </NButtonGroup>
       <NButtonGroup>
-        <RippleButton ghost>
+        <RippleButton :ghost="true">
           <SvgIcon />
           再吃
         </RippleButton>
-        <RippleButton ghost>
+        <RippleButton :ghost="true">
           <SvgIcon />
           一颗
         </RippleButton>
-        <RippleButton round>
+        <RippleButton :round="true">
           <SvgIcon />
           苹果
         </RippleButton>
