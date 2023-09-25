@@ -4,7 +4,7 @@ definePage({
     isTitle: 'VueUse',
     lineIcon: 'logos:vueuse',
     isIframe: true,
-    isOrder:1,
+    isOrder: 1,
   },
 })
 </script>

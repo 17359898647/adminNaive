@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import  { inject } from 'vue'
+import { inject } from 'vue'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 
-const { isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight  } = inject(layoutProvide)!
+const { isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight } = inject(layoutProvide)!
 const cacheStore = useKeepAliveCacheStore()
 const { exclude } = storeToRefs(cacheStore)
-const topAttribute = computed(()=>{
+const topAttribute = computed(() => {
   return `${isHeaderHeight.value + isTagViewHeight.value}px`
 })
-const bottomAttribute = computed(()=>{
+const bottomAttribute = computed(() => {
   return `${isFooterHeight.value + isContentPadding.value}px`
 })
-const paddingAttribute = computed(()=>{
+const paddingAttribute = computed(() => {
   return `${isContentPadding.value}px`
 })
 </script>

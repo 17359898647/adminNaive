@@ -18,6 +18,7 @@ onUpdated(() => {
     :themeOverrides="themeDefault"
   >
     <RouterView />
+    <CountTo />
     <NGlobalStyle />
   </NConfigProvider>
 </template>

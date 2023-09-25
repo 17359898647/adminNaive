@@ -4,7 +4,7 @@ definePage({
     isTitle: 'Naive Ui',
     lineIcon: 'logos:naiveui',
     isIframe: true,
-    isOrder:2,
+    isOrder: 2,
   },
 })
 </script>

@@ -4,7 +4,7 @@ definePage({
     isTitle: 'Vue Js',
     lineIcon: 'logos:vue',
     isIframe: true,
-    isOrder:0,
+    isOrder: 0,
   },
 })
 </script>
@@ -12,4 +12,3 @@ definePage({
 <template>
   <iframe src="https://cn.vuejs.org/" />
 </template>
-

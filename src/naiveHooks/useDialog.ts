@@ -52,8 +52,8 @@ export type PickDialogOptions = Partial<
 
 /**
  * @description: 弹出提示框
- * @param {PickDialogOptions} options
- * @return {*}
+ * @param options
+ * @return
  * @param options
  */
 export function createDialog(options?: PickDialogOptions) {

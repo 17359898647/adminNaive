@@ -72,8 +72,7 @@ export const useTagStore = defineStore('useTagStore', () => {
       }
       await router.push(historyPath.value === _historyPath
         ? tagList.value[0].fullPath
-        : (historyPath.value ?? tagList.value[0].fullPath),
-      )
+        : (historyPath.value ?? tagList.value[0].fullPath))
     }
     else {
       await router.push(tagList.value[0].fullPath)

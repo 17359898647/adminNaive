@@ -19,7 +19,10 @@ const props = withDefaults(defineProps<Props>(), {
   transition: 'linear',
 })
 
-const emit = defineEmits<Emits>()
+const emit = defineEmits<{
+  started: []
+  finished: []
+}>()
 
 type TansitionKey = keyof typeof TransitionPresets
 
@@ -48,11 +51,6 @@ interface Props {
   transition?: TansitionKey
 }
 
-interface Emits {
-  (e: 'onStarted'): void
-  (e: 'onFinished'): void
-}
-
 const source = ref(props.startValue)
 let outputValue = useTransition(source)
 const value = computed(() => formatNumber(outputValue.value))
@@ -62,8 +60,8 @@ function run() {
   outputValue = useTransition(source, {
     disabled,
     duration: props.duration,
-    onStarted: () => emit('onStarted'),
-    onFinished: () => emit('onFinished'),
+    onStarted: () => emit('started'),
+    onFinished: () => emit('started'),
     ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
   })
 }

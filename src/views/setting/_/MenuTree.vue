@@ -13,7 +13,7 @@ function getChildren(index: number) {
   return menuOptions?.value?.[index] as _MenuOption & { children: _MenuOption[] }
 }
 const expandedNames = ref([])
-onActivated(()=>{
+onActivated(() => {
   console.log('menuOptions', expandedNames)
 })
 </script>

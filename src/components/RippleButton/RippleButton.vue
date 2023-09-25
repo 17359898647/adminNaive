@@ -10,7 +10,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  ripple:true,
+  ripple: true,
 })
 const emits = defineEmits<{
   click: [e: MouseEvent]

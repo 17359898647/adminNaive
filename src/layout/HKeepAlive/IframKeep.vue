@@ -15,16 +15,16 @@ const props = defineProps<{
   isIframe?: boolean
 }>()
 const { routeName } = toRefs(props)
-const {  isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight } = inject(layoutProvide)!
+const { isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight } = inject(layoutProvide)!
 
-const {  allIframeRouters } = routerHelper()
-const topAttribute = computed(()=>{
+const { allIframeRouters } = routerHelper()
+const topAttribute = computed(() => {
   return `${isHeaderHeight.value + isTagViewHeight.value}px`
 })
-const bottomAttribute = computed(()=>{
+const bottomAttribute = computed(() => {
   return `${isFooterHeight.value + isContentPadding.value}px`
 })
-const paddingAttribute = computed(()=>{
+const paddingAttribute = computed(() => {
   return `${isContentPadding.value}px`
 })
 async function getComponent(name?: string | RouteRecordName) {
@@ -36,11 +36,12 @@ async function getComponent(name?: string | RouteRecordName) {
     return result.default
   }
 }
-const demoCom = shallowRef<{
-  component: any
+interface iframeRouterCom {
+  component: Component | undefined
   name?: string | RouteRecordName
-}[]>([])
-onMounted(()=>{
+}
+const demoCom = shallowRef<iframeRouterCom[]>([])
+onMounted(() => {
   forEach(allIframeRouters.value, async (item) => {
     const { name } = item
     const component = await getComponent(name)
@@ -55,8 +56,8 @@ const cacheStore = useKeepAliveCacheStore()
 const { exclude } = storeToRefs(cacheStore)
 const delayRouteName = refDebounced(routeName!, 500)
 function isVif(name?: RouteRecordName | null) {
-  const result = delayRouteName.value === name ?
-      (!some(exclude.value, item => item.test(isString(name) ? name : '')) && isRefreshPage.value)
+  const result = delayRouteName.value === name
+    ? (!some(exclude.value, item => item.test(isString(name) ? name : '')) && isRefreshPage.value)
     : true
   return result
 }

@@ -72,8 +72,7 @@ export const useMenuStore = defineStore('useMenuStore', () => {
     setSelectKey,
     selectKey,
   }
-},
-{
+}, {
   persist: {
     paths: ['openKeys', 'selectKey', 'menuOptions'],
   },
