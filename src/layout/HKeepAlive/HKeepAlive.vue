@@ -29,7 +29,7 @@ const paddingAttribute = computed(() => {
     }"
   >
     <Transition
-      appear
+      :appear="true"
       enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
       leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
     >

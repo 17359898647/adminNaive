@@ -51,7 +51,7 @@ export type PickDialogOptions = Partial<
 >
 
 /**
- * @description: 弹出提示框
+ * @description 弹出提示框
  * @param options
  * @return
  * @param options
@@ -71,7 +71,6 @@ export function createDialog(options?: PickDialogOptions) {
     destroy: toValue(destroy)!,
   }
 }
-
 export function closeAllDialog() {
   dialog.destroyAll()
 }

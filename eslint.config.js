@@ -79,6 +79,7 @@ export default antfu(
         },
       }],
       'vue/prefer-true-attribute-shorthand': [2, 'never'],
+      'ts/ban-ts-comment': 'off',
     },
   },
   /*

@@ -33,7 +33,7 @@ const { execute, isLoading, data } = request<RootObject>({
   <NCard title="网络测试">
     <NSpace
       :size="10"
-      vertical
+      :vertical="true"
     >
       <RippleButton
         :loading="isLoading"
