@@ -9,39 +9,96 @@ defineOptions({
   inheritAttrs: false,
 })
 
-defineProps<ButtonProps>()
+const props = withDefaults(defineProps<ButtonProps>(), {
+  ripple:true,
+})
 const emits = defineEmits<{
   click: [e: MouseEvent]
 }>()
 const attrs = useAttrs()
 const buttonRef = shallowRef<InstanceType<typeof NButton>>()
+let immobilizationStyle: {
+  left: number
+  top: number
+  width: number
+  height: number
+  borderTopLeftRadius: string
+  borderTopRightRadius: string
+  borderBottomLeftRadius: string
+  borderBottomRightRadius: string
+}
+function getImmobilizationStyle(el: HTMLElement) {
+  if (!immobilizationStyle) {
+    const { left, top, width, height } = el.getBoundingClientRect()
+    const {
+      borderTopLeftRadius,
+      borderTopRightRadius,
+      borderBottomLeftRadius,
+      borderBottomRightRadius,
+    } = getComputedStyle(el)
+    immobilizationStyle = {
+      left,
+      top,
+      width,
+      height,
+      borderTopLeftRadius,
+      borderTopRightRadius,
+      borderBottomLeftRadius,
+      borderBottomRightRadius,
+    }
+  }
+  return immobilizationStyle
+}
 function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, event: MouseEvent) {
   const _el = unrefElement(el)
   if (!_el)
     return
   const { clientX, clientY } = event
-  const { left, top, width, height } = _el.getBoundingClientRect()
+  const {
+    left,
+    top,
+    width,
+    height,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+  } = getImmobilizationStyle(_el as HTMLElement)
   const radius = ceil(divide(max([width, height])!, 100))
-  // 获取点击位置相对于el的位置
   const x = clientX - left
   const y = clientY - top
-  const div = document.createElement('div')
-  const style = {
+  const parendDiv = document.createElement('div')
+  parendDiv.classList.add('ripple')
+  const childrenDiv = document.createElement('div')
+  const childrenStyle = {
     position: 'absolute',
     width: `${radius}px`,
     height: `${radius}px`,
     borderRadius: '50%',
-    backgroundColor: 'rgba(255, 255, 255, .5)',
+    backgroundColor: 'rgba(255, 255, 255, .4)',
     left: `${x}px`,
     top: `${y}px`,
     transformOrigin: 'center',
     transform: 'translate(-50%, -50%) scale(10)',
     pointerEvents: 'none',
   } as CSSProperties
-  assign(div.style, style)
-  _el.insertBefore(div, _el.firstChild)
-  // 动画
-  const animate = div.animate([
+  const parentStyle = {
+    position: 'absolute',
+    width: `${width}px`,
+    height: `${height}px`,
+    overflow: 'hidden',
+    pointerEvents: 'none',
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+  } as CSSProperties
+  assign(childrenDiv.style, childrenStyle)
+  assign(parendDiv.style, parentStyle)
+  parendDiv.appendChild(childrenDiv)
+  _el.insertBefore(parendDiv, _el.firstChild)
+  // // 动画
+  const animate = childrenDiv.animate([
     {
       transform: 'scale(10)',
       borderRadius: '50%',
@@ -56,7 +113,7 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
     duration: 1000,
   })
   animate.onfinish = () => {
-    _el.removeChild(div)
+    _el.removeChild(parendDiv)
   }
 }
 
@@ -68,7 +125,7 @@ const createRipple = throttle(_createRipple, 80, {
 
 function buttonClick(event: MouseEvent) {
   emits('click', event)
-  createRipple(unrefElement(buttonRef), event)
+  props.ripple && createRipple(unrefElement(buttonRef), event)
 }
 const propsComputed = computed(() => {
   const { ..._attrs } = attrs
@@ -82,7 +139,6 @@ const propsComputed = computed(() => {
   <NButton
     ref="buttonRef"
     v-bind="propsComputed"
-    class="overflow-hidden"
     @click="buttonClick"
   >
     <template #default>

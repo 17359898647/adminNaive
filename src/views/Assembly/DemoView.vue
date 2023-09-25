@@ -17,7 +17,10 @@ useAutoAnimate({
 
 <template>
   <NCard title="测试组件">
-    <RippleButton @click="() => setShow()">
+    <RippleButton
+      :ripple="true"
+      @click="() => setShow()"
+    >
       测试
     </RippleButton>
     <NCard
