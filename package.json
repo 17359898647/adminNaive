@@ -1,7 +1,6 @@
 {
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.7.6",
   "scripts": {
     "build": "vite build && cp dist/index.html dist/404.html",
     "dev": "vite --port 3333 ",

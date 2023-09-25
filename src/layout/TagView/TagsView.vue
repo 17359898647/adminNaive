@@ -70,7 +70,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
             >
               <template #icon>
                 <SvgIcon
-                  :lineIcon="tag.isTitle"
+                  :lineIcon="tag.lineIcon"
                   :localIcon="tag.localIcon"
                 />
               </template>
