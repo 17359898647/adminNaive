@@ -1,4 +1,4 @@
-interface routeMeta {
+interface userRouteMeta {
   /** 路由标题 */
   isTitle: string
   /**
@@ -40,7 +40,7 @@ type RouteRecordRaw = import('vue-router').RouteRecordRaw
 interface routerObject extends Omit<RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {
   parentPath?: string
   component?: RouteRecordRaw['component'] | routerTypeKeys
-  meta: routeMeta
+  meta: userRouteMeta
   children?: routerObject[]
   name?: 'ExteriorNotFoundView' | 'InteriorNotFound' | string
 }
