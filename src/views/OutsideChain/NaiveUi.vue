@@ -7,8 +7,9 @@ definePage({
     isOrder: 2,
   },
 })
+const src = `https://www.naiveui.com/zh-CN/${isDark.value ? 'dark' : 'light'}`
 </script>
 
 <template>
-  <IframeCom src="https://www.naiveui.com/zh-CN/light" />
+  <IframeCom :src="src" />
 </template>
