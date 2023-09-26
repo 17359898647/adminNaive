@@ -10,5 +10,5 @@ definePage({
 </script>
 
 <template>
-  <iframe src="https://vueuse.org/" />
+  <IframeCom src="https://vueuse.org/" />
 </template>

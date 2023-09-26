@@ -10,5 +10,5 @@ definePage({
 </script>
 
 <template>
-  <iframe src="https://www.naiveui.com/zh-CN/light" />
+  <IframeCom src="https://www.naiveui.com/zh-CN/light" />
 </template>
