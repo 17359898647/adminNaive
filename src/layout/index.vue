@@ -17,7 +17,10 @@ provide(layoutProvide, {
     :hasSider="true"
   >
     <SiderView />
-    <NLayoutContent :nativeScrollbar="false">
+    <NLayoutContent
+      :embedded="true"
+      :nativeScrollbar="false"
+    >
       <HeaderView />
       <ContentView />
       <FooterView />

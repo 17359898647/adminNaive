@@ -21,7 +21,7 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
     :nativeScrollbar="false"
     :showTrigger="isShowTrigger"
     :width="isSiderWidth"
-    @update-collapsed="_setAttrs"
+    @updateCollapsed="_setAttrs"
   >
     <div
       class="absolute top-0 z10 w-full flex-center whitespace-nowrap bg-[var(--n-color)]"
