@@ -138,18 +138,33 @@ export const useTagStore = defineStore('useTagStore', () => {
     const { fullPath: selectTagFullPath } = tag
     const actionFn = {
       closeAll: async () => {
-        await _delCache(item => !isUndefined(item.isAffix), tagList.value[0].fullPath)
+        await _delCache(
+          item => !isUndefined(item.isAffix),
+          tagList.value[0].fullPath,
+        )
       },
       closeOther: async () => {
-        await _delCache(item => item.isAffix || item.fullPath === selectTagFullPath, selectTagFullPath)
+        await _delCache(
+          item => item.isAffix || item.fullPath === selectTagFullPath,
+          selectTagFullPath,
+        )
       },
       closeRight: async () => {
-        const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
-        await _delCache((item, i) => item.isAffix || i <= index, selectTagFullPath)
+        const index = findIndex(
+          tagList.value,
+          item => item.fullPath === selectTagFullPath,
+        )
+        await _delCache(
+          (item, i) => item.isAffix || i <= index,
+          selectTagFullPath,
+        )
       },
       closeLeft: async () => {
         const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
-        await _delCache((item, i) => item.isAffix || i >= index, selectTagFullPath)
+        await _delCache(
+          (item, i) => item.isAffix || i >= index,
+          selectTagFullPath,
+        )
       },
       refresh: async () => {
         setAttrs('isRefreshPage', false)
@@ -163,8 +178,7 @@ export const useTagStore = defineStore('useTagStore', () => {
         console.error(new Error('actionTag type error'))
       },
     }
-    const action = actionFn[key] || actionFn.default
-    await action()
+    await (actionFn[key] || actionFn.default)()
   }
   const { scrollRef, scrollTo, contentRef, containerRef } = scrollHelps()
   tryOnBeforeMount(async () => {
