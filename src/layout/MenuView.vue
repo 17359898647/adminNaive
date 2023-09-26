@@ -51,8 +51,8 @@ const menuOptionsComputed = computed(() => {
     :options="menuOptionsComputed"
     :renderIcon="renderMenuIcon"
     :value="selectKey"
-    @update:expanded-keys="setOpenKeys"
-    @update:value="setSelectKey"
+    @updateExpandedKeys="setOpenKeys"
+    @updateValue="setSelectKey"
   />
 </template>
 

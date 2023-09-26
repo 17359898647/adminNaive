@@ -80,6 +80,12 @@ export default antfu(
       }],
       'vue/prefer-true-attribute-shorthand': [2, 'never'],
       'ts/ban-ts-comment': 'off',
+      'vue/v-on-event-hyphenation': [2, 'never', {
+        autofix: true,
+      }],
+      'vue/custom-event-name-casing': [2, 'camelCase', {
+        ignores: [],
+      }],
     },
   },
   /*

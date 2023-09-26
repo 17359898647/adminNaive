@@ -64,7 +64,7 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
           :modes="['hex']"
           :showAlpha="false"
           :value="themeColor"
-          @update-value="(e:string) => {
+          @updateValue="(e:string) => {
             setAttrsDeBounce('themeColor', e)
           }"
         />

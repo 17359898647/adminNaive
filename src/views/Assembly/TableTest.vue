@@ -122,7 +122,7 @@ const tableRef = shallowRef<InstanceType<typeof NDataTable>>()
       :rowKey="(row) => row.id"
       :scrollX="300"
       :virtualScroll="true"
-      @update:checked-row-keys="console.log"
+      @updatecheckedRowKeys="console.log"
     />
   </NCard>
 </template>
