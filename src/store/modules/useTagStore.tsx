@@ -74,9 +74,6 @@ export const useTagStore = defineStore('useTagStore', () => {
         ? tagList.value[0].fullPath
         : (historyPath.value ?? tagList.value[0].fullPath))
     }
-    else {
-      await router.push(tagList.value[0].fullPath)
-    }
     const index = findIndex(tagList.value, item => item.fullPath === fullPath)
     index !== -1 && tagList.value.splice(index, 1)
     await delCache(tag)
