@@ -44,7 +44,6 @@ const paddingAttribute = computed(() => {
         />
       </KeepAlive>
     </Transition>
-    <!-- eslint-disable-next-line vue/valid-v-for -->
     <IframeKeep
       :isIframe="isIframe"
       :routeName="name"
