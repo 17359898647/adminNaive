@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: 'Naive Ui',
-    lineIcon: 'logos:naiveui',
+    lineIcon: 'icon-logos:naiveui',
     isIframe: true,
     isOrder: 2,
   },

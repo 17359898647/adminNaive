@@ -5,7 +5,7 @@ import ButtonGroup from './_ButtonGroup.vue'
 definePage({
   meta: {
     isTitle: '按钮测试',
-    lineIcon: 'teenyicons:button-outline',
+    lineIcon: 'icon-teenyicons:button-outline',
   },
 })
 </script>

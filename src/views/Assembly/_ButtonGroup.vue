@@ -1,4 +1,3 @@
-import { NButtonGroup } from 'naive-ui';
 <template>
   <NCard title="按钮组">
     <NSpace>

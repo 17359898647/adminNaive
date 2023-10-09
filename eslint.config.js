@@ -28,6 +28,7 @@ export default antfu(
       '@typescript-eslint/no-unused-vars': 'off',
       'no-console': 'off',
       'quote-props': [2, 'as-needed'],
+      'vue/html-closing-bracket-spacin': 0,
       'vue/attributes-order': [
         2,
         {

@@ -1,6 +1,7 @@
 import {
   defineConfig,
   presetAttributify,
+  presetIcons,
   presetUno,
   presetWebFonts,
   transformerDirectives,
@@ -12,7 +13,15 @@ export default defineConfig({
   presets: [
     presetUno,
     presetAttributify(),
-    presetExtra(),
+    presetIcons({
+      cdn: 'https://esm.sh/',
+      extraProperties: {
+        cursor: 'pointer',
+      },
+      prefix: 'icon-',
+      warn: true,
+    }),
+    presetExtra() as any,
     presetWebFonts({
       fonts: {
         sans: 'DM Sans',

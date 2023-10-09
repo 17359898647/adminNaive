@@ -3,6 +3,7 @@
     "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": ".",

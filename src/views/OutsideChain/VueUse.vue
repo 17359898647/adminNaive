@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: 'VueUse',
-    lineIcon: 'logos:vueuse',
+    lineIcon: 'icon-logos:vueuse',
     isIframe: true,
     isOrder: 1,
   },

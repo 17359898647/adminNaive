@@ -1,36 +1,99 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { NCard } from 'naive-ui'
-import { useAutoAnimate } from '@/composables/useAutoAnimate'
+import type { IJsonType } from '@/components/JsonForm'
+import { JsonForm, JsonFormHelp } from '@/components/JsonForm'
 
 definePage({
   meta: {
     isTitle: '测试组件',
+    lineIcon: 'icon-ph:test-tube-duotone',
     isOrder: Number.POSITIVE_INFINITY,
   },
 })
-const [show, setShow] = useToggle(false)
-const cardRef = shallowRef<HTMLElement>()
-useAutoAnimate({
-  el: cardRef,
+
+const demoJson = computed(() => {
+  const Json: IJsonType[] = [
+    {
+      type: 'input',
+      formName: 'name',
+      itemProps: {
+        label: '名称',
+        span: 12,
+      },
+    },
+    {
+      type: 'select',
+      formName: 'sex',
+      itemProps: {
+        span: 12,
+        label: '性别',
+      },
+      props: {
+        options: [
+          { label: '男', value: 'male' },
+          { label: '女', value: 'female' },
+        ],
+      },
+    },
+    {
+      type: 'date',
+      formName: 'birthday',
+      itemProps: {
+        label: '生日',
+      },
+    },
+    {
+      type: 'slider',
+      formName: 'age',
+      itemProps: {
+        label: '年龄',
+      },
+      props: {
+        min: 0,
+        max: 100,
+        value: 0,
+        formatTooltip: value => `${value}岁`,
+      },
+    },
+    {
+      type: 'upload',
+      formName: 'photograph',
+      itemProps: {
+        label: '生日照片',
+      },
+      props: {
+        listType: 'image-card',
+      },
+    },
+  ]
+  return Json
 })
+
+const { model, JsonOptions } = JsonFormHelp(demoJson)
 </script>
 
 <template>
   <NCard title="测试组件">
-    <RippleButton
-      :ripple="true"
-      @click="() => setShow()"
-    >
-      测试
-    </RippleButton>
-    <NCard
-      ref="cardRef"
-      title="标题"
-    >
-      <div
-        v-if="show"
-        class="h-20vh red"
-      />
+    <NCard class="mb-4">
+      <NSpace
+        :itemStyle="{
+          width: '100%',
+        }"
+        :wrap="false"
+      >
+        <JsonForm
+          :formProps="{
+            labelAlign: 'left',
+          }"
+          :jsonOptions="JsonOptions"
+          :model="model"
+        />
+      </NSpace>
+    </NCard>
+    <NCard>
+      <pre>
+        {{ toValue(useStringify(model, null, 2)) }}
+      </pre>
     </NCard>
   </NCard>
 </template>

@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: 'Vue Js',
-    lineIcon: 'logos:vue',
+    lineIcon: 'icon-logos:vue',
     isIframe: true,
     isOrder: 0,
   },

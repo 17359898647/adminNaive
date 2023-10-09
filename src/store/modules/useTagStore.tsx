@@ -90,33 +90,33 @@ export const useTagStore = defineStore('useTagStore', () => {
       ),
       key: 'fullScreen',
       icon: () => (
-        <SvgIcon lineIcon={isFullscreen.value ? 'material-symbols:fullscreen-exit' : 'material-symbols:fullscreen'} />
+        <SvgIcon lineIcon={isFullscreen.value ? 'icon-material-symbols:fullscreen-exit' : 'icon-material-symbols:fullscreen'} />
       ),
     },
     {
       label: '关闭所有',
       key: 'closeAll',
-      icon: () => <SvgIcon lineIcon='ant-design:close-outlined' />,
+      icon: () => <SvgIcon lineIcon='icon-ant-design:close-outlined' />,
     },
     {
       label: '关闭其他',
       key: 'closeOther',
-      icon: () => <SvgIcon lineIcon='ant-design:swap-outlined' />,
+      icon: () => <SvgIcon lineIcon='icon-ant-design:swap-outlined' />,
     },
     {
       label: '关闭右侧',
       key: 'closeRight',
-      icon: () => <SvgIcon lineIcon='ant-design:swap-right-outlined' />,
+      icon: () => <SvgIcon lineIcon='icon-ant-design:swap-right-outlined' />,
     },
     {
       label: '关闭左侧',
       key: 'closeLeft',
-      icon: () => <SvgIcon lineIcon='ant-design:swap-left-outlined' />,
+      icon: () => <SvgIcon lineIcon='icon-ant-design:swap-left-outlined' />,
     },
     {
       label: '刷新当前页',
       key: 'refresh',
-      icon: () => <SvgIcon lineIcon='ic:twotone-refresh' />,
+      icon: () => <SvgIcon lineIcon='icon-ic:twotone-refresh' />,
     },
   ])
   const _delCache = async <T extends ITag>(Fn: (item: T, index: number) => boolean, path: string) => {

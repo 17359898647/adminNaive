@@ -1,3 +1,5 @@
+/* prettier-ignore */
+// @ts-nocheck
 import '@unocss/reset/tailwind.css'
 import '@/styles/index.css'
 import 'uno.css'

@@ -1,6 +1,6 @@
 import type { RouteMeta } from 'vue-router/auto'
 
 export default {
-  isTitle: '系统设置',
-  lineIcon: 'arcticons:nothing-system-service',
+  isTitle: '组件',
+  lineIcon: 'icon-logos:webcomponents',
 } as RouteMeta

@@ -42,7 +42,6 @@ useAutoAnimate({
       >
         <NDropdown
           :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
-          size="small"
           @select="name => {
             $router.push({
               name,

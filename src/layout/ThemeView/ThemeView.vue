@@ -45,7 +45,7 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
       @click="setDrawerShow(!drawerShow)"
     >
       <SvgIcon
-        lineIcon="material-symbols:settings"
+        lineIcon="icon-material-symbols:settings"
         size="26"
         :style="iconRotate"
       />

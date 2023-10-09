@@ -15,7 +15,7 @@ function PreView({ data }: { data: any }) {
 definePage({
   meta: {
     isTitle: '表格测试',
-    lineIcon: 'material-symbols:home',
+    lineIcon: 'icon-material-symbols:home',
     isKeepAlive: false,
   },
 })

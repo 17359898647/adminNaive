@@ -1,7 +1,7 @@
 import type { RouteMeta } from 'vue-router/auto'
 
 export default {
-  isTitle: '嵌套路由',
-  lineIcon: 'fluent:glance-default-12-filled',
+  isTitle: '外链',
+  lineIcon: 'icon-twemoji:couple-with-heart-man-man-light-skin-tone-dark-skin-tone',
   isOrder: Number.POSITIVE_INFINITY,
 } as RouteMeta

@@ -4,7 +4,7 @@ import { NCard } from 'naive-ui'
 definePage({
   meta: {
     isTitle: '菜单管理',
-    lineIcon: 'material-symbols:roundabout-right',
+    lineIcon: 'icon-material-symbols:format-list-numbered-sharp',
   },
 })
 </script>

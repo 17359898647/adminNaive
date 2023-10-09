@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: '关于',
-    lineIcon: 'material-symbols:roundabout-right',
+    lineIcon: 'icon-material-symbols:roundabout-right',
     isOrder: 99,
   },
 })

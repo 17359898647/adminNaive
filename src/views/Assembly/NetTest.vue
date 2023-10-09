@@ -10,7 +10,7 @@ interface RootObject {
 definePage({
   meta: {
     isTitle: '网络测试',
-    lineIcon: 'lucide:test-tube-2',
+    lineIcon: 'icon-lucide:test-tube-2',
   },
 })
 const api = ref('1')
