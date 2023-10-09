@@ -15,6 +15,7 @@ export interface IRadioOptions {
   label: string | (() => VNode)
   value: any
   isButton?: boolean
+  onUpdateChecked?: (checked: boolean) => void
 }
 export type IJsonType<T extends IComType = IComType> = T extends infer t ? t extends IComType ? {
   type?: t

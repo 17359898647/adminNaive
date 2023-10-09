@@ -6,6 +6,7 @@ import { ref } from 'vue'
 import type { IRadioOptions } from '@/components/JsonForm'
 import { JsonFormHelp } from '@/components/JsonForm'
 import { JsonForm } from '@/components/JsonForm/JsonForm'
+import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
 
 definePage({
   meta: {
@@ -21,24 +22,63 @@ const { undo, redo, canUndo, canRedo, brush, clear } = useDraw(target, {
     color: themeColor.value,
     size: 5,
     arrowEnd: false,
-    dasharray: 'circle',
   },
 })
-const { color, size, mode } = toRefs(brush)
-const modeOptions: Record<DrawingMode, string> = {
-  draw: '铅笔',
-  stylus: '画笔',
-  ellipse: '椭圆',
-  eraseLine: '橡皮擦',
-  line: '直线',
-  rectangle: '矩形',
+const { color, size, mode, arrowEnd } = toRefs(brush)
+const modeOptions: Record<DrawingMode | string, {
+  label: string
+  icon?: string
+  value?: DrawingMode | boolean | string
+  onUpdateChecked?: (checked: boolean) => void
+}> = {
+  draw: {
+    label: '画笔',
+    icon: 'icon-ic:twotone-draw',
+    value: 'draw',
+  },
+  stylus: {
+    label: '钢笔',
+    icon: 'icon-ph:pen-bold',
+    value: 'stylus',
+  },
+  ellipse: {
+    label: '椭圆',
+    icon: 'icon-ph:circle-bold',
+    value: 'ellipse',
+  },
+  eraseLine: {
+    label: '橡皮擦',
+    icon: 'icon-ph:eraser-bold',
+    value: 'eraseLine',
+  },
+  line: {
+    label: '直线',
+    icon: 'icon-material-symbols:straighten-outline-sharp',
+    value: 'line',
+  },
+  rectangle: {
+    label: '矩形',
+    icon: 'icon-ph:square-bold',
+    value: 'rectangle',
+  },
+  arrow: {
+    label: '箭头',
+    icon: 'icon-streamline:interface-arrows-corner-up-right-keyboard-top-arrow-right-up',
+    value: 'arrowLine',
+  },
 }
 const createRadioOptions = computed(() => map(
   modeOptions,
-  (label, value) => ({
-    label,
+  ({ label, icon, value, onUpdateChecked }) => ({
+    label: () => (
+      <div class='flex items-center gap-1'>
+        <SvgIcon lineIcon={icon} />
+        {label}
+      </div>
+    ),
     value,
     isButton: true,
+    onUpdateChecked,
   } as IRadioOptions),
 ))
 interface IOptions {
@@ -47,8 +87,12 @@ interface IOptions {
   width?: number
   height?: number
 }
+const time = useDateFormat(
+  useNow(),
+  'YYYY-MM-DD-HH-mm-ss',
+)
 function savePng(options: IOptions = {}) {
-  const { filename = 'sign', type = 'png', width, height } = options
+  const { filename = `${time.value}`, type = 'png', width, height } = options
   const svg = unrefElement(target)
   if (!svg)
     throw new Error('target is not exist')
@@ -77,6 +121,9 @@ const { JsonOptions, model } = JsonFormHelp([
   {
     type: 'color',
     formName: 'color',
+    itemProps: {
+      label: '颜色',
+    },
     props: {
       modes: ['hex'],
       showAlpha: false,
@@ -90,6 +137,9 @@ const { JsonOptions, model } = JsonFormHelp([
   {
     type: 'slider',
     formName: 'size',
+    itemProps: {
+      label: '尺寸',
+    },
     props: {
       max: 20,
       min: 1,
@@ -104,12 +154,20 @@ const { JsonOptions, model } = JsonFormHelp([
   {
     type: 'radio',
     formName: 'mode',
+    itemProps: {
+      label: '画笔类型',
+    },
     radioOptions: createRadioOptions.value,
     props: {
       value: mode?.value,
-      onUpdateValue: (value: DrawingMode) => {
+      onUpdateValue: (value: DrawingMode | 'arrowLine') => {
+        if (value === 'arrowLine') {
+          mode!.value = 'line'
+          arrowEnd!.value = true
+          return
+        }
+        arrowEnd!.value === true && (arrowEnd!.value = false)
         mode!.value = value
-        console.log('mode', value)
       },
     },
   },
@@ -130,25 +188,25 @@ const { JsonOptions, model } = JsonFormHelp([
             :disabled="!canUndo"
             @click="undo"
           >
-            <SvgIcon name="ph:arrow-circle-left-bold" />
+            <SvgIcon lineIcon="icon-ph:arrow-circle-left-bold" />
             后退
           </RippleButton>
           <RippleButton
             :disabled="!canRedo"
             @click="redo"
           >
-            <SvgIcon name="ph:arrow-circle-right-bold" />
+            <SvgIcon lineIcon="icon-ph:arrow-circle-right-bold" />
             前进
           </RippleButton>
           <RippleButton @click="clear">
-            <SvgIcon name="ph:trash-bold" />
+            <SvgIcon lineIcon="icon-ph:trash-bold" />
             清空
           </RippleButton>
           <RippleButton
             type="primary"
             @click="() => savePng()"
           >
-            <SvgIcon lineIcon="ph:download-bold" />
+            <SvgIcon lineIcon="icon-ph:download-bold" />
             保存
           </RippleButton>
         </NButtonGroup>
@@ -156,12 +214,16 @@ const { JsonOptions, model } = JsonFormHelp([
           :jsonOptions="JsonOptions"
           :model="model"
         />
+        <pre>
+          {{ toValue(useStringify(model, null, 2)) }}
+        </pre>
       </div>
       <NCard
         class="flex-1"
         :contentStyle="{
           padding: 0,
         }"
+        title="绘画版"
       >
         <svg
           ref="target"

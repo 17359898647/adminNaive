@@ -147,6 +147,7 @@ export const JsonForm = defineComponent({
                                     label,
                                     value,
                                     isButton = false,
+                                    onUpdateChecked,
                                   } = option
                                   const _isFunction = isFunction(label)
                                   return (
@@ -156,6 +157,7 @@ export const JsonForm = defineComponent({
                                           key={value}
                                           label={_isFunction ? undefined : label as string}
                                           value={value}
+                                          onUpdateChecked={onUpdateChecked}
                                         >
                                           {
                                             _isFunction ? label() : null
@@ -167,6 +169,7 @@ export const JsonForm = defineComponent({
                                           key={value}
                                           label={label as string}
                                           value={value}
+                                          onUpdateChecked={onUpdateChecked}
                                         />
                                         )
                                   )
