@@ -31,24 +31,17 @@ const paddingAttribute = computed(() => {
   >
     <Transition
       :appear="true"
-      enterActiveClass="animated-fade-in-left animated animated-duration-500 ease-in-out !absolute absolute_orientation"
-      leaveActiveClass="animated-fade-out-right animated animated-duration-500 ease-in-out !absolute absolute_orientation"
+      enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
+      leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
     >
       <KeepAlive :exclude="exclude">
-        <div
+        <Component
+          :is="Component"
           v-if="isRefreshPage"
           v-show="isIframe !== true"
           :key="fullPath"
-          class="flex flex-1"
-        >
-          <Component
-            :is="Component"
-            v-if="isRefreshPage"
-            v-show="isIframe !== true"
-            :key="fullPath"
-            class="flex-1 overflow-hidden"
-          />
-        </div>
+          class="flex-1 overflow-hidden"
+        />
       </KeepAlive>
     </Transition>
     <!-- eslint-disable-next-line vue/valid-v-for -->
@@ -63,7 +56,8 @@ const paddingAttribute = computed(() => {
 .absolute_orientation{
   top:v-bind(topAttribute);
   bottom:v-bind(bottomAttribute);
-  left:v-bind(paddingAttribute);
-  right:v-bind(paddingAttribute);
+  left: v-bind(paddingAttribute);
+  right: v-bind(paddingAttribute);
+  width: auto !important;
 }
 </style>

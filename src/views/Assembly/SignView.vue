@@ -22,6 +22,7 @@ const { undo, redo, canUndo, canRedo, brush, clear } = useDraw(target, {
     color: themeColor.value,
     size: 5,
     arrowEnd: false,
+    mode: 'stylus',
   },
 })
 const { color, size, mode, arrowEnd } = toRefs(brush)
@@ -221,7 +222,7 @@ const { JsonOptions, model } = JsonFormHelp([
       <NCard
         class="flex-1"
         :contentStyle="{
-          padding: 0,
+          // padding: 0,
         }"
         title="绘画版"
       >
