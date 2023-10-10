@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
-import { enhanceAutoRouter } from '@/views/enhanceAutoRouter'
 
 const themeStore = useThemeStore()
 const { themeDefault } = storeToRefs(themeStore)
 onUpdated(() => {
-  console.log('themeDefault', themeDefault, enhanceAutoRouter)
+  console.log('themeDefault', themeDefault)
 })
 </script>
 

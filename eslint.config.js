@@ -1,6 +1,7 @@
 import antfu from '@antfu/eslint-config'
 import react from 'eslint-plugin-react'
 import eslint_config_standard_jsx from 'eslint-config-standard-jsx'
+import unocss from '@unocss/eslint-plugin'
 
 export default antfu(
   {
@@ -139,4 +140,5 @@ export default antfu(
       'style/jsx-quotes': [2, 'prefer-single'],
     },
   },
+  unocss.configs.flat,
 )
