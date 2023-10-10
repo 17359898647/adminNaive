@@ -35,7 +35,7 @@ const menuOptionsComputed = computed(() => {
       }
     })
   }
-  // eslint-disable-next-line ts/ban-ts-comment
+
   // @ts-expect-error
   return deepMap(menuOptions.value)
 })

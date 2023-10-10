@@ -33,7 +33,7 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
-    red: 'border-red-500 border-solid border',
+    'red': 'border-red-500 border-solid border',
     'flex-center': 'flex justify-center items-center',
   },
   theme: {
