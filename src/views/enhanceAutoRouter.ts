@@ -7,7 +7,6 @@ const enhanceAutoRouterModule = import.meta.glob(
     eager: true,
   },
 ) as Record<'default', IEnhanceAutoRouter>
-console.log(enhanceAutoRouterModule, 33)
 function getRouterName(path: string) {
   const pathWithoutIndex = path.replace(/\/index\.(ts|tsx)$/, '').replace(/\./g, '')
   const pathWithoutIndexArr = pathWithoutIndex.split('/')
@@ -25,7 +24,6 @@ function getEnhanceAutoRouterModule() {
 export const enhanceAutoRouter: IEnhanceAutoRouter = {
   ...getEnhanceAutoRouterModule(),
 }
-console.log(enhanceAutoRouter, 55)
 export function setMetaAndName(route: RouteRecordRaw) {
   const { path, name } = route
   if (has(enhanceAutoRouter, path) && isUndefined(name)) {

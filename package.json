@@ -5,6 +5,7 @@
     "build": "bunx vite build && cp dist/index.html dist/404.html",
     "dev": "bunx vite",
     "lint": "bunx eslint .",
+    "lint:fix": "bunx eslint --fix .",
     "postinstall": "npx simple-git-hooks",
     "preview": "bunx vite preview",
     "test": "vitest -u",

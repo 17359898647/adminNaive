@@ -51,6 +51,9 @@ export interface useRequestParams<T = any> {
 export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> extends Omit<StrictUseAxiosReturn<T, R, D>, 'execute'> {
   execute: (executeUrl?: MaybeRefOrGetter<string>) => Promise<useRequestReturn<T, R, D>>
 }
+/**
+ * 请求工具
+ */
 export function useRequest<T = unknown>(instance: AxiosInstance, options: useRequestParams<T>): useRequestReturn<T> {
   const {
     url = '',

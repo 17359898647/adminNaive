@@ -15,7 +15,6 @@ export default defineConfig({
     presetAttributify(),
     presetIcons({
       cdn: 'https://esm.sh/',
-      autoInstall: true,
       extraProperties: {
         cursor: 'pointer',
       },

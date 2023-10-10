@@ -1,6 +1,9 @@
 import type { ColorPickerProps, DatePickerProps, FormItemGiProps, FormProps, FormRules, GridProps, InputProps, RadioGroupProps, SelectProps, SliderProps, UploadProps } from 'naive-ui'
 import type { ExtractPropTypes, PropType, VNode } from 'vue'
 
+/**
+ * @description 组件的props类型
+ */
 export interface IComProps {
   input: InputProps
   date: DatePickerProps
@@ -11,12 +14,19 @@ export interface IComProps {
   radio: RadioGroupProps
 }
 export type IComType = keyof IComProps
+/**
+ * @description radio组件的选项
+ */
 export interface IRadioOptions {
   label: string | (() => VNode)
   value: any
   isButton?: boolean
   onUpdateChecked?: (checked: boolean) => void
 }
+
+/**
+ * @description jsonOptions的类型
+ */
 export type IJsonType<T extends IComType = IComType> = T extends infer t ? t extends IComType ? {
   type?: t
   readonly formName: string

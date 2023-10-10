@@ -21,7 +21,14 @@ import type { IJsonType } from '@/components/JsonForm/JsonFormType'
 import { JsonFormProps } from '@/components/JsonForm/JsonFormType'
 
 type GetKey<T extends readonly any[], K extends keyof T[number]> = T[number][K]
-
+/**
+ * @description JsonForm
+ * @param {JsonOptions} JsonOptions
+ * @return {{
+ *   model: Ref<Record<GetKey<IJsonType[], 'formName'>, any>>,
+ *   JsonOptions: Ref<IJsonType[]>,
+ * }}
+ */
 export function JsonFormHelp(JsonOptions: MaybeRefOrGetter<IJsonType[]>) {
   const extract = (options: MaybeRefOrGetter<IJsonType[]>) => {
     const result: Record<string, any> = {}
