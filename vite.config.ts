@@ -1,4 +1,3 @@
-// eslint-disable-next-line ts/ban-ts-comment
 // @ts-nocheck
 /// <reference types="vitest" />
 import path from 'node:path'

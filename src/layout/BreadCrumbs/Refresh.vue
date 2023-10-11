@@ -2,7 +2,7 @@
 const { tagDropdownClick: RefreshMethods } = useTagStore()
 const isRefresh = computed(() => {
   return {
-    icon: 'ic:twotone-refresh',
+    icon: 'icon-ic:twotone-refresh',
     title: '刷新',
   }
 })

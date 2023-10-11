@@ -6,11 +6,11 @@ const { setAttrs, isFullscreen } = inject(layoutProvide)!
 const isFullScreen = computed(() => {
   return isFullscreen.value
     ? {
-        icon: 'material-symbols:fullscreen-exit',
+        icon: 'icon-material-symbols:fullscreen-exit',
         title: '关闭全屏',
       }
     : {
-        icon: 'material-symbols:fullscreen',
+        icon: 'icon-material-symbols:fullscreen',
         title: '开启全屏',
       }
 })

@@ -58,7 +58,7 @@ export const useLayoutStore = defineStore(
     const layoutAttrs = reactive<settingType>({
       isCollapsed: false,
       isRefreshPage: true,
-      isAccordion: false,
+      isAccordion: true,
       isShowTrigger: 'bar',
       isInverted: true,
       isFixedFooter: true,

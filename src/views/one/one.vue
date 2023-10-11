@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: '一级子路由',
-    lineIcon: 'material-symbols:roundabout-right',
+    lineIcon: 'icon-material-symbols:roundabout-right',
   },
 })
 </script>

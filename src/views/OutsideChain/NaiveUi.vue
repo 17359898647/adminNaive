@@ -2,13 +2,14 @@
 definePage({
   meta: {
     isTitle: 'Naive Ui',
-    lineIcon: 'logos:naiveui',
+    lineIcon: 'icon-logos:naiveui',
     isIframe: true,
     isOrder: 2,
   },
 })
+const src = `https://www.naiveui.com/zh-CN/${isDark.value ? 'dark' : 'light'}`
 </script>
 
 <template>
-  <iframe src="https://www.naiveui.com/zh-CN/light" />
+  <IframeCom :src="src" />
 </template>

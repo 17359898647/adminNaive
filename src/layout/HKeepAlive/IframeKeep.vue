@@ -6,6 +6,7 @@ import { inject } from 'vue'
 import type { RouteRecordName } from 'vue-router'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 import { routerHelper } from '@/router/helps/allRouters'
+import { useTagStore } from '@/store/modules/useTagStore'
 
 defineOptions({
   inheritAttrs: false,
@@ -53,13 +54,27 @@ onMounted(() => {
   })
 })
 const cacheStore = useKeepAliveCacheStore()
+const tagStore = useTagStore()
+const { tagList } = storeToRefs(tagStore)
 const { exclude } = storeToRefs(cacheStore)
 const delayRouteName = refDebounced(routeName!, 500)
-function isVif(name?: RouteRecordName | null) {
-  const result = delayRouteName.value === name
-    ? (!some(exclude.value, item => item.test(isString(name) ? name : '')) && isRefreshPage.value)
-    : true
-  return result
+function hasTag(name?: RouteRecordName | null) {
+  return some(tagList.value, item => item.name === name)
+}
+// 定义一个函数 shouldKeepIframe，接受一个可选参数 name，类型为 RouteRecordName 或 null
+function shouldKeepIframe(name?: RouteRecordName | null) {
+  return delayRouteName.value === name
+    // 判断当前当前页面是否为 iframe 页面
+    ? (
+      // 判断 exclude.value 中是否有满足以下条件的项：
+        !some(exclude.value, item => item.test(isString(name) ? name : ''))
+      // 判断 isRefreshPage.value 是否为真值
+      && isRefreshPage.value
+      // 判断 hasTag(name) 是否为真值
+      && hasTag(name)
+      )
+    // 如果不相等，则判断 hasTag(name) 是否为真值
+    : hasTag(name)
 }
 function isVshow(name?: RouteRecordName | null) {
   return props.routeName === name && props.isIframe
@@ -75,7 +90,7 @@ function isVshow(name?: RouteRecordName | null) {
     leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
   >
     <div
-      v-if="isVif(name)"
+      v-if="shouldKeepIframe(name)"
       v-show="isVshow(name)"
       :key="name"
       class="flex flex-1 flex-col"

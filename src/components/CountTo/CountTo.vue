@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import { isNumber } from 'lodash-es'
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 
 defineOptions({ name: 'CountTo' })
 
 const props = withDefaults(defineProps<Props>(), {
   startValue: 0,
   endValue: new Date().getFullYear(),
-  duration: 0,
+  duration: 1000,
   autoplay: true,
   decimals: 0,
   prefix: '',
@@ -61,7 +61,7 @@ function run() {
     disabled,
     duration: props.duration,
     onStarted: () => emit('started'),
-    onFinished: () => emit('started'),
+    onFinished: () => emit('finished'),
     ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
   })
 }
@@ -99,7 +99,7 @@ watchEffect(() => {
   source.value = props.startValue
 })
 
-onMounted(() => {
+tryOnMounted(() => {
   if (props.autoplay)
     start()
 })

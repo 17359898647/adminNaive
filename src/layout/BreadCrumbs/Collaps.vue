@@ -5,11 +5,11 @@ const { setAttrs, isCollapsed } = inject(layoutProvide)!
 const isCollapsedIcon = computed(() => {
   return isCollapsed.value
     ? {
-        icon: 'line-md:menu-fold-right',
+        icon: 'icon-line-md:menu-fold-right',
         title: '展开菜单',
       }
     : {
-        icon: 'line-md:menu-unfold-left',
+        icon: 'icon-line-md:menu-unfold-left',
         title: '收起菜单',
       }
 })

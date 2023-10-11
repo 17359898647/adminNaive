@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { inject } from 'vue'
+import IframeKeep from '@/layout/HKeepAlive/IframeKeep.vue'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
 
 const { isRefreshPage, isHeaderHeight, isTagViewHeight, isContentPadding, isFooterHeight } = inject(layoutProvide)!
@@ -43,8 +44,7 @@ const paddingAttribute = computed(() => {
         />
       </KeepAlive>
     </Transition>
-    <!-- eslint-disable-next-line vue/valid-v-for -->
-    <IframKeep
+    <IframeKeep
       :isIframe="isIframe"
       :routeName="name"
     />
@@ -55,7 +55,8 @@ const paddingAttribute = computed(() => {
 .absolute_orientation{
   top:v-bind(topAttribute);
   bottom:v-bind(bottomAttribute);
-  left:v-bind(paddingAttribute);
-  right:v-bind(paddingAttribute);
+  left: v-bind(paddingAttribute);
+  right: v-bind(paddingAttribute);
+  width: auto !important;
 }
 </style>

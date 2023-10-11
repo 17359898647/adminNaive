@@ -2,7 +2,7 @@
 definePage({
   meta: {
     isTitle: '首页',
-    lineIcon: 'material-symbols:home',
+    lineIcon: 'icon-material-symbols:home',
     isAffix: true,
   },
 })

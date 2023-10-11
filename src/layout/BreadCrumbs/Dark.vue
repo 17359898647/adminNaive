@@ -7,11 +7,11 @@ const _isDark = computed(() => isHover.value ? !isDark.value : isDark.value)
 const isFullScreen = computed(() => {
   return _isDark.value
     ? {
-        icon: 'line-md:moon-rising-twotone-alt-loop',
+        icon: 'icon-line-md:moon-rising-twotone-alt-loop',
         title: '暗色模式',
       }
     : {
-        icon: 'line-md:moon-to-sunny-outline-loop-transition',
+        icon: 'icon-line-md:moon-to-sunny-outline-loop-transition',
         title: '亮色模式',
       }
 })

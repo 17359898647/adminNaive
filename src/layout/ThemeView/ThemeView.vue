@@ -45,7 +45,7 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
       @click="setDrawerShow(!drawerShow)"
     >
       <SvgIcon
-        lineIcon="material-symbols:settings"
+        lineIcon="icon-material-symbols:settings"
         size="26"
         :style="iconRotate"
       />
@@ -64,7 +64,7 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
           :modes="['hex']"
           :showAlpha="false"
           :value="themeColor"
-          @update-value="(e:string) => {
+          @updateValue="(e:string) => {
             setAttrsDeBounce('themeColor', e)
           }"
         />
