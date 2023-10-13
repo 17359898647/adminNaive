@@ -3,8 +3,9 @@ import axios from 'axios'
 import type { useRequestParams, useRequestReturn } from '@/composables/useRequest'
 import { useRequest } from '@/composables/useRequest'
 
+console.log(import.meta.env.VITE_BASEURL)
 const instance = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: import.meta.env.DEV ? '/api' : import.meta.env.VITE_BASEURL,
   timeout: 10000,
   headers: {
     'content-type': 'application/json',
@@ -45,7 +46,9 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-export type dataFormat<T = any> = T
+export interface dataFormat<T = any> {
+  data: T
+}
 
 export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
 export const request: requestFn = options => useRequest(instance, {
