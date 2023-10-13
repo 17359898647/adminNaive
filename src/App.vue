@@ -10,7 +10,7 @@ onUpdated(() => {
 
 <template>
   <NConfigProvider
-    class="relative h-full w-full overflow-hidden"
+    class="relative overflow-hidden size-full"
     :dateLocale="dateZhCN"
     :inlineThemeDisabled="true"
     :locale="zhCN"
