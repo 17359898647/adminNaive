@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
+    "@iconify/json": "^2.2.130",
     "@types/lodash-es": "^4.17.10",
     "@types/sortablejs": "^1.15.4",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
