@@ -14,7 +14,6 @@ export default defineConfig({
     presetUno,
     presetAttributify(),
     presetIcons({
-      cdn: 'https://esm.sh/',
       extraProperties: {
         cursor: 'pointer',
       },

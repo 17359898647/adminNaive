@@ -34,6 +34,7 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
   (response) => {
+    console.log(response)
     return response
   },
   (error) => {
@@ -46,9 +47,7 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-export interface dataFormat<T = any> {
-  data: T
-}
+export type dataFormat<T = any> = T
 
 export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
 export const request: requestFn = options => useRequest(instance, {

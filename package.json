@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
+    "@hyoban/vite-plugin-checker": "^0.1.1",
+    "@iconify/json": "^2.2.130",
     "@types/lodash-es": "^4.17.10",
     "@types/sortablejs": "^1.15.4",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
@@ -62,7 +64,7 @@
     "vue-tsc": "^1.8.19"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun lint-staged"
+    "pre-commit": "bun lint-staged && bun typecheck"
   },
   "lint-staged": {
     "*": "eslint --fix"
