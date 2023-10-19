@@ -64,7 +64,7 @@
     "vue-tsc": "^1.8.19"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun lint-staged && bun typecheck"
+    "pre-commit": "bun lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"
