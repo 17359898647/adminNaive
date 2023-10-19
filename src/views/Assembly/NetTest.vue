@@ -26,6 +26,9 @@ const { execute, isLoading, data } = request<RootObject>({
   onFinish: () => {
     console.log('finish')
   },
+  headers: {
+    responseType: 'json',
+  },
 })
 </script>
 
