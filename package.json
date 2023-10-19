@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
+    "@hyoban/vite-plugin-checker": "^0.1.1",
     "@iconify/json": "^2.2.130",
     "@types/lodash-es": "^4.17.10",
     "@types/sortablejs": "^1.15.4",
@@ -33,7 +34,6 @@
     "terser": "^5.22.0",
     "unocss-preset-extra": "^0.5.2",
     "unplugin-vue-router": "^0.7.0",
-    "vite-plugin-checker": "^0.6.2",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-turbo-console": "^0.1.0",
