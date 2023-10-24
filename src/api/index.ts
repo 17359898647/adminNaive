@@ -52,5 +52,6 @@ export type dataFormat<T = any> = T
 export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
 export const request: requestFn = options => useRequest(instance, {
   retry: 3,
+  resetOnExecute: false,
   ...options,
 })

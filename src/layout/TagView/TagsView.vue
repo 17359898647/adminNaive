@@ -97,7 +97,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 :deep(.n-scrollbar-rail__scrollbar){
   display: none !important;
 }

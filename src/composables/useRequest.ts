@@ -29,22 +29,73 @@ const transformParams = reactify((url: string, params?: Record<string, any>) => 
  * resetOnExecute: 是否在执行时重置数据
  */
 export interface useRequestParams<T = any> {
+  /**
+   * 请求地址
+   */
   url?: MaybeRefOrGetter<string>
+  /**
+   * 重试次数
+   */
   retry?: MaybeRefOrGetter<number>
+  /**
+   * 是否浅层监听
+   */
   shallow?: MaybeRefOrGetter<boolean>
+  /**
+   * params: 请求参数
+   */
   params?: MaybeRefOrGetter<Record<string, any>>
+  /**
+   * data: 请求体
+   */
   data?: MaybeRefOrGetter<Record<string, any>>
+  /**
+   * headers: 请求头
+   */
   headers?: MaybeRefOrGetter<Record<string, any>>
+  /**
+   * method: 请求方法
+   */
   method?: MaybeRefOrGetter<Method>
+  /**
+   * immediate: 是否立即执行
+   */
   immediate?: MaybeRefOrGetter<boolean>
-  baseURL?: MaybeRefOrGetter<string>
+  /**
+   * baseURL: 基础路径
+   */
   refetch?: MaybeRefOrGetter<boolean>
+  /**
+   * initialData: 初始数据
+   */
   initialData?: MaybeRefOrGetter<T>
+  /**
+   * onSuccess: 请求成功回调
+   * @param data
+   */
   onSuccess?: (data: T) => void
+  /**
+   * onError: 请求失败回调
+   * @param err
+   */
   onError?: (err: unknown) => void
+  /**
+   * onFinish: 请求完成回调
+   */
   onFinish?: () => void
+  /**
+   * onUploadProgress: 上传进度回调
+   * @param e
+   */
   onUploadProgress?: (e: AxiosProgressEvent) => void
+  /**
+   * onDownloadProgress: 下载进度回调
+   * @param e
+   */
   onDownloadProgress?: (e: AxiosProgressEvent) => void
+  /**
+   * resetOnExecute: 是否在执行时重置数据
+   */
   resetOnExecute?: MaybeRefOrGetter<boolean>
 }
 
@@ -57,7 +108,6 @@ export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> e
 export function useRequest<T = unknown>(instance: AxiosInstance, options: useRequestParams<T>): useRequestReturn<T> {
   const {
     url = '',
-    baseURL,
     headers,
     params,
     method = 'get',
@@ -83,7 +133,6 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
         ...toValue(headers),
       },
       data: toValue(data),
-      baseURL: toValue(baseURL),
       onDownloadProgress,
       onUploadProgress,
     } as AxiosRequestConfig

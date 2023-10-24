@@ -43,6 +43,12 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
+    cssMinify: 'lightningcss',
+  },
+  css: {
+    transformer: {
+      css: 'lightningcss',
+    },
   },
   // https://github.com/vitest-dev/vitest
   test: {
