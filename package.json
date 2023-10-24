@@ -15,7 +15,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
     "@hyoban/vite-plugin-checker": "^0.1.1",
-    "@iconify/json": "^2.2.130",
+    "@iconify/json": "^2.2.132",
     "@types/lodash-es": "^4.17.10",
     "@types/sortablejs": "^1.15.4",
     "@vitejs/plugin-vue-jsx": "^3.0.2",
@@ -40,28 +40,28 @@
     "vite-plugin-vue-devtools": "^0.5.1",
     "vite-plugin-vue-inspector": "^4.0.0",
     "vite-plugin-vue-layouts": "^0.8.0",
-    "vue": "^3.3.4",
+    "vue": "3.3.4",
     "vue-router": "^4.2.5",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@types/node": "^20.8.7",
-    "@unocss/reset": "^0.56.5",
+    "@types/node": "^20.8.8",
+    "@unocss/reset": "^0.57.1",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/test-utils": "^2.4.1",
-    "eslint": "^8.51.0",
+    "eslint": "^8.52.0",
     "jsdom": "^22.1.0",
-    "lint-staged": "^15.0.1",
+    "lint-staged": "^15.0.2",
     "pnpm": "^8.9.2",
     "simple-git-hooks": "^2.9.0",
     "taze": "^0.11.4",
     "typescript": "^5.2.2",
-    "unocss": "^0.56.5",
+    "unocss": "^0.57.1",
     "unplugin-auto-import": "^0.16.6",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^4.5.0",
     "vitest": "^0.34.6",
-    "vue-tsc": "^1.8.19"
+    "vue-tsc": "1.8.20"
   },
   "simple-git-hooks": {
     "pre-commit": "bun lint-staged && bun typecheck"
