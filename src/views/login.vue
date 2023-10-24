@@ -1,8 +1,8 @@
 <script setup lang="ts">
 definePage({
   meta: {
-    isTitle: '登录',
     isHidden: true,
+    isTitle: '登录',
   },
 })
 </script>

@@ -7,42 +7,42 @@ type _RouteRecordRaw = Omit<RouteRecordRaw, 'component' | 'children'> & {
 describe('createRouter', () => {
   it('should works', () => {
     const demoRouter: _RouteRecordRaw[] = [{
-      path: '/one',
       children: [
         {
-          path: 'two',
           children: [
             {
-              path: 'two',
-              name: 'OneTwoTwo',
-              meta: {
-                isTitle: '二级子路由',
-                isKeepAlive: false,
-              },
               alias: [],
+              meta: {
+                isKeepAlive: false,
+                isTitle: '二级子路由',
+              },
+              name: 'OneTwoTwo',
+              path: 'two',
             },
           ],
           meta: {
-            isTitle: '二级父路由',
             isAffix: true,
+            isTitle: '二级父路由',
           },
           name: 'two',
+          path: 'two',
         },
         {
-          path: 'one',
-          name: 'OneOne',
-          meta: {
-            isTitle: '一级子路由',
-            isKeepAlive: false,
-          },
           alias: [],
+          meta: {
+            isKeepAlive: false,
+            isTitle: '一级子路由',
+          },
+          name: 'OneOne',
+          path: 'one',
         },
       ],
       meta: {
-        isTitle: '一级父路由',
         isAffix: true,
+        isTitle: '一级父路由',
       },
       name: '/one',
+      path: '/one',
     }]
     const { allAffixRouters, allRouters, allUnKeepAliveRouters, createRouterHelper } = routerHelper()
     const resultRouter = createRouterHelper(demoRouter as RouteRecordRaw[])

@@ -8,8 +8,8 @@ export const LoadingView = defineComponent({
   name: 'AppLoading',
   props: {
     isTitle: {
-      type: String,
       default: '',
+      type: String,
     },
   },
   setup(props) {

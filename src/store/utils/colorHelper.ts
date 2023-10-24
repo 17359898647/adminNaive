@@ -139,11 +139,11 @@ interface ColorAction {
 }
 function getThemeColors(colors: [colorType, string][]) {
   const colorActions: ColorAction[] = [
-    { scene: '', handler: color => color },
-    { scene: 'Suppl', handler: color => color },
-    { scene: 'Hover', handler: color => getColorPalette(color, 5) },
-    { scene: 'Pressed', handler: color => getColorPalette(color, 7) },
-    { scene: 'Active', handler: color => addColorAlpha(color, 0.1) },
+    { handler: color => color, scene: '' },
+    { handler: color => color, scene: 'Suppl' },
+    { handler: color => getColorPalette(color, 5), scene: 'Hover' },
+    { handler: color => getColorPalette(color, 7), scene: 'Pressed' },
+    { handler: color => addColorAlpha(color, 0.1), scene: 'Active' },
   ]
 
   const themeColor: ThemeColor = {}
@@ -172,11 +172,11 @@ export function getNaiveThemeOverrides(colors: Record<colorType, string>): Globa
   const colorLoading = primary
 
   return {
-    common: {
-      ...themeColors,
-    },
     LoadingBar: {
       colorLoading,
+    },
+    common: {
+      ...themeColors,
     },
   }
 }

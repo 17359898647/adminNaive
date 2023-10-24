@@ -14,9 +14,9 @@ function PreView({ data }: { data: any }) {
 }
 definePage({
   meta: {
+    isKeepAlive: false,
     isTitle: '表格测试',
     lineIcon: 'icon-material-symbols:home',
-    isKeepAlive: false,
   },
 })
 interface tableData {
@@ -27,28 +27,19 @@ interface tableData {
 }
 const api = ref(1)
 const { data, columns, isLoading } = useTable<tableData>({
-  url: '/todos',
-  params: () => ({
-    demo: api.value,
-  }),
-  shallow: false,
-  retry: 3,
-  initialData: [],
-  resetOnExecute: false,
   columns: [
     {
-      type: 'selection',
       align: 'center',
+      type: 'selection',
     },
     {
+      align: 'center',
       key: 'id',
       title: 'ID',
-      align: 'center',
     },
     {
-      key: 'title',
-      title: '标题',
       align: 'center',
+      key: 'title',
       render(row) {
         const index = findIndex(data.value, item => item.id === row.id)!
         return (
@@ -64,11 +55,11 @@ const { data, columns, isLoading } = useTable<tableData>({
           />
         )
       },
+      title: '标题',
     },
     {
-      key: 'completed',
-      title: '是否完成',
       align: 'center',
+      key: 'completed',
       render(row) {
         const index = findIndex(data.value, item => item.id === row.id)!
         return (
@@ -85,16 +76,25 @@ const { data, columns, isLoading } = useTable<tableData>({
           />
         )
       },
+      title: '是否完成',
     },
   ],
+  initialData: [],
+  params: () => ({
+    demo: api.value,
+  }),
+  resetOnExecute: false,
+  retry: 3,
+  shallow: false,
+  url: '/todos',
 })
 const paginationReactive = computed(() => ({
-  page: api.value,
-  pageCount: Math.ceil(data.value!.length / 50),
   onUpdatePage: (page) => {
     api.value = page
     console.log(api.value)
   },
+  page: api.value,
+  pageCount: Math.ceil(data.value!.length / 50),
 } as PaginationProps))
 const dataReactive = computed(() => {
   return slice(data.value, (api.value - 1) * 50, api.value * 50)

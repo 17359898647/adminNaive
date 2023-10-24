@@ -19,10 +19,10 @@ const layoutStore = useLayoutStore()
 const { themeColor } = storeToRefs(layoutStore)
 const { undo, redo, canUndo, canRedo, brush, clear } = useDraw(target, {
   brush: {
-    color: themeColor.value,
-    size: 5,
     arrowEnd: false,
+    color: themeColor.value,
     mode: 'stylus',
+    size: 5,
   },
 })
 const { color, size, mode, arrowEnd } = toRefs(brush)
@@ -32,54 +32,54 @@ const modeOptions: Record<DrawingMode | string, {
   value?: DrawingMode | boolean | string
   onUpdateChecked?: (checked: boolean) => void
 }> = {
+  arrow: {
+    icon: 'icon-streamline:interface-arrows-corner-up-right-keyboard-top-arrow-right-up',
+    label: '箭头',
+    value: 'arrowLine',
+  },
   draw: {
-    label: '画笔',
     icon: 'icon-ic:twotone-draw',
+    label: '画笔',
     value: 'draw',
   },
-  stylus: {
-    label: '钢笔',
-    icon: 'icon-ph:pen-bold',
-    value: 'stylus',
-  },
   ellipse: {
-    label: '椭圆',
     icon: 'icon-ph:circle-bold',
+    label: '椭圆',
     value: 'ellipse',
   },
   eraseLine: {
-    label: '橡皮擦',
     icon: 'icon-ph:eraser-bold',
+    label: '橡皮擦',
     value: 'eraseLine',
   },
   line: {
-    label: '直线',
     icon: 'icon-material-symbols:straighten-outline-sharp',
+    label: '直线',
     value: 'line',
   },
   rectangle: {
-    label: '矩形',
     icon: 'icon-ph:square-bold',
+    label: '矩形',
     value: 'rectangle',
   },
-  arrow: {
-    label: '箭头',
-    icon: 'icon-streamline:interface-arrows-corner-up-right-keyboard-top-arrow-right-up',
-    value: 'arrowLine',
+  stylus: {
+    icon: 'icon-ph:pen-bold',
+    label: '钢笔',
+    value: 'stylus',
   },
 }
 const createRadioOptions = computed(() => map(
   modeOptions,
   ({ label, icon, value, onUpdateChecked }) => ({
+    isButton: true,
     label: () => (
       <div class='flex items-center gap-1'>
         <SvgIcon lineIcon={icon} />
         {label}
       </div>
     ),
-    value,
-    isButton: true,
     onUpdateChecked,
+    value,
   } as IRadioOptions),
 ))
 interface IOptions {
@@ -120,47 +120,40 @@ function savePng(options: IOptions = {}) {
 }
 const { JsonOptions, model } = JsonFormHelp([
   {
-    type: 'color',
-    formName: 'color',
-    itemProps: {
-      label: '颜色',
-    },
     IProps: {
       modes: ['hex'],
-      showAlpha: false,
-      value: color.value,
       onUpdateValue: (value: string) => {
         color.value = value
         console.log('color', value)
       },
+      showAlpha: false,
+      value: color.value,
     },
+    formName: 'color',
+    itemProps: {
+      label: '颜色',
+    },
+    type: 'color',
   },
   {
-    type: 'slider',
-    formName: 'size',
-    itemProps: {
-      label: '尺寸',
-    },
     IProps: {
       max: 20,
       min: 1,
-      step: 1,
-      value: size.value,
       onUpdateValue: (value: number) => {
         size.value = value
         console.log('size', value)
       },
+      step: 1,
+      value: size.value,
     },
+    formName: 'size',
+    itemProps: {
+      label: '尺寸',
+    },
+    type: 'slider',
   },
   {
-    type: 'radio',
-    formName: 'mode',
-    itemProps: {
-      label: '画笔类型',
-    },
-    radioOptions: createRadioOptions.value,
     IProps: {
-      value: mode?.value,
       onUpdateValue: (value: DrawingMode | 'arrowLine') => {
         if (value === 'arrowLine') {
           mode!.value = 'line'
@@ -170,7 +163,14 @@ const { JsonOptions, model } = JsonFormHelp([
         arrowEnd!.value === true && (arrowEnd!.value = false)
         mode!.value = value
       },
+      value: mode?.value,
     },
+    formName: 'mode',
+    itemProps: {
+      label: '画笔类型',
+    },
+    radioOptions: createRadioOptions.value,
+    type: 'radio',
   },
 ])
 </script>

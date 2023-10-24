@@ -5,72 +5,72 @@ import { JsonForm, JsonFormHelp } from '@/components/JsonForm'
 
 definePage({
   meta: {
+    isOrder: Number.POSITIVE_INFINITY,
     isTitle: '测试组件',
     lineIcon: 'icon-ph:test-tube-duotone',
-    isOrder: Number.POSITIVE_INFINITY,
   },
 })
 
 const demoJson = computed(() => {
   const Json: IJsonType[] = [
     {
-      type: 'input',
       formName: 'name',
       itemProps: {
         label: '名称',
         span: 12,
       },
+      type: 'input',
     },
     {
-      type: 'select',
-      formName: 'sex',
-      itemProps: {
-        span: 12,
-        label: '性别',
-      },
       IProps: {
         options: [
           { label: '男', value: 'male' },
           { label: '女', value: 'female' },
         ],
       },
+      formName: 'sex',
+      itemProps: {
+        label: '性别',
+        span: 12,
+      },
+      type: 'select',
     },
     {
-      type: 'date',
       formName: 'birthday',
       itemProps: {
         label: '生日',
       },
+      type: 'date',
     },
     {
-      type: 'slider',
+      IProps: {
+        formatTooltip: value => `${value}岁`,
+        max: 100,
+        min: 0,
+        value: 0,
+      },
       formName: 'age',
       itemProps: {
         label: '年龄',
       },
-      IProps: {
-        min: 0,
-        max: 100,
-        value: 0,
-        formatTooltip: value => `${value}岁`,
-      },
+      type: 'slider',
     },
     {
-      type: 'upload',
-      formName: 'photograph',
-      itemProps: {
-        label: '生日照片',
-      },
       IProps: {
-        defaultUpload: true,
+        accept: 'image/png',
         action: 'https://www.mocky.io/v2/5e4bafc63100007100d8b70f',
+        defaultUpload: true,
         listType: 'image-card',
         multiple: true,
-        accept: 'image/png',
         onError: () => {
           console.log(1)
         },
       },
+      formName: 'photograph',
+      itemProps: {
+        label: '生日照片',
+      },
+      type: 'upload',
       // slot() {
       //   return (
       //     <NButton>

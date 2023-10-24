@@ -38,21 +38,21 @@ export type IJsonType<T extends IComType = IComType> = T extends infer t ? t ext
   : never
 
 export const JsonFormProps = {
-  jsonOptions: {
-    type: Array as PropType<IJsonType[]>,
-    default: () => [],
-  },
   formProps: {
-    type: Object as PropType<FormProps & GridProps>,
     default: () => ({}),
+    type: Object as PropType<FormProps & GridProps>,
+  },
+  jsonOptions: {
+    default: () => [],
+    type: Array as PropType<IJsonType[]>,
   },
   model: {
-    type: Object as PropType<Record<string, any>>,
     default: () => ({}),
+    type: Object as PropType<Record<string, any>>,
   },
   rules: {
-    type: Object as PropType<FormRules>,
     default: () => ({}),
+    type: Object as PropType<FormRules>,
   },
 }
 export type IJsonFormProps = ExtractPropTypes<typeof JsonFormProps>

@@ -38,16 +38,16 @@ export const useThemeStore = defineStore(
     const { themeColor } = storeToRefs(LayoutStore)
     const allColor = computed<{ [key in colorType]: string }>(() => {
       return {
-        primary: themeColor.value,
         error: '#f5222d',
+        info: '#40a9ff',
+        primary: themeColor.value,
         success: '#52c41a',
         warning: '#faad14',
-        info: '#40a9ff',
       }
     })
     const themeDefault = ref<GlobalThemeOverrides>({
-      common: {},
       LoadingBar: {},
+      common: {},
     })
     watch(
       allColor,
@@ -56,11 +56,11 @@ export const useThemeStore = defineStore(
         // 设置进度条颜色
         loadingBarProviderProps.value.themeOverrides!.colorLoading = primary
         themeDefault.value = getNaiveThemeOverrides({
-          primary,
           error,
+          info,
+          primary,
           success,
           warning,
-          info,
         })
         if (!isUndefined(themeDefault.value.common))
           addThemeCssVarsToHtml(themeDefault.value.common)

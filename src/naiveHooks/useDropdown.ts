@@ -13,10 +13,10 @@ export function useDropdown() {
       })
   }
   return {
+    changePosition,
+    setShowDropRef,
+    showDropRef,
     x,
     y,
-    showDropRef,
-    setShowDropRef,
-    changePosition,
   }
 }

@@ -15,13 +15,13 @@ const mainStyle = computed(() => {
         ? isFooterHeight.value + isContentPadding.value
         : isContentPadding.value
     }px`,
+    paddingLeft: `${isContentPadding.value}px`,
+    paddingRight: `${isContentPadding.value}px`,
     paddingTop: `${
       isFixedHeader.value
         ? isHeaderHeight.value + isTagViewHeight.value
         : 0
     }px`,
-    paddingLeft: `${isContentPadding.value}px`,
-    paddingRight: `${isContentPadding.value}px`,
   } as CSSProperties
 })
 </script>

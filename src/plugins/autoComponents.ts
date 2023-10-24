@@ -4,8 +4,8 @@ import type { PluginOption } from 'vite'
 
 export function autoComponents(): PluginOption {
   return Components({
-    resolvers: [NaiveUiResolver()],
-    dts: 'src/types/auto-components.d.ts',
     dirs: ['src/components', 'src/layout'],
+    dts: 'src/types/auto-components.d.ts',
+    resolvers: [NaiveUiResolver()],
   })
 }

@@ -11,10 +11,7 @@ export function useSort<T>(el: MaybeRefOrGetter<HTMLElement | null | undefined>,
   } = options || {}
   const [isDrag, setDrag] = useToggle(false)
   useSortable(el, list, {
-    onStart: (event) => {
-      setDrag(true)
-      onStart?.(event)
-    },
+    animation,
     onEnd: async (event) => {
       // await nextTick()
       onEnd?.(event)
@@ -23,7 +20,10 @@ export function useSort<T>(el: MaybeRefOrGetter<HTMLElement | null | undefined>,
         setDrag(false)
       }, animation)
     },
-    animation,
+    onStart: (event) => {
+      setDrag(true)
+      onStart?.(event)
+    },
     ...e,
   })
   return {

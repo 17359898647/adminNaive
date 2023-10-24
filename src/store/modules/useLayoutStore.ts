@@ -56,28 +56,28 @@ export const useLayoutStore = defineStore(
       document.documentElement,
     )
     const layoutAttrs = reactive<settingType>({
-      isCollapsed: false,
-      isRefreshPage: true,
       isAccordion: true,
-      isShowTrigger: 'bar',
-      isInverted: true,
+      isBreadcrumbShow: true,
+      isBreadcrumbShowIcon: false,
+      isCollapsed: false,
+      isCollapsedWidth: 60,
+      isContentPadding: 8,
+      isDark: isDark as unknown as boolean,
       isFixedFooter: true,
       isFixedHeader: true,
-      isNDrawerShow: false,
-      isCollapsedWidth: 60,
-      isSiderWidth: 200,
-      isHeaderHeight: 64,
       isFooterHeight: 46,
+      isFullscreen: isFullscreen.value,
+      isHeaderHeight: 64,
+      isInverted: true,
+      isNDrawerShow: false,
+      isRefreshPage: true,
+      isShowTrigger: 'bar',
+      isSiderWidth: 200,
+      isSupported: isSupported.value,
       isTagViewHeight: 44,
       isTagViewShow: true,
       isTagViewShowIcon: true,
-      isContentPadding: 8,
-      isBreadcrumbShow: true,
-      isBreadcrumbShowIcon: false,
       themeColor: '#1890ff',
-      isDark: isDark as unknown as boolean,
-      isFullscreen: isFullscreen.value,
-      isSupported: isSupported.value,
     })
     const setAttrs = <T extends keyof settingType>(key: T, value: MaybeRefOrGetter<settingType[T]>) => {
       layoutAttrs[key] = toValue(value)
@@ -87,16 +87,16 @@ export const useLayoutStore = defineStore(
     })
     return {
       ...toRefs(readonly(layoutAttrs)),
-      setAttrs,
       layoutAttrs,
+      setAttrs,
     }
   },
   {
     persist: {
-      paths: ['layoutAttrs'],
       afterRestore: (ctx) => {
         ctx.store.setAttrs('isFullscreen', false)
       },
+      paths: ['layoutAttrs'],
     },
   },
 )

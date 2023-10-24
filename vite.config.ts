@@ -8,20 +8,20 @@ import { defineConfig } from 'vite'
 import { installPlugin } from './src/plugins'
 
 export default defineConfig({
-  server: {
-    port: 3333,
-    host: '0.0.0.0',
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, ''),
+  build: {
+    cssMinify: 'lightningcss',
+    minify: 'terser',
+    reportCompressedSize: false,
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
       },
     },
   },
-  resolve: {
-    alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
+  css: {
+    transformer: {
+      css: 'lightningcss',
     },
   },
   plugins: [
@@ -34,20 +34,20 @@ export default defineConfig({
     vueJsx(),
     UnoCSS(),
   ],
-  build: {
-    reportCompressedSize: false,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
+  resolve: {
+    alias: {
+      '@/': `${path.resolve(__dirname, 'src')}/`,
     },
-    cssMinify: 'lightningcss',
   },
-  css: {
-    transformer: {
-      css: 'lightningcss',
+  server: {
+    host: '0.0.0.0',
+    port: 3333,
+    proxy: {
+      '/api': {
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+        target: 'http://localhost:3000',
+      },
     },
   },
   // https://github.com/vitest-dev/vitest

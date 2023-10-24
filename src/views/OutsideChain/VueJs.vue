@@ -1,10 +1,10 @@
 <script setup lang="ts">
 definePage({
   meta: {
-    isTitle: 'Vue Js',
-    lineIcon: 'icon-logos:vue',
     isIframe: true,
     isOrder: 0,
+    isTitle: 'Vue Js',
+    lineIcon: 'icon-logos:vue',
   },
 })
 </script>

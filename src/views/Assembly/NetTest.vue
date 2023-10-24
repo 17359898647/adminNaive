@@ -15,10 +15,8 @@ definePage({
 })
 const api = ref('1')
 const { execute, isLoading, data } = request<RootObject>({
-  url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
-  retry: 3,
-  onSuccess: (res) => {
-    console.log(res)
+  headers: {
+    responseType: 'json',
   },
   onError: (err) => {
     console.log(err)
@@ -26,9 +24,11 @@ const { execute, isLoading, data } = request<RootObject>({
   onFinish: () => {
     console.log('finish')
   },
-  headers: {
-    responseType: 'json',
+  onSuccess: (res) => {
+    console.log(res)
   },
+  retry: 3,
+  url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
 })
 </script>
 

@@ -50,15 +50,15 @@ export function createDropdownOptions(breadcrumbs: RouteRecordRaw[]): DropdownOp
     const { isHidden, lineIcon, localIcon, isTitle } = meta || {}
     if (isUndefined(isHidden)) {
       result.push({
+        children: isUndefined(children) ? undefined : createDropdownOptions(children),
         icon: () => (
           <SvgIcon
             lineIcon={lineIcon}
             localIcon={localIcon}
           />
         ),
-        label: isTitle,
         key: String(name) || path,
-        children: isUndefined(children) ? undefined : createDropdownOptions(children),
+        label: isTitle,
       })
     }
   })

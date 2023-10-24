@@ -127,12 +127,12 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
   const _url = transformParams(url, params)
   const axiosConfig = computed(() => {
     return {
-      method: toValue(method),
+      data: toValue(data),
       headers: {
         // 'Access-Control-Allow-Origin': '*',
         ...toValue(headers),
       },
-      data: toValue(data),
+      method: toValue(method),
       onDownloadProgress,
       onUploadProgress,
     } as AxiosRequestConfig
@@ -144,20 +144,14 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     axiosConfig.value,
     instance,
     {
-      initialData: toValue(initialData),
-      resetOnExecute: toValue(resetOnExecute),
-      shallow: toValue(shallow),
       immediate: toValue(immediate),
+      initialData: toValue(initialData),
       onError: (err) => {
         if (isNumber(_retry) && _retry-- > 0 && (err as AxiosError).code !== 'ERR_CANCELED') {
           _useAxios.execute(_url.value, axiosConfig.value)
           return
         }
         onError?.(err)
-      },
-      onSuccess: (data: T) => {
-        isSuccessful = true
-        onSuccess?.(data)
       },
       onFinish: () => {
         if (isNumber(_retry) && _retry >= 0 && !isSuccessful)
@@ -166,6 +160,12 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
         _retry = toValue(retry)
         onFinish?.()
       },
+      onSuccess: (data: T) => {
+        isSuccessful = true
+        onSuccess?.(data)
+      },
+      resetOnExecute: toValue(resetOnExecute),
+      shallow: toValue(shallow),
     },
   )
   const scope = effectScope()

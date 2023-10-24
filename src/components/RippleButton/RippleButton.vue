@@ -26,14 +26,14 @@ function getImmobilizationStyle(el: HTMLElement) {
     borderBottomRightRadius,
   } = getComputedStyle(el)
   return {
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    height,
     left,
     top,
     width,
-    height,
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
   }
 }
 function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, event: MouseEvent) {
@@ -58,27 +58,27 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
   parendDiv.classList.add('ripple')
   const childrenDiv = document.createElement('div')
   const childrenStyle = {
-    position: 'absolute',
-    width: `${radius}px`,
-    height: `${radius}px`,
-    borderRadius: '50%',
     backgroundColor: 'rgba(255, 255, 255, .4)',
+    borderRadius: '50%',
+    height: `${radius}px`,
     left: `${x}px`,
-    top: `${y}px`,
-    transformOrigin: 'center',
-    transform: 'translate(-50%, -50%) scale(10)',
     pointerEvents: 'none',
+    position: 'absolute',
+    top: `${y}px`,
+    transform: 'translate(-50%, -50%) scale(10)',
+    transformOrigin: 'center',
+    width: `${radius}px`,
   } as CSSProperties
   const parentStyle = {
-    position: 'absolute',
-    width: `${width}px`,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius,
     height: `${height}px`,
     overflow: 'hidden',
     pointerEvents: 'none',
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
+    position: 'absolute',
+    width: `${width}px`,
   } as CSSProperties
   assign(childrenDiv.style, childrenStyle)
   assign(parendDiv.style, parentStyle)
@@ -87,14 +87,14 @@ function _createRipple<T extends MaybeElement>(el: MaybeComputedElementRef<T>, e
   // // 动画
   const animate = childrenDiv.animate([
     {
-      transform: 'scale(10)',
       borderRadius: '50%',
       opacity: 1,
+      transform: 'scale(10)',
     },
     {
-      transform: 'scale(300)',
       borderRadius: '50%',
       opacity: 0,
+      transform: 'scale(300)',
     },
   ], {
     duration: 1000,

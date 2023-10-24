@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 definePage({
   meta: {
+    isAffix: true,
     isTitle: '首页',
     lineIcon: 'icon-material-symbols:home',
-    isAffix: true,
   },
 })
 </script>

@@ -33,9 +33,9 @@ export function useTable<tableData = Record<string, unknown>>(options: useTableO
   const _columns = ref(columns) as Ref<HookTableColumn<tableData>[]>
 
   return {
-    data: _data,
-    isLoading,
-    execute,
     columns: _columns,
+    data: _data,
+    execute,
+    isLoading,
   }
 }

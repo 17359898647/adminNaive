@@ -5,9 +5,9 @@ import viteCompression from 'vite-plugin-compression'
 
 export function createGzip(): PluginOption {
   return viteCompression({
-    threshold: 1024,
     algorithm: 'gzip',
-    ext: '.gz',
     deleteOriginFile: false,
+    ext: '.gz',
+    threshold: 1024,
   })
 }

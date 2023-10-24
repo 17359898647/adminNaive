@@ -111,10 +111,10 @@ export function routerHelper() {
   }
 
   return {
-    allRouters,
     allAffixRouters,
-    allUnKeepAliveRouters,
     allIframeRouters,
+    allRouters,
+    allUnKeepAliveRouters,
     createRouterHelper,
   }
 }

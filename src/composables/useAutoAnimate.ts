@@ -20,9 +20,9 @@ export function useAutoAnimate<T extends HTMLElement>(config: useAutoAnimateOpti
     const _element = unrefElement(element)
     if (_element instanceof HTMLElement) {
       controller = autoAnimate(_element, {
+        disrespectUserMotionPreference: true,
         duration: 300,
         easing: 'ease-in-out',
-        disrespectUserMotionPreference: true,
         ...options,
       })
     }

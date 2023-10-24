@@ -7,11 +7,11 @@ import { notification } from '@/naiveHooks/useMessage'
 export type msgType = string | (() => VNodeChild)
 
 export const defaultNotificationOptions: NotificationOptions = {
-  type: 'default',
-  duration: 3000,
-  description: '',
   closable: false,
+  description: '',
+  duration: 3000,
   keepAliveOnHover: false,
+  type: 'default',
 }
 type _NotificationOptions = Pick<
   NotificationOptions,

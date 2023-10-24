@@ -1,12 +1,12 @@
 <script setup lang="ts">
 definePage({
-  name: 'InteriorNotFound',
   meta: {
-    isTitle: '404',
     changeTitle: false,
     isHidden: true,
     isKeepAlive: false,
+    isTitle: '404',
   },
+  name: 'InteriorNotFound',
 })
 </script>
 

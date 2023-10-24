@@ -81,6 +81,10 @@ export const useTagStore = defineStore('useTagStore', () => {
   // tag 下拉菜单
   const tagDropdownOptions = ref<_DropdownOption[]>([
     {
+      icon: () => (
+        <SvgIcon lineIcon={isFullscreen.value ? 'icon-material-symbols:fullscreen-exit' : 'icon-material-symbols:fullscreen'} />
+      ),
+      key: 'fullScreen',
       label: () => (
         <span>
           {
@@ -88,35 +92,31 @@ export const useTagStore = defineStore('useTagStore', () => {
       }
         </span>
       ),
-      key: 'fullScreen',
-      icon: () => (
-        <SvgIcon lineIcon={isFullscreen.value ? 'icon-material-symbols:fullscreen-exit' : 'icon-material-symbols:fullscreen'} />
-      ),
     },
     {
-      label: '关闭所有',
-      key: 'closeAll',
       icon: () => <SvgIcon lineIcon='icon-ant-design:close-outlined' />,
+      key: 'closeAll',
+      label: '关闭所有',
     },
     {
-      label: '关闭其他',
-      key: 'closeOther',
       icon: () => <SvgIcon lineIcon='icon-ant-design:swap-outlined' />,
+      key: 'closeOther',
+      label: '关闭其他',
     },
     {
-      label: '关闭右侧',
-      key: 'closeRight',
       icon: () => <SvgIcon lineIcon='icon-ant-design:swap-right-outlined' />,
+      key: 'closeRight',
+      label: '关闭右侧',
     },
     {
-      label: '关闭左侧',
-      key: 'closeLeft',
       icon: () => <SvgIcon lineIcon='icon-ant-design:swap-left-outlined' />,
+      key: 'closeLeft',
+      label: '关闭左侧',
     },
     {
-      label: '刷新当前页',
-      key: 'refresh',
       icon: () => <SvgIcon lineIcon='icon-ic:twotone-refresh' />,
+      key: 'refresh',
+      label: '刷新当前页',
     },
   ])
   const _delCache = async <T extends ITag>(Fn: (item: T, index: number) => boolean, path: string) => {
@@ -140,6 +140,13 @@ export const useTagStore = defineStore('useTagStore', () => {
           tagList.value[0].fullPath,
         )
       },
+      closeLeft: async () => {
+        const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
+        await _delCache(
+          (item, i) => item.isAffix || i >= index,
+          selectTagFullPath,
+        )
+      },
       closeOther: async () => {
         await _delCache(
           item => item.isAffix || item.fullPath === selectTagFullPath,
@@ -156,23 +163,16 @@ export const useTagStore = defineStore('useTagStore', () => {
           selectTagFullPath,
         )
       },
-      closeLeft: async () => {
-        const index = findIndex(tagList.value, item => item.fullPath === selectTagFullPath)
-        await _delCache(
-          (item, i) => item.isAffix || i >= index,
-          selectTagFullPath,
-        )
+      default: () => {
+        console.error(new Error('actionTag type error'))
+      },
+      fullScreen: async () => {
+        setAttrs('isFullscreen', !isFullscreen.value)
       },
       refresh: async () => {
         setAttrs('isRefreshPage', false)
         await delCache(tag)
         setAttrs('isRefreshPage', true)
-      },
-      fullScreen: async () => {
-        setAttrs('isFullscreen', !isFullscreen.value)
-      },
-      default: () => {
-        console.error(new Error('actionTag type error'))
       },
     }
     await (actionFn[key] || actionFn.default)()
@@ -195,15 +195,15 @@ export const useTagStore = defineStore('useTagStore', () => {
     await scrollTo(findIndex(tagList.value, item => item.fullPath === route.fullPath))
   })
   return {
-    tagList,
-    tagDropdownOptions,
-    scrollRef,
-    scrollTo,
-    contentRef,
     containerRef,
+    contentRef,
     createTag,
     delTagList,
+    scrollRef,
+    scrollTo,
     tagDropdownClick,
+    tagDropdownOptions,
+    tagList,
   }
 }, {
   persist: {

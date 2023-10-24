@@ -1,9 +1,9 @@
 <script setup lang="ts">
 definePage({
   meta: {
+    isOrder: 99,
     isTitle: '关于',
     lineIcon: 'icon-material-symbols:roundabout-right',
-    isOrder: 99,
   },
 })
 </script>

@@ -13,8 +13,8 @@ const { delTagList: closeTag, tagDropdownClick } = tagStore
 const { isDrag } = useSort(contentRef, tagList, {
   animation: 300,
   forceFallback: true,
-  scrollSpeed: 6,
   scrollSensitivity: 50,
+  scrollSpeed: 6,
 })
 const { x, y, setShowDropRef, showDropRef, changePosition } = useDropdown()
 const selectTag = ref<ITag>()

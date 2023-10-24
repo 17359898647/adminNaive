@@ -6,10 +6,10 @@ import { useRequest } from '@/composables/useRequest'
 console.log(import.meta.env.VITE_BASEURL)
 const instance = axios.create({
   baseURL: import.meta.env.DEV ? '/api' : import.meta.env.VITE_BASEURL,
-  timeout: 10000,
   headers: {
     'content-type': 'application/json',
   },
+  timeout: 10000,
   withCredentials: false,
 })
 
@@ -51,7 +51,7 @@ export type dataFormat<T = any> = T
 
 export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
 export const request: requestFn = options => useRequest(instance, {
-  retry: 3,
   resetOnExecute: false,
+  retry: 3,
   ...options,
 })

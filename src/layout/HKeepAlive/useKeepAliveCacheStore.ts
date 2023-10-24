@@ -26,7 +26,7 @@ export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () =
     }
   }
   return {
-    exclude,
     delCache,
+    exclude,
   }
 })

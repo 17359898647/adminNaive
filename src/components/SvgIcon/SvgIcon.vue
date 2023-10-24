@@ -5,8 +5,8 @@ interface IProps {
   size?: string | number
 }
 withDefaults(defineProps<IProps>(), {
-  size: '1rem',
   lineIcon: 'icon-material-symbols:disabled-by-default',
+  size: '1rem',
 })
 const emits = defineEmits<{
   click: [e: MouseEvent]

@@ -24,7 +24,7 @@
     "axios": "^1.5.1",
     "colord": "^2.9.3",
     "drauu": "^0.3.7",
-    "ge-eslint": "0.0.3",
+    "ge-eslint": "0.0.5",
     "lightningcss": "^1.22.0",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.35.0",

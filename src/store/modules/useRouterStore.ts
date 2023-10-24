@@ -9,8 +9,8 @@ export const useRouterStore = defineStore('useRouterStore', () => {
   }
 
   return {
+    addRouter,
     isReady,
     setReady,
-    addRouter,
   }
 })

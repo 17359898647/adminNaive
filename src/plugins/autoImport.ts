@@ -5,16 +5,16 @@ import type { PluginOption } from 'vite'
 
 export function autoImport(): PluginOption {
   return AutoImport({
-    imports: ['pinia', '@vueuse/core', 'vue', 'vitest', VueRouterAutoImports],
-    resolvers: [NaiveUiResolver()],
-    dts: './src/types/auto-import.d.ts',
     dirs: ['./src/httpApi', './src/composables', './src/utils', './src/store/modules', './src/naiveHooks', './src/https'],
+    dts: './src/types/auto-import.d.ts',
     eslintrc: {
       enabled: true,
       filepath: 'src/types/.eslintrc-auto-import.json',
       globalsPropValue: 'readonly',
     },
-    vueTemplate: true,
+    imports: ['pinia', '@vueuse/core', 'vue', 'vitest', VueRouterAutoImports],
     include: [/\.vue\??/, /\.tsx?$/],
+    resolvers: [NaiveUiResolver()],
+    vueTemplate: true,
   })
 }

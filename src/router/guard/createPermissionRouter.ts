@@ -17,14 +17,14 @@ export async function createPermissionRouter(
       }
       else {
         const redirect = fullPath
-        next({ name: 'login', replace: true, query: { redirect } }) // 重定向到登录页面
+        next({ name: 'login', query: { redirect }, replace: true }) // 重定向到登录页面
         return false
       }
     }
     await routerStore.addRouter()
     if (name === 'ExteriorNotFoundView') {
       const path = to.redirectedFrom?.fullPath || fullPath
-      next({ path, replace: true, query: to.query, hash: to.hash })
+      next({ hash: to.hash, path, query: to.query, replace: true })
       return false
     }
   }

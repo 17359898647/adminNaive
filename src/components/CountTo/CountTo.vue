@@ -6,17 +6,17 @@ import { computed, ref, watch, watchEffect } from 'vue'
 defineOptions({ name: 'CountTo' })
 
 const props = withDefaults(defineProps<Props>(), {
-  startValue: 0,
-  endValue: new Date().getFullYear(),
-  duration: 1000,
   autoplay: true,
-  decimals: 0,
-  prefix: '',
-  suffix: '',
-  separator: ',',
   decimal: '.',
-  useEasing: true,
+  decimals: 0,
+  duration: 1000,
+  endValue: new Date().getFullYear(),
+  prefix: '',
+  separator: ',',
+  startValue: 0,
+  suffix: '',
   transition: 'linear',
+  useEasing: true,
 })
 
 const emit = defineEmits<{
@@ -60,8 +60,8 @@ function run() {
   outputValue = useTransition(source, {
     disabled,
     duration: props.duration,
-    onStarted: () => emit('started'),
     onFinished: () => emit('finished'),
+    onStarted: () => emit('started'),
     ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
   })
 }

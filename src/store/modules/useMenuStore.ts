@@ -35,12 +35,12 @@ export const useMenuStore = defineStore('useMenuStore', () => {
       const { lineIcon, localIcon, isHidden, isTitle } = meta || {}
       name && allMenuName.value.add(name)
       return {
-        key: name || path,
-        show: !isHidden,
         children: isUndefined(children) ? [] : createMenuOptions(children),
-        localIcon,
-        lineIcon,
+        key: name || path,
         label: isTitle || path,
+        lineIcon,
+        localIcon,
+        show: !isHidden,
       } as _MenuOption
     })
   }
@@ -67,10 +67,10 @@ export const useMenuStore = defineStore('useMenuStore', () => {
   })
   return {
     menuOptions,
-    setOpenKeys,
     openKeys,
-    setSelectKey,
     selectKey,
+    setOpenKeys,
+    setSelectKey,
   }
 }, {
   persist: {

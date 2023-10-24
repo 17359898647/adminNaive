@@ -1,9 +1,9 @@
 <script setup lang="ts">
 definePage({
   meta: {
+    isKeepAlive: false,
     isTitle: '二级子路由',
     lineIcon: 'icon-material-symbols:roundabout-right',
-    isKeepAlive: false,
   },
 })
 </script>

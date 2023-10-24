@@ -10,20 +10,16 @@ export const defaultDialogOptions: DialogOptions = {
   class: undefined,
   closable: true,
   closeOnEsc: true,
-  iconPlacement: 'left',
+  content: '提示框内容',
   icon: undefined,
-  showIcon: false,
+  iconPlacement: 'left',
   loading: false,
   maskClosable: true,
   negativeButtonProps: undefined,
   negativeText: '取消',
-  positiveButtonProps: undefined,
-  positiveText: '确定',
-  style: {},
-  title: '提示框标题',
-  content: '提示框内容',
-  transformOrigin: 'mouse',
-  type: 'default',
+  onAfterEnter: () => {
+    // console.log('onAfterEnter')
+  },
   onAfterLeave: () => {
     // console.log('onAfterLeave')
   },
@@ -33,18 +29,22 @@ export const defaultDialogOptions: DialogOptions = {
   onEsc: () => {
     // console.log('onEsc')
   },
-  onAfterEnter: () => {
-    // console.log('onAfterEnter')
-  },
   onMaskClick: () => {
     // console.log('onMaskClick')
-  },
-  onPositiveClick: () => {
-    // console.log('onPositiveClick')
   },
   onNegativeClick: () => {
     // console.log('onNegativeClick')
   },
+  onPositiveClick: () => {
+    // console.log('onPositiveClick')
+  },
+  positiveButtonProps: undefined,
+  positiveText: '确定',
+  showIcon: false,
+  style: {},
+  title: '提示框标题',
+  transformOrigin: 'mouse',
+  type: 'default',
 }
 export type PickDialogOptions = Partial<
   Pick<DialogOptions, 'content' | 'title' | 'negativeText' | 'positiveText' | 'type'>
@@ -64,10 +64,10 @@ export function createDialog(options?: PickDialogOptions) {
     onNegativeClick,
   } = toRefs(dialog.create(optionsCopy))
   return {
-    loading: loading!,
-    confirm: onPositiveClick!,
     cancel: onNegativeClick!,
+    confirm: onPositiveClick!,
     destroy: toValue(destroy)!,
+    loading: loading!,
   }
 }
 export function closeAllDialog() {

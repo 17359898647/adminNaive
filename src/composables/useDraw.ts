@@ -53,13 +53,13 @@ export function useDraw(
   const shiftPressed = ref(false)
 
   const brush = ref<Brush>({
-    color: 'black',
-    size: 3,
     arrowEnd: false,
+    color: 'black',
     cornerRadius: 0,
     dasharray: undefined,
     fill: 'transparent',
     mode: 'draw',
+    size: 3,
     ...options?.brush,
   })
 
@@ -123,22 +123,22 @@ export function useDraw(
   tryOnScopeDispose(() => cleanup())
 
   return {
-    drauuInstance,
-
-    load,
-    dump,
-    clear,
-    cancel,
-    undo,
-    redo,
-    canUndo,
-    canRedo,
     brush,
 
-    onChanged: onChangedHook.on,
-    onCommitted: onCommittedHook.on,
-    onStart: onStartHook.on,
-    onEnd: onEndHook.on,
+    canRedo,
+    canUndo,
+    cancel,
+    clear,
+    drauuInstance,
+    dump,
+    load,
     onCanceled: onCanceledHook.on,
+    onChanged: onChangedHook.on,
+
+    onCommitted: onCommittedHook.on,
+    onEnd: onEndHook.on,
+    onStart: onStartHook.on,
+    redo,
+    undo,
   }
 }

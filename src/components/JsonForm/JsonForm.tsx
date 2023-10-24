@@ -50,8 +50,8 @@ export function JsonFormHelp(JsonOptions: MaybeRefOrGetter<IJsonType[]>) {
     scope.stop()
   })
   return {
-    model: ref(extract(_JsonOptions)),
     JsonOptions: _JsonOptions,
+    model: ref(extract(_JsonOptions)),
   }
 }
 export const JsonForm = defineComponent({

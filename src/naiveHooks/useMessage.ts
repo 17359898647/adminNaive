@@ -13,22 +13,22 @@ export const loadingBarProviderProps = ref<LoadingBarProviderProps>({
 const { message, dialog, notification, loadingBar } = createDiscreteApi(
   ['message', 'dialog', 'notification', 'loadingBar'],
   {
+    loadingBarProviderProps,
     messageProviderProps: {
       max: 3,
     },
     notificationProviderProps: {
       // max: 3,
     },
-    loadingBarProviderProps,
   },
 )
 export { dialog, notification, loadingBar }
 export const defaultMessageOptions: MessageOptions = {
-  type: 'default',
-  duration: 2000,
-  showIcon: true,
   closable: false,
+  duration: 2000,
   keepAliveOnHover: false,
+  showIcon: true,
+  type: 'default',
   // onLeave: () => {
   //   console.log('onLeave')
   // },
@@ -100,11 +100,11 @@ export function createMsg(
     )
   })
   return {
+    changeContent,
+    changeType,
     destroy: () => {
       destroy.value()
     },
-    changeType,
-    changeContent,
   }
 }
 export function closeAllMsg() {

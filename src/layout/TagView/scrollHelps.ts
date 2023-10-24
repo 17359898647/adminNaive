@@ -32,20 +32,20 @@ export function scrollHelps(options?: {
       const { left, width } = childrenEl.getBoundingClientRect()
       const resultDistance = left - TransitionRefLeft.value - centerWidth.value + width / 2
       scrollRef.value?.scrollBy({
-        left: resultDistance,
         behavior: 'smooth',
+        left: resultDistance,
       })
     },
     300,
     {
       leading: true,
-      trailing: true,
       maxWait: 1000,
+      trailing: true,
     },
   )
   return {
-    contentRef,
     containerRef,
+    contentRef,
     scrollRef,
     scrollTo,
   }

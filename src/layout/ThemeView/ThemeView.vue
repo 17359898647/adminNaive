@@ -32,8 +32,8 @@ const iconRotate = computed(() => {
 
 const setAttrsDeBounce = debounce(setAttrs, 300, {
   leading: true,
-  trailing: false,
   maxWait: 300,
+  trailing: false,
 })
 </script>
 
