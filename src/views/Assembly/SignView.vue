@@ -125,7 +125,7 @@ const { JsonOptions, model } = JsonFormHelp([
     itemProps: {
       label: '颜色',
     },
-    props: {
+    IProps: {
       modes: ['hex'],
       showAlpha: false,
       value: color.value,
@@ -141,7 +141,7 @@ const { JsonOptions, model } = JsonFormHelp([
     itemProps: {
       label: '尺寸',
     },
-    props: {
+    IProps: {
       max: 20,
       min: 1,
       step: 1,
@@ -159,7 +159,7 @@ const { JsonOptions, model } = JsonFormHelp([
       label: '画笔类型',
     },
     radioOptions: createRadioOptions.value,
-    props: {
+    IProps: {
       value: mode?.value,
       onUpdateValue: (value: DrawingMode | 'arrowLine') => {
         if (value === 'arrowLine') {

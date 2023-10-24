@@ -33,8 +33,8 @@ export function JsonFormHelp(JsonOptions: MaybeRefOrGetter<IJsonType[]>) {
   const extract = (options: MaybeRefOrGetter<IJsonType[]>) => {
     const result: Record<string, any> = {}
     forEach(toValue(options), (option) => {
-      const { formName, props = {}, type } = option
-      const { defaultValue, value } = props as any
+      const { formName, IProps = {}, type } = option
+      const { defaultValue, value } = IProps as any
       result[formName] = (defaultValue || value) ?? (type === 'upload' ? [] : null)
     })
     return result as Record<GetKey<IJsonType[], 'formName'>, any>
@@ -74,7 +74,7 @@ export const JsonForm = defineComponent({
               const {
                 formName,
                 itemProps,
-                props: moduleProps = {},
+                IProps: moduleProps = {},
                 type,
                 slot,
                 radioOptions,

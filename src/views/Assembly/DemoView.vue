@@ -28,7 +28,7 @@ const demoJson = computed(() => {
         span: 12,
         label: '性别',
       },
-      props: {
+      IProps: {
         options: [
           { label: '男', value: 'male' },
           { label: '女', value: 'female' },
@@ -48,7 +48,7 @@ const demoJson = computed(() => {
       itemProps: {
         label: '年龄',
       },
-      props: {
+      IProps: {
         min: 0,
         max: 100,
         value: 0,
@@ -61,9 +61,23 @@ const demoJson = computed(() => {
       itemProps: {
         label: '生日照片',
       },
-      props: {
+      IProps: {
+        defaultUpload: true,
+        action: 'https://www.mocky.io/v2/5e4bafc63100007100d8b70f',
         listType: 'image-card',
+        multiple: true,
+        accept: 'image/png',
+        onError: () => {
+          console.log(1)
+        },
       },
+      // slot() {
+      //   return (
+      //     <NButton>
+      //       123
+      //     </NButton>
+      //   )
+      // },
     },
   ]
   return Json
@@ -91,9 +105,7 @@ const { model, JsonOptions } = JsonFormHelp(demoJson)
       </NSpace>
     </NCard>
     <NCard>
-      <pre>
-        {{ toValue(useStringify(model, null, 2)) }}
-      </pre>
+      <pre v-html="toValue(useStringify(model, null, 2))" />
     </NCard>
   </NCard>
 </template>

@@ -30,7 +30,7 @@ export interface IRadioOptions {
 export type IJsonType<T extends IComType = IComType> = T extends infer t ? t extends IComType ? {
   type?: t
   readonly formName: string
-  props?: IComProps[t]
+  IProps?: IComProps[t]
   itemProps?: FormItemGiProps
   slot?: t extends 'upload' ? () => VNode : never
   radioOptions?: t extends 'radio' ? IRadioOptions[] : never
