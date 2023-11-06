@@ -8,7 +8,13 @@ import { useTagStore } from '@/store/modules/useTagStore'
 
 const { isTagViewHeight, isContentPadding } = inject(layoutProvide)!
 const tagStore = useTagStore()
-const { tagList, tagDropdownOptions, contentRef, containerRef, scrollRef } = storeToRefs(tagStore)
+const {
+  tagList,
+  tagDropdownOptions,
+  contentRef,
+  containerRef,
+  scrollRef,
+} = storeToRefs(tagStore)
 const { delTagList: closeTag, tagDropdownClick } = tagStore
 const { isDrag } = useSort(contentRef, tagList, {
   animation: 300,
@@ -28,7 +34,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
 <template>
   <div
     ref="containerRef"
-    class="demo relative bg-#fafafc text-center dark:bg-#101014"
+    class="relative bg-#fafafc text-center dark:bg-#101014"
     :style="{
       height: `${isTagViewHeight}px`,
       padding: `0 ${isContentPadding}px`,

@@ -10,7 +10,7 @@ import { routerHelper } from '@/router/helps/allRouters'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { allRouters } = routerHelper()
-const { isHeaderHeight, isContentPadding, isSupported } = inject(layoutProvide)!
+const { isHeaderHeight, isContentPadding, isSupported, isDark } = inject(layoutProvide)!
 const route = useRoute()
 const allBreadcrumb = ref(createBreadcrumb(toValue(allRouters)))
 const breadcrumb = computed(() => {
@@ -26,6 +26,7 @@ useAutoAnimate({
 <template>
   <div
     class="flex flex-nowrap items-center gap-2 overflow-hidden"
+    :class="!isDark ? 'border-b border-[var(--n-border-color)]' : ''"
     :style="{
       height: `${isHeaderHeight}px`,
       padding: `0 ${isContentPadding}px`,

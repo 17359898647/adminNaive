@@ -6,7 +6,7 @@ import { layoutProvide } from '@/store/modules/useLayoutStore'
 import type { _MenuOption } from '@/store/modules/useMenuStore'
 import { useMenuStore } from '@/store/modules/useMenuStore'
 
-const { isCollapsedWidth, isAccordion } = inject(layoutProvide)!
+const { isCollapsedWidth, isAccordion, isInverted, isDark } = inject(layoutProvide)!
 function renderMenuIcon(option: _MenuOption) {
   const { localIcon, lineIcon } = option as _MenuOption
   return (
@@ -48,6 +48,7 @@ const menuOptionsComputed = computed(() => {
     :collapsedWidth="isCollapsedWidth"
     :expandedKeys="openKeys"
     :indent="18"
+    :inverted="isInverted && !isDark"
     :options="menuOptionsComputed"
     :renderIcon="renderMenuIcon"
     :value="selectKey"

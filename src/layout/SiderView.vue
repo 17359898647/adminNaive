@@ -1,7 +1,16 @@
 <script setup lang="ts">
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
-const { isCollapsed, setAttrs, isHeaderHeight, isCollapsedWidth, isSiderWidth, isShowTrigger } = inject(layoutProvide)!
+const {
+  isCollapsed,
+  setAttrs,
+  isHeaderHeight,
+  isCollapsedWidth,
+  isSiderWidth,
+  isShowTrigger,
+  isDark,
+  isInverted,
+} = inject(layoutProvide)!
 const time = useDateFormat(
   useNow(),
   computed(() => (isCollapsed.value ? 'HH:mm:ss' : 'YYYY-MM-DD HH:mm:ss')),
@@ -11,6 +20,7 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
 
 <template>
   <NLayoutSider
+    :bordered="!isDark"
     class="relative"
     :collapsed="isCollapsed"
     :collapsedWidth="isCollapsedWidth"
@@ -18,6 +28,7 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
     :contentStyle="{
       paddingTop: `${isHeaderHeight - 6}px`,
     }"
+    :inverted="isInverted && !isDark"
     :nativeScrollbar="false"
     :showTrigger="isShowTrigger"
     :width="isSiderWidth"
