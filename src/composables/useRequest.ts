@@ -181,12 +181,12 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
   })
   return {
     ..._useAxios,
-    data: computed({
-      get: () => {
-        return _useAxios.data.value
-      },
-      set: val => _useAxios.data.value = val,
-    }),
+    // data: computed({
+    //   get: () => {
+    //     return _useAxios.data.value
+    //   },
+    //   set: val => _useAxios.data.value = val,
+    // }),
     execute: (executeUrl?: MaybeRefOrGetter<string>) => {
       const _executeUrl = toValue(executeUrl)
       return _useAxios.execute(isUndefined(_executeUrl) ? _url.value : _executeUrl) as Promise<useRequestReturn<T>>

@@ -3,7 +3,6 @@ import axios from 'axios'
 import type { useRequestParams, useRequestReturn } from '@/composables/useRequest'
 import { useRequest } from '@/composables/useRequest'
 
-console.log(import.meta.env.VITE_BASEURL)
 const instance = axios.create({
   baseURL: import.meta.env.DEV ? '/api' : import.meta.env.VITE_BASEURL,
   headers: {
@@ -34,7 +33,6 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
   (response) => {
-    console.log(response)
     return response
   },
   (error) => {
