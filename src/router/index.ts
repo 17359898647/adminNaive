@@ -1,19 +1,16 @@
 import { isString } from 'lodash-es'
 import { setupLayouts } from 'virtual:generated-layouts'
 import type { App } from 'vue'
-import type { Router } from 'vue-router'
+import type { RouteLocationNormalized, Router } from 'vue-router/auto'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routerHelper } from './helps/allRouters'
 import { htmlTitle } from '@/composables/useTitle'
+import { initLoginRouteGuard } from '@/router/guard/initLoginRouteGuard'
 
 function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     loadingStart()
-    // const isPermissionReady = await createPermissionRouter(to, from, next)
-    // if (!isPermissionReady)
-    //   return
-    // await initLoginRouteGuard(to, from, next)
-    next()
+    await initLoginRouteGuard(to as RouteLocationNormalized, from as RouteLocationNormalized, next)
   })
   // 跳转完成后
   router.afterEach((to) => {

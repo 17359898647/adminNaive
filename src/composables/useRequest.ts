@@ -10,24 +10,6 @@ const transformParams = reactify((url: string, params?: Record<string, any>) => 
   return queryString ? `${url}?${queryString}` : `${url}`
 })
 
-/**
- * url: 请求地址
- * retry: 重试次数
- * params: 请求参数
- * data: 请求体
- * headers: 请求头
- * method: 请求方法
- * immediate: 是否立即执行
- * baseURL: 基础路径
- * refetch: 是否重新请求
- * initialData: 初始数据
- * onSuccess: 请求成功回调
- * onError: 请求失败回调
- * onFinish: 请求完成回调
- * onUploadProgress: 上传进度回调
- * onDownloadProgress: 下载进度回调
- * resetOnExecute: 是否在执行时重置数据
- */
 export interface useRequestParams<T = any> {
   /**
    * 请求地址

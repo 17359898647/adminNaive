@@ -35,6 +35,11 @@ interface userRouteMeta {
    * @default undefined
    */
   isIframe?: true
+  /*
+  * 是否需要登录
+  * @default true
+  * */
+  needLogin?: false
 }
 type RouteRecordRaw = import('vue-router').RouteRecordRaw
 interface routerObject extends Omit<RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {

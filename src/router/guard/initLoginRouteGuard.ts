@@ -1,23 +1,34 @@
-// 处理token相关
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import type { RouteLocationNormalized, RouteLocationRaw } from 'vue-router/auto'
+import { isUndefined } from 'lodash-es'
 
 export async function initLoginRouteGuard(
   to: RouteLocationNormalized,
   _from: RouteLocationNormalized,
-  next: NavigationGuardNext,
+  next: {
+    (to?: RouteLocationRaw): void
+    (to: RouteLocationRaw): void
+  },
 ) {
-  const token = localStorage.getItem('token') || '123'
+  if (!isUndefined(to.meta.needLogin))
+    return next()
+
+  const token = localStorage.getItem('token')
   if (!token) {
     const { name } = to
-    if (name === 'login') {
-      next()
+    if (name === 'LoginRedirect') {
+      return next()
     }
     else {
       createMsg('未登录或令牌到期', { type: 'error' })
-      console.log('权限路由已经加载，未登录，重定向到login', to.fullPath)
-      const redirect = to.fullPath
-      next({ name: 'login', query: { redirect }, replace: true })
+      const redirect = to.name || '/'
+      return next({
+        name: 'LoginRedirect',
+        params: { redirect },
+        replace: true,
+      })
     }
   }
-  next()
+  else {
+    return next()
+  }
 }

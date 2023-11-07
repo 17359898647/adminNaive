@@ -47,7 +47,7 @@ declare module 'vue-router/auto/routes' {
     'AssemblyNetTest': RouteRecordInfo<'AssemblyNetTest', '/Assembly/NetTest', Record<never, never>, Record<never, never>>,
     'AssemblySignView': RouteRecordInfo<'AssemblySignView', '/Assembly/SignView', Record<never, never>, Record<never, never>>,
     'AssemblyTableTest': RouteRecordInfo<'AssemblyTableTest', '/Assembly/TableTest', Record<never, never>, Record<never, never>>,
-    'Login': RouteRecordInfo<'Login', '/login', Record<never, never>, Record<never, never>>,
+    'LoginRedirect': RouteRecordInfo<'LoginRedirect', '/login-:redirect', { redirect: ParamValue<true> }, { redirect: ParamValue<false> }>,
     'OneOne': RouteRecordInfo<'OneOne', '/one/one', Record<never, never>, Record<never, never>>,
     'OneTwoThreeThree': RouteRecordInfo<'OneTwoThreeThree', '/one/two/three/three', Record<never, never>, Record<never, never>>,
     'OneTwoTwo': RouteRecordInfo<'OneTwoTwo', '/one/two/two', Record<never, never>, Record<never, never>>,
