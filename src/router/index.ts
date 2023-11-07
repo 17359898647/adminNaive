@@ -14,12 +14,7 @@ function setupRouterGuard(router: Router) {
   })
   // 跳转完成后
   router.afterEach((to) => {
-    const {
-      meta: {
-        isTitle,
-        changeTitle,
-      },
-    } = to
+    const { isTitle, changeTitle } = to.meta || {}
     changeTitle !== false && (htmlTitle.value = isTitle)
     loadingFinish()
   })
