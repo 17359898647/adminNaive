@@ -1,3 +1,4 @@
+
 interface userRouteMeta {
   /** 路由标题 */
   isTitle: string
@@ -40,6 +41,11 @@ interface userRouteMeta {
   * @default true
   * */
   needLogin?: false
+
+  /*
+  *
+  * */
+  roles?: ('admin' | 'editor' | 'visitor')[]
 }
 type RouteRecordRaw = import('vue-router').RouteRecordRaw
 interface routerObject extends Omit<RouteRecordRaw, 'component' | 'meta' | 'children' | 'name'> {

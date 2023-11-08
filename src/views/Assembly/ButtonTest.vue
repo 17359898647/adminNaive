@@ -6,6 +6,7 @@ definePage({
   meta: {
     isTitle: '按钮测试',
     lineIcon: 'icon-teenyicons:button-outline',
+    roles: ['admin'],
   },
 })
 </script>

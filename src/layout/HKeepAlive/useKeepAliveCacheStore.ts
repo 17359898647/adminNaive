@@ -7,13 +7,15 @@ function createReg(tag: ITag | (RouteRecordRaw & {
   fullPath?: string
 })) {
   const { fullPath, name } = tag
-  return new RegExp(`${String(name || fullPath)}`)
+  const reg = `^${String(name || fullPath)}`.replace(/\[([^\]]+)\]/g, '\[\\s\\S\]*')
+  return new RegExp(reg)
 }
 export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () => {
   const { allUnKeepAliveRouters } = routerHelper()
   const unCache = map(unref(allUnKeepAliveRouters), item => createReg(item))
   const exclude = ref<RegExp[]>(unCache)
   const delCache = async (tag: ITag | ITag[]) => {
+    console.log('delCache', tag)
     if (isArray(tag)) {
       exclude.value = concat(exclude.value, map(tag, item => createReg(item)))
       await nextTick()

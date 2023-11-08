@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import dayjs from 'dayjs'
 import { NCard } from 'naive-ui'
 import type { IJsonType } from '@/components/JsonForm'
 import { JsonForm, JsonFormHelp } from '@/components/JsonForm'
@@ -10,7 +11,7 @@ definePage({
     lineIcon: 'icon-ph:test-tube-duotone',
   },
 })
-
+const now = new Date().getTime()
 const demoJson = computed(() => {
   const Json: IJsonType[] = [
     {
@@ -36,6 +37,10 @@ const demoJson = computed(() => {
       type: 'select',
     },
     {
+      IProps: {
+        defaultValue: [now, now],
+        type: 'daterange',
+      },
       formName: 'birthday',
       itemProps: {
         label: '生日',
@@ -82,8 +87,20 @@ const demoJson = computed(() => {
   ]
   return Json
 })
-
+watchDeep(demoJson, () => {
+  console.log('change')
+})
 const { model, JsonOptions } = JsonFormHelp(demoJson)
+const transformDate = computed(() => {
+  const [startDate = now, endDate = now] = model.value.birthday || []
+  return {
+    ...model.value,
+    birthday: {
+      endDate: dayjs(endDate).format('YYYY-MM-DD'),
+      startDate: dayjs(startDate).format('YYYY-MM-DD'),
+    },
+  }
+})
 </script>
 
 <template>
@@ -105,7 +122,7 @@ const { model, JsonOptions } = JsonFormHelp(demoJson)
       </NSpace>
     </NCard>
     <NCard>
-      <pre v-html="toValue(useStringify(model, null, 2))" />
+      <pre v-html="toValue(useStringify(transformDate, null, 2))" />
     </NCard>
   </NCard>
 </template>

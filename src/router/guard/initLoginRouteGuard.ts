@@ -3,32 +3,40 @@ import { isUndefined } from 'lodash-es'
 
 export async function initLoginRouteGuard(
   to: RouteLocationNormalized,
-  _from: RouteLocationNormalized,
+  from: RouteLocationNormalized,
   next: {
     (to?: RouteLocationRaw): void
-    (to: RouteLocationRaw): void
   },
 ) {
-  if (!isUndefined(to.meta.needLogin))
-    return next()
-
+  const { meta, name } = to
+  const { needLogin } = meta
+  /* 无需登录 */
+  if (!isUndefined(needLogin)) {
+    console.log('无需登录')
+    next()
+    return false
+  }
   const token = localStorage.getItem('token')
+  const reg = /^\/login/g
   if (!token) {
-    const { name } = to
-    if (name === 'LoginRedirect') {
-      return next()
+    if (reg.test(to.path)) {
+      next()
+      return false
     }
     else {
       createMsg('未登录或令牌到期', { type: 'error' })
-      const redirect = to.name || '/'
-      return next({
-        name: 'LoginRedirect',
-        params: { redirect },
+      const redirect: keyof RouteNamedMap = name || 'Root'
+      next({
+        name: '/login-[redirect]',
+        params: {
+          redirect,
+        },
         replace: true,
       })
     }
   }
   else {
-    return next()
+    /* 放行 */
+    return true
   }
 }

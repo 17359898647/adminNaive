@@ -39,23 +39,23 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    'Root': RouteRecordInfo<'Root', '/', Record<never, never>, Record<never, never>>,
+    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     'InteriorNotFound': RouteRecordInfo<'InteriorNotFound', '/:InteriorNotFound(.*)', { InteriorNotFound: ParamValue<true> }, { InteriorNotFound: ParamValue<false> }>,
-    'About': RouteRecordInfo<'About', '/about', Record<never, never>, Record<never, never>>,
-    'AssemblyButtonTest': RouteRecordInfo<'AssemblyButtonTest', '/Assembly/ButtonTest', Record<never, never>, Record<never, never>>,
-    'AssemblyDemoView': RouteRecordInfo<'AssemblyDemoView', '/Assembly/DemoView', Record<never, never>, Record<never, never>>,
-    'AssemblyNetTest': RouteRecordInfo<'AssemblyNetTest', '/Assembly/NetTest', Record<never, never>, Record<never, never>>,
-    'AssemblySignView': RouteRecordInfo<'AssemblySignView', '/Assembly/SignView', Record<never, never>, Record<never, never>>,
-    'AssemblyTableTest': RouteRecordInfo<'AssemblyTableTest', '/Assembly/TableTest', Record<never, never>, Record<never, never>>,
-    'LoginRedirect': RouteRecordInfo<'LoginRedirect', '/login-:redirect', { redirect: ParamValue<true> }, { redirect: ParamValue<false> }>,
-    'OneOne': RouteRecordInfo<'OneOne', '/one/one', Record<never, never>, Record<never, never>>,
-    'OneTwoThreeThree': RouteRecordInfo<'OneTwoThreeThree', '/one/two/three/three', Record<never, never>, Record<never, never>>,
-    'OneTwoTwo': RouteRecordInfo<'OneTwoTwo', '/one/two/two', Record<never, never>, Record<never, never>>,
+    '/about': RouteRecordInfo<'/about', '/about', Record<never, never>, Record<never, never>>,
+    '/Assembly/ButtonTest': RouteRecordInfo<'/Assembly/ButtonTest', '/Assembly/ButtonTest', Record<never, never>, Record<never, never>>,
+    '/Assembly/DemoView': RouteRecordInfo<'/Assembly/DemoView', '/Assembly/DemoView', Record<never, never>, Record<never, never>>,
+    '/Assembly/NetTest': RouteRecordInfo<'/Assembly/NetTest', '/Assembly/NetTest', Record<never, never>, Record<never, never>>,
+    '/Assembly/SignView': RouteRecordInfo<'/Assembly/SignView', '/Assembly/SignView', Record<never, never>, Record<never, never>>,
+    '/Assembly/TableTest': RouteRecordInfo<'/Assembly/TableTest', '/Assembly/TableTest', Record<never, never>, Record<never, never>>,
+    '/login-[redirect]': RouteRecordInfo<'/login-[redirect]', '/login-:redirect', { redirect: ParamValue<true> }, { redirect: ParamValue<false> }>,
+    '/one/one': RouteRecordInfo<'/one/one', '/one/one', Record<never, never>, Record<never, never>>,
+    '/one/two/three/three': RouteRecordInfo<'/one/two/three/three', '/one/two/three/three', Record<never, never>, Record<never, never>>,
+    '/one/two/two': RouteRecordInfo<'/one/two/two', '/one/two/two', Record<never, never>, Record<never, never>>,
     'https://17359898647.github.io/': RouteRecordInfo<'https://17359898647.github.io/', '/OutsideChain/LineNet', Record<never, never>, Record<never, never>>,
-    'OutsideChainNaiveUi': RouteRecordInfo<'OutsideChainNaiveUi', '/OutsideChain/NaiveUi', Record<never, never>, Record<never, never>>,
-    'OutsideChainVueJs': RouteRecordInfo<'OutsideChainVueJs', '/OutsideChain/VueJs', Record<never, never>, Record<never, never>>,
-    'OutsideChainVueUse': RouteRecordInfo<'OutsideChainVueUse', '/OutsideChain/VueUse', Record<never, never>, Record<never, never>>,
-    'SettingMenuSetting': RouteRecordInfo<'SettingMenuSetting', '/setting/MenuSetting', Record<never, never>, Record<never, never>>,
+    '/OutsideChain/NaiveUi': RouteRecordInfo<'/OutsideChain/NaiveUi', '/OutsideChain/NaiveUi', Record<never, never>, Record<never, never>>,
+    '/OutsideChain/VueJs': RouteRecordInfo<'/OutsideChain/VueJs', '/OutsideChain/VueJs', Record<never, never>, Record<never, never>>,
+    '/OutsideChain/VueUse': RouteRecordInfo<'/OutsideChain/VueUse', '/OutsideChain/VueUse', Record<never, never>, Record<never, never>>,
+    '/setting/MenuSetting': RouteRecordInfo<'/setting/MenuSetting', '/setting/MenuSetting', Record<never, never>, Record<never, never>>,
   }
 }
 

@@ -6,11 +6,15 @@ import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routerHelper } from './helps/allRouters'
 import { htmlTitle } from '@/composables/useTitle'
 import { initLoginRouteGuard } from '@/router/guard/initLoginRouteGuard'
+import { initRolesRouterGuard } from '@/router/guard/initRolesRouterGuard'
 
 function setupRouterGuard(router: Router) {
-  router.beforeEach(async (to, from, next) => {
+  router.beforeResolve(async (to, from, next) => {
     loadingStart()
-    await initLoginRouteGuard(to as RouteLocationNormalized, from as RouteLocationNormalized, next)
+    const loginResult = await initLoginRouteGuard(to as RouteLocationNormalized, from as RouteLocationNormalized, next)
+    if (!loginResult)
+      return
+    await initRolesRouterGuard(to as RouteLocationNormalized, from as RouteLocationNormalized, next)
   })
   // 跳转完成后
   router.afterEach((to) => {

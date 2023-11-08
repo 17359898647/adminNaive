@@ -5,13 +5,13 @@ definePage({
     isTitle: '登录',
   },
 })
-const route = useRoute('LoginRedirect')
+const route = useRoute('/login-[redirect]')
 const router = useRouter()
 function login() {
-  const { redirect } = route.params
+  const { redirect = 'Root' } = route.params
   localStorage.setItem('token', '123')
   router.push({
-    name: redirect as any,
+    name: (redirect as any),
   })
 }
 </script>
