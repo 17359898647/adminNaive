@@ -1,7 +1,9 @@
 import type { RouteLocationNormalized, RouteLocationRaw } from 'vue-router/auto'
+import { includes, some } from 'lodash-es'
 
-function hasRequiredRoles(userRoles: string[], requiredRoles: string[]): boolean {
-  return userRoles.some(role => requiredRoles.includes(role))
+type Roles = userRouteMeta['roles']
+function hasRequiredRoles(userRoles: Roles, requiredRoles: Roles): boolean {
+  return some(requiredRoles, role => includes(userRoles, role))
 }
 export async function initRolesRouterGuard(
   to: RouteLocationNormalized,
@@ -12,7 +14,7 @@ export async function initRolesRouterGuard(
   },
 ) {
   // 用户拥有的权限
-  const userRoles: userRouteMeta['roles'] = ['visitor']
+  const userRoles: Roles = ['visitor', 'admin']
   const { meta } = to
   // 所需权限
   const { roles } = meta
@@ -21,7 +23,12 @@ export async function initRolesRouterGuard(
       next()
     }
     else {
-      createMsg('无权限', { type: 'error' })
+      const { meta } = to
+      const { isTitle } = meta || {}
+      // 不具备roles权限
+      createMsg(`无权限访问${isTitle}`, {
+        type: 'error',
+      })
       throw new Error('无权限')
     }
   }

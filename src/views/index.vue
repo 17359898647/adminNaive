@@ -2,18 +2,17 @@
 definePage({
   meta: {
     isAffix: true,
+    isOrder: Number.NEGATIVE_INFINITY,
     isTitle: '首页',
-    lineIcon: 'icon-material-symbols:home',
   },
 })
 const router = useRouter()
 function logout() {
-  // localStorage.removeItem('token')
+  localStorage.removeItem('token')
   router.push({
-    name: '/about',
+    name: '/login-[redirect]',
     params: {
-      di: '123',
-      id: '123',
+      redirect: 'Root',
     },
   })
 }

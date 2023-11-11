@@ -8,7 +8,7 @@ interface userRouteMeta {
    */
   changeTitle?: boolean
   /**
-   * 菜单顺序,同层比较
+   * 菜单顺序,同层比较,越小越靠前
    * @default 0
    */
   isOrder?: number

@@ -1,4 +1,5 @@
 import { includes } from 'lodash-es'
+import { createApp } from 'vue'
 import App from '@/App.vue'
 import { loadingFn } from '@/components/LoadingView/LoadingView'
 import { installDirective } from '@/directive'

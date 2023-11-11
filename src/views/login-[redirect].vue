@@ -1,17 +1,21 @@
 <script setup lang="ts">
+import { useRouteParams } from '@vueuse/router'
+
 definePage({
   meta: {
     isHidden: true,
     isTitle: '登录',
   },
 })
-const route = useRoute('/login-[redirect]')
 const router = useRouter()
+const redirect = useRouteParams<any>('redirect', 'Root', {
+  transform: String,
+})
 function login() {
-  const { redirect = 'Root' } = route.params
+  console.log('redirect', redirect.value)
   localStorage.setItem('token', '123')
   router.push({
-    name: (redirect as any),
+    name: '/',
   })
 }
 </script>
