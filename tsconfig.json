@@ -16,7 +16,8 @@
       "naive-ui/volar",
       "vitest/globals",
       "vite-plugin-vue-layouts/client",
-      "vite-plugin-svg-icons/client"
+      "vite-plugin-svg-icons/client",
+      "vitest"
     ],
     "allowJs": true,
     "strict": true,
