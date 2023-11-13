@@ -21,6 +21,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.2",
     "@vueuse/core": "^10.6.0",
     "@vueuse/integrations": "^10.6.0",
+    "@vueuse/router": "^10.6.0",
     "axios": "^1.6.1",
     "colord": "^2.9.3",
     "dayjs": "^1.11.10",
