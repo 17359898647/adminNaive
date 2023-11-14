@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import type { CSSProperties } from 'vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
@@ -10,7 +10,7 @@ const footerStyle = computed(() => {
 })
 </script>
 
-<template>
+<template >
   <NLayoutFooter
     class="z100 flex-center"
     :position="isFixedFooter ? 'absolute' : 'static'"
@@ -20,6 +20,6 @@ const footerStyle = computed(() => {
   </NLayoutFooter>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

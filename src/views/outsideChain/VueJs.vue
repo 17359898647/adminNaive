@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isIframe: true,
@@ -9,6 +9,6 @@ definePage({
 })
 </script>
 
-<template>
-  <IframeCom src="https://cn.vuejs.org/" />
+<template >
+  <IframeCom src="https://cn.vuejs.org/"/>
 </template>

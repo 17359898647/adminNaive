@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 interface IProps {
   lineIcon?: string
   localIcon?: string
@@ -13,7 +13,7 @@ const emits = defineEmits<{
 }>()
 </script>
 
-<template>
+<template >
   <NIcon
     class="cursor-pointer !flex"
     :size="size"
@@ -26,11 +26,11 @@ const emits = defineEmits<{
       :aria-hidden="true"
       class="fill-current"
     >
-      <use :href="`#${localIcon}`" />
+      <use :href="`#${localIcon}`"/>
     </svg>
     <i
       v-else
       :class="lineIcon"
-    />
+    ></i>
   </NIcon>
 </template>

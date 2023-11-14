@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isTitle: '编辑者权限',
@@ -8,12 +8,12 @@ definePage({
 })
 </script>
 
-<template>
-  <div>
+<template >
+  <div >
     editor
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

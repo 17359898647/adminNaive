@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 definePage({
   meta: {
     isAffix: true,
@@ -18,10 +18,10 @@ function logout() {
 }
 </script>
 
-<template>
-  <NCard title="home">
-    <NInput class="mb-2" />
-    <NButton @click="logout">
+<template >
+  <NCard title="home" >
+    <NInput class="mb-2"/>
+    <NButton @click="logout" >
       退出登录
     </NButton>
   </NCard>

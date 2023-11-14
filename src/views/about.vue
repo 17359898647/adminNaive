@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isOrder: 99,
@@ -8,12 +8,12 @@ definePage({
 })
 </script>
 
-<template>
-  <NCard title="关于">
-    <NInput />
+<template >
+  <NCard title="关于" >
+    <NInput/>
   </NCard>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

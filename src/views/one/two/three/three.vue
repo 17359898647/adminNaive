@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isTitle: '三级子路由',
@@ -7,13 +7,13 @@ definePage({
 })
 </script>
 
-<template>
-  <NCard title="三级子路由">
-    <NH5>缓存三级子路由</NH5>
-    <NInput />
+<template >
+  <NCard title="三级子路由" >
+    <NH5 >缓存三级子路由</NH5>
+    <NInput/>
   </NCard>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

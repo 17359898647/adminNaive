@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import { inject } from 'vue'
 import IframeKeep from '@/layout/HKeepAlive/IframeKeep.vue'
 import { useKeepAliveCacheStore } from '@/layout/HKeepAlive/useKeepAliveCacheStore'
@@ -17,7 +17,7 @@ const paddingAttribute = computed(() => {
 })
 </script>
 
-<template>
+<template >
   <RouterView
     v-slot="{
       Component, route: {
@@ -34,7 +34,7 @@ const paddingAttribute = computed(() => {
       enterActiveClass="animated-fade-in-left animated animated-duration-300 ease-in-out !absolute absolute_orientation"
       leaveActiveClass="animated-fade-out-right animated animated-duration-300 ease-in-out !absolute absolute_orientation"
     >
-      <KeepAlive :exclude="exclude">
+      <KeepAlive :exclude="exclude" >
         <Component
           :is="Component"
           v-if="isRefreshPage"
@@ -51,7 +51,7 @@ const paddingAttribute = computed(() => {
   </RouterView>
 </template>
 
-<style scoped>
+<style scoped >
 .absolute_orientation{
   top:v-bind(topAttribute);
   bottom:v-bind(bottomAttribute);

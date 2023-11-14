@@ -1,11 +1,11 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 defineProps<{
   src: string
 }>()
 const [loading, setLoading] = useToggle(true)
 </script>
 
-<template>
+<template >
   <NSpin
     class="flex flex-1 flex-col"
     :show="loading"
@@ -14,11 +14,11 @@ const [loading, setLoading] = useToggle(true)
       class="flex-1"
       :src="src"
       @load="setLoading(false)"
-    />
+    ></iframe>
   </NSpin>
 </template>
 
-<style scoped>
+<style scoped >
 :deep(.n-spin-content){
   @apply flex flex-col flex-1
 }

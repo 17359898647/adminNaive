@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import type { MaybeComputedElementRef, MaybeElement } from '@vueuse/core'
 import { assign, ceil, divide, max, throttle } from 'lodash-es'
 import { NButton } from 'naive-ui'
@@ -122,22 +122,22 @@ const propsComputed = computed(() => {
 })
 </script>
 
-<template>
+<template >
   <NButton
     ref="buttonRef"
     v-bind="propsComputed"
     @click="buttonClick"
   >
-    <template #default>
-      <slot />
+    <template #default >
+      <slot ></slot>
     </template>
-    <template #icon>
-      <slot name="icon" />
+    <template #icon >
+      <slot name="icon" ></slot>
     </template>
   </NButton>
 </template>
 
-<style scoped>
+<style scoped >
 :deep(.n-button__content) {
   z-index: 10;
 }

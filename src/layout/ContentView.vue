@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import type { CSSProperties } from 'vue'
 import HKeelAlive from '@/layout/HKeepAlive/HKeepAlive.vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
@@ -26,15 +26,15 @@ const mainStyle = computed(() => {
 })
 </script>
 
-<template>
+<template >
   <main
     class="flex flex-col"
     :style="mainStyle"
   >
-    <HKeelAlive />
+    <HKeelAlive/>
   </main>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

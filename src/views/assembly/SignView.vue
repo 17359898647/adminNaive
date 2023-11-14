@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="tsx" >
 import type { DrawingMode } from '@drauu/core'
 import { toRefs } from '@vueuse/core'
 import { map } from 'lodash-es'
@@ -175,39 +175,39 @@ const { JsonOptions, model } = JsonFormHelp([
 ])
 </script>
 
-<template>
+<template >
   <NCard
     :contentStyle="{
       display: 'flex',
       flexDirection: 'column',
     }"
   >
-    <div class="flex flex-1 gap-x-4">
-      <div class="flex flex-1 flex-col">
-        <NButtonGroup class="mb4">
+    <div class="flex flex-1 gap-x-4" >
+      <div class="flex flex-1 flex-col" >
+        <NButtonGroup class="mb4" >
           <RippleButton
             :disabled="!canUndo"
             @click="undo"
           >
-            <SvgIcon lineIcon="icon-ph:arrow-circle-left-bold" />
+            <SvgIcon lineIcon="icon-ph:arrow-circle-left-bold"/>
             后退
           </RippleButton>
           <RippleButton
             :disabled="!canRedo"
             @click="redo"
           >
-            <SvgIcon lineIcon="icon-ph:arrow-circle-right-bold" />
+            <SvgIcon lineIcon="icon-ph:arrow-circle-right-bold"/>
             前进
           </RippleButton>
-          <RippleButton @click="clear">
-            <SvgIcon lineIcon="icon-ph:trash-bold" />
+          <RippleButton @click="clear" >
+            <SvgIcon lineIcon="icon-ph:trash-bold"/>
             清空
           </RippleButton>
           <RippleButton
             type="primary"
             @click="() => savePng()"
           >
-            <SvgIcon lineIcon="icon-ph:download-bold" />
+            <SvgIcon lineIcon="icon-ph:download-bold"/>
             保存
           </RippleButton>
         </NButtonGroup>
@@ -215,7 +215,7 @@ const { JsonOptions, model } = JsonFormHelp([
           :jsonOptions="JsonOptions"
           :model="model"
         />
-        <pre>
+        <pre >
           {{ toValue(useStringify(model, null, 2)) }}
         </pre>
       </div>

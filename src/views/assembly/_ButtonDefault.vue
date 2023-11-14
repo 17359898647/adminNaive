@@ -1,7 +1,7 @@
-<template>
-  <NCard title="普通按钮">
-    <NSpace>
-      <RippleButton :strong="true">
+<template >
+  <NCard title="普通按钮" >
+    <NSpace >
+      <RippleButton :strong="true" >
         Default
       </RippleButton>
       <RippleButton
@@ -86,8 +86,8 @@
         :secondary="true"
         :strong="true"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
       <RippleButton
@@ -96,8 +96,8 @@
         :strong="true"
         type="primary"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
       <RippleButton
@@ -106,8 +106,8 @@
         :strong="true"
         type="info"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
       <RippleButton
@@ -116,8 +116,8 @@
         :strong="true"
         type="success"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
       <RippleButton
@@ -126,8 +126,8 @@
         :strong="true"
         type="warning"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
       <RippleButton
@@ -136,8 +136,8 @@
         :strong="true"
         type="error"
       >
-        <template #icon>
-          <SvgIcon lineIcon="icon-mdi:square-inc-cash" />
+        <template #icon >
+          <SvgIcon lineIcon="icon-mdi:square-inc-cash"/>
         </template>
       </RippleButton>
     </NSpace>

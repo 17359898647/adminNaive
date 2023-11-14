@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="tsx" >
 import dayjs from 'dayjs'
 import { NCard } from 'naive-ui'
 import type { IJsonType } from '@/components/JsonForm'
@@ -103,9 +103,9 @@ const transformDate = computed(() => {
 })
 </script>
 
-<template>
-  <NCard title="测试组件">
-    <NCard class="mb-4">
+<template >
+  <NCard title="测试组件" >
+    <NCard class="mb-4" >
       <NSpace
         :itemStyle="{
           width: '100%',
@@ -121,8 +121,8 @@ const transformDate = computed(() => {
         />
       </NSpace>
     </NCard>
-    <NCard>
-      <pre v-html="toValue(useStringify(transformDate, null, 2))" />
+    <NCard >
+      <pre v-html="toValue(useStringify(transformDate, null, 2))" ></pre>
     </NCard>
   </NCard>
 </template>

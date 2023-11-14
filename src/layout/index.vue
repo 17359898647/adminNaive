@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import ThemeView from '@/layout/ThemeView/ThemeView.vue'
 import { layoutProvide, useLayoutStore } from '@/store/modules/useLayoutStore'
 
@@ -11,25 +11,25 @@ provide(layoutProvide, {
 })
 </script>
 
-<template>
+<template >
   <NLayout
     class="h-full w-full overflow-hidden"
     :hasSider="true"
   >
-    <SiderView />
+    <SiderView/>
     <NLayoutContent
       :embedded="true"
       :nativeScrollbar="false"
     >
-      <HeaderView />
-      <ContentView />
-      <FooterView />
-      <BackTop />
+      <HeaderView/>
+      <ContentView/>
+      <FooterView/>
+      <BackTop/>
     </NLayoutContent>
-    <ThemeView />
+    <ThemeView/>
   </NLayout>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

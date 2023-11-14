@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isIframe: true,
@@ -10,6 +10,6 @@ definePage({
 const src = `https://www.naiveui.com/zh-CN/${isDark.value ? 'dark' : 'light'}`
 </script>
 
-<template>
-  <IframeCom :src="src" />
+<template >
+  <IframeCom :src="src"/>
 </template>

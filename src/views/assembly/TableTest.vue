@@ -1,4 +1,4 @@
-<script lang="tsx" setup>
+<script lang="tsx" setup >
 import { findIndex, slice } from 'lodash-es'
 import type { PaginationProps } from 'naive-ui'
 import { NDataTable, NSwitch } from 'naive-ui'
@@ -102,7 +102,7 @@ const dataReactive = computed(() => {
 const tableRef = shallowRef<InstanceType<typeof NDataTable>>()
 </script>
 
-<template>
+<template >
   <NCard
     :contentStyle="{
       display: 'flex',

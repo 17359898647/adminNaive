@@ -1,5 +1,5 @@
-<script lang="ts" setup>
-import { request } from '@/api'
+<script lang="ts" setup >
+import { useMyFetch } from '@/composables/useMyFetch'
 
 interface RootObject {
   userId: number
@@ -14,26 +14,29 @@ definePage({
   },
 })
 const api = ref('1')
-const { execute, isLoading, data } = request<RootObject>({
-  headers: {
-    responseType: 'json',
-  },
-  onError: (err) => {
-    console.log(err)
-  },
-  onFinish: () => {
-    console.log('finish')
-  },
-  onSuccess: (res) => {
-    console.log(res)
-  },
-  retry: 3,
-  url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
-})
+// const { execute, isLoading, data } = request<RootObject>({
+//   headers: {
+//     responseType: 'json',
+//   },
+//   onError: (err) => {
+//     console.log(err)
+//   },
+//   onFinish: () => {
+//     console.log('finish')
+//   },
+//   onSuccess: (res) => {
+//     console.log(res)
+//   },
+//   retry: 3,
+//   url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
+// })
+const { data, isFetching: isLoading, execute } = useMyFetch<RootObject>(() => `https://jsonplaceholder.typicode.com/todos/${api.value}`, {
+
+}).get().json()
 </script>
 
-<template>
-  <NCard title="网络测试">
+<template >
+  <NCard title="网络测试" >
     <NSpace
       :size="10"
       :vertical="true"
@@ -44,9 +47,9 @@ const { execute, isLoading, data } = request<RootObject>({
       >
         触发
       </RippleButton>
-      <NInput v-model:value="api" />
-      <NCard>
-        <pre v-html="JSON.stringify(toValue(data), null, 2)" />
+      <NInput v-model:value="api"/>
+      <NCard >
+        <pre v-html="JSON.stringify(toValue(data), null, 2)" ></pre>
       </NCard>
     </NSpace>
   </NCard>

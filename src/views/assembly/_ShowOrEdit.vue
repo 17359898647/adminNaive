@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { throttle } from 'lodash-es'
 import { NEllipsis, NInput } from 'naive-ui'
 
@@ -25,18 +25,18 @@ const handleChange = throttle(() => {
 })
 </script>
 
-<template>
-  <div class="min-h-22px">
+<template >
+  <div class="min-h-22px" >
     <NEllipsis
       :tooltip="{
         flip: false,
       }"
       @click="handleOnClick"
     >
-      <template #tooltip>
-        <span>{{ modelValue }}</span>
+      <template #tooltip >
+        <span >{{ modelValue }}</span>
       </template>
-      <template #default>
+      <template #default >
         <span
           v-if="!isEdit"
           @click="handleOnClick"
@@ -53,6 +53,6 @@ const handleChange = throttle(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

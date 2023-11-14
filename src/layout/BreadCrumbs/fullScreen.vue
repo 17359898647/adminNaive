@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { setAttrs, isFullscreen } = inject(layoutProvide)!
@@ -16,9 +16,9 @@ const isFullScreen = computed(() => {
 })
 </script>
 
-<template>
-  <NPopover trigger="hover">
-    <template #trigger>
+<template >
+  <NPopover trigger="hover" >
+    <template #trigger >
       <SvgIcon
         :key="isFullScreen.icon"
         :lineIcon="isFullScreen.icon"
@@ -26,10 +26,10 @@ const isFullScreen = computed(() => {
         @click="setAttrs('isFullscreen', !isFullscreen)"
       />
     </template>
-    <span>{{ isFullScreen.title }}</span>
+    <span >{{ isFullScreen.title }}</span>
   </NPopover>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

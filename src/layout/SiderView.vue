@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const {
@@ -18,7 +18,7 @@ const time = useDateFormat(
 const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
 </script>
 
-<template>
+<template >
   <NLayoutSider
     :bordered="!isDark"
     class="relative"
@@ -42,10 +42,10 @@ const _setAttrs = (e: boolean) => setAttrs('isCollapsed', e)
     >
       {{ time }}
     </div>
-    <MenuView />
+    <MenuView/>
   </NLayoutSider>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

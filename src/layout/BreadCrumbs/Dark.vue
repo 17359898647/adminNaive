@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { setAttrs, isDark } = inject(layoutProvide)!
@@ -48,12 +48,12 @@ function toggleTheme(event: MouseEvent) {
 }
 </script>
 
-<template>
+<template >
   <NPopover
     v-model:show="isHover"
     trigger="hover"
   >
-    <template #trigger>
+    <template #trigger >
       <SvgIcon
         :key="isFullScreen.icon"
         :lineIcon="isFullScreen.icon"
@@ -61,11 +61,11 @@ function toggleTheme(event: MouseEvent) {
         @click="toggleTheme"
       />
     </template>
-    <span>{{ isFullScreen.title }}</span>
+    <span >{{ isFullScreen.title }}</span>
   </NPopover>
 </template>
 
-<style>
+<style >
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

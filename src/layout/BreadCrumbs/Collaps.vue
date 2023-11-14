@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { layoutProvide } from '@/store/modules/useLayoutStore'
 
 const { setAttrs, isCollapsed } = inject(layoutProvide)!
@@ -15,9 +15,9 @@ const isCollapsedIcon = computed(() => {
 })
 </script>
 
-<template>
-  <NPopover trigger="hover">
-    <template #trigger>
+<template >
+  <NPopover trigger="hover" >
+    <template #trigger >
       <SvgIcon
         :key="isCollapsedIcon.icon"
         :lineIcon="isCollapsedIcon.icon"
@@ -25,10 +25,10 @@ const isCollapsedIcon = computed(() => {
         @click="setAttrs('isCollapsed', !isCollapsed)"
       />
     </template>
-    <span>{{ isCollapsedIcon.title }}</span>
+    <span >{{ isCollapsedIcon.title }}</span>
   </NPopover>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

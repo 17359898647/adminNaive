@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { isUndefined } from 'lodash-es'
 import { NBreadcrumb } from 'naive-ui'
 import type { CSSProperties } from 'vue'
@@ -23,7 +23,7 @@ useAutoAnimate({
 })
 </script>
 
-<template>
+<template >
   <div
     class="flex flex-nowrap items-center gap-2 overflow-hidden"
     :class="!isDark ? 'border-b border-[var(--n-border-color)]' : ''"
@@ -32,11 +32,11 @@ useAutoAnimate({
       padding: `0 ${isContentPadding}px`,
     } as CSSProperties"
   >
-    <Collaps />
-    <FullScreen v-if="isSupported" />
-    <Dark />
-    <Refresh />
-    <NBreadcrumb ref="breadcrumbRef">
+    <Collaps/>
+    <FullScreen v-if="isSupported"/>
+    <Dark/>
+    <Refresh/>
+    <NBreadcrumb ref="breadcrumbRef" >
       <NBreadcrumbItem
         v-for="{ name, meta, children } in breadcrumb"
         :key="name"
@@ -49,12 +49,12 @@ useAutoAnimate({
             })
           }"
         >
-          <div class="flex gap-2">
+          <div class="flex gap-2" >
             <SvgIcon
               :lineIcon="meta?.lineIcon"
               :localIcon="meta?.localIcon"
             />
-            <span>{{ meta?.isTitle }}</span>
+            <span >{{ meta?.isTitle }}</span>
           </div>
         </NDropdown>
       </NBreadcrumbItem>
@@ -62,6 +62,6 @@ useAutoAnimate({
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

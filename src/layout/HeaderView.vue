@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import BreadCrumbs from '@/layout/BreadCrumbs/BreadCrumbs.vue'
 import TagsView from '@/layout/TagView/TagsView.vue'
 import { layoutProvide } from '@/store/modules/useLayoutStore'
@@ -6,16 +6,16 @@ import { layoutProvide } from '@/store/modules/useLayoutStore'
 const { isFixedHeader } = inject(layoutProvide)!
 </script>
 
-<template>
+<template >
   <NLayoutHeader
     class="z100 flex flex-col"
     :position="isFixedHeader ? 'absolute' : 'static'"
   >
-    <BreadCrumbs />
-    <TagsView />
+    <BreadCrumbs/>
+    <TagsView/>
   </NLayoutHeader>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

@@ -348,6 +348,7 @@
     "useClipboardItems": "readonly",
     "ExtractDefaultPropTypes": "readonly",
     "ExtractPropTypes": "readonly",
-    "ExtractPublicPropTypes": "readonly"
+    "ExtractPublicPropTypes": "readonly",
+    "useMyFetch": "readonly"
   }
 }

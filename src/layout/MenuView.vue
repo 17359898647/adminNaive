@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="tsx" >
 import { map } from 'lodash-es'
 import { computed } from 'vue'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
@@ -41,7 +41,7 @@ const menuOptionsComputed = computed(() => {
 })
 </script>
 
-<template>
+<template >
   <NMenu
     :accordion="isAccordion"
     class="select-none"
@@ -57,6 +57,6 @@ const menuOptionsComputed = computed(() => {
   />
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

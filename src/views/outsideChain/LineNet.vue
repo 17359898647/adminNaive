@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isOrder: Number.POSITIVE_INFINITY,
@@ -9,6 +9,6 @@ definePage({
 })
 </script>
 
-<template>
-  <IframeCom src="https://17359898647.github.io/" />
+<template >
+  <IframeCom src="https://17359898647.github.io/"/>
 </template>

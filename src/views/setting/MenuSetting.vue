@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import { NCard } from 'naive-ui'
 
 definePage({
@@ -9,9 +9,9 @@ definePage({
 })
 </script>
 
-<template>
-  <NCard title="菜单管理" />
+<template >
+  <NCard title="菜单管理"/>
 </template>
 
-<style scoped>
+<style scoped >
 </style>

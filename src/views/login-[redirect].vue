@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { useRouteParams } from '@vueuse/router'
 
 definePage({
@@ -20,16 +20,16 @@ function login() {
 }
 </script>
 
-<template>
-  <div class="flex justify-center size-full">
-    <NCard>
-      <NButton @click="login">
-        <span>登录</span>
+<template >
+  <div class="flex justify-center size-full" >
+    <NCard >
+      <NButton @click="login" >
+        <span >登录</span>
       </NButton>
     </NCard>
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

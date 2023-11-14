@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import DefaultButton from './_ButtonDefault.vue'
 import ButtonGroup from './_ButtonGroup.vue'
 
@@ -11,11 +11,11 @@ definePage({
 })
 </script>
 
-<template>
-  <NCard>
-    <NSpace :vertical="true">
-      <DefaultButton />
-      <ButtonGroup />
+<template >
+  <NCard >
+    <NSpace :vertical="true" >
+      <DefaultButton/>
+      <ButtonGroup/>
     </NSpace>
   </NCard>
 </template>

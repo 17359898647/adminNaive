@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 
 const themeStore = useThemeStore()
@@ -8,7 +8,7 @@ onUpdated(() => {
 })
 </script>
 
-<template>
+<template >
   <NConfigProvider
     class="relative overflow-hidden size-full"
     :dateLocale="dateZhCN"
@@ -17,7 +17,7 @@ onUpdated(() => {
     :theme="isDark ? darkTheme : null"
     :themeOverrides="themeDefault"
   >
-    <RouterView />
-    <NGlobalStyle />
+    <RouterView/>
+    <NGlobalStyle/>
   </NConfigProvider>
 </template>

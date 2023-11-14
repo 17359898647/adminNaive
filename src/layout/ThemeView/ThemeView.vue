@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 // const drawerShow = ref(false)
 import { debounce } from 'lodash-es'
 import type { CSSProperties } from 'vue'
@@ -37,8 +37,8 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
 })
 </script>
 
-<template>
-  <Teleport to="body">
+<template >
+  <Teleport to="body" >
     <div
       class="absolute right-0 top-1/2 z-2100 h-36px w-36px flex-center cursor-pointer rounded bg-primary"
       :style="buttonStyle"
@@ -51,14 +51,14 @@ const setAttrsDeBounce = debounce(setAttrs, 300, {
         :style="iconRotate"
       />
     </div>
-    <div>
+    <div >
       <NDrawer
         :nativeScrollbar="false"
         :show="drawerShow"
         :width="drawerWidth"
         @update:show="setDrawerShow"
       >
-        <NDivider>
+        <NDivider >
           主题颜色
         </NDivider>
         <NColorPicker

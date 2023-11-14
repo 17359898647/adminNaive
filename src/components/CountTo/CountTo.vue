@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup >
 import { TransitionPresets, useTransition } from '@vueuse/core'
 import { isNumber } from 'lodash-es'
 import { computed, ref, watch, watchEffect } from 'vue'
@@ -105,6 +105,6 @@ tryOnMounted(() => {
 })
 </script>
 
-<template>
-  <span>{{ value }}</span>
+<template >
+  <span >{{ value }}</span>
 </template>

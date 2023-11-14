@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 const { tagDropdownClick: RefreshMethods } = useTagStore()
 const isRefresh = computed(() => {
   return {
@@ -8,9 +8,9 @@ const isRefresh = computed(() => {
 })
 </script>
 
-<template>
-  <NPopover trigger="hover">
-    <template #trigger>
+<template >
+  <NPopover trigger="hover" >
+    <template #trigger >
       <SvgIcon
         :key="isRefresh.icon"
         :lineIcon="isRefresh.icon"
@@ -18,10 +18,10 @@ const isRefresh = computed(() => {
         @click="RefreshMethods('refresh', createTag($route))"
       />
     </template>
-    <span>{{ isRefresh.title }}</span>
+    <span >{{ isRefresh.title }}</span>
   </NPopover>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

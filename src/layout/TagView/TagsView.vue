@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { NScrollbar } from 'naive-ui'
 import type { CSSProperties } from 'vue'
 import { inject } from 'vue'
@@ -31,7 +31,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
 }
 </script>
 
-<template>
+<template >
   <div
     ref="containerRef"
     class="relative bg-#fafafc text-center dark:bg-#101014"
@@ -74,13 +74,13 @@ function contextmenu(e: MouseEvent, tag: ITag) {
               :type="$route.fullPath === tag.fullPath ? 'info' : 'default'"
               @close="() => closeTag(tag)"
             >
-              <template #icon>
+              <template #icon >
                 <SvgIcon
                   :lineIcon="tag.lineIcon"
                   :localIcon="tag.localIcon"
                 />
               </template>
-              <span class="cursor-pointer">{{ tag.isTitle }}</span>
+              <span class="cursor-pointer" >{{ tag.isTitle }}</span>
             </NTag>
           </div>
         </TransitionGroup>
@@ -103,7 +103,7 @@ function contextmenu(e: MouseEvent, tag: ITag) {
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 :deep(.n-scrollbar-rail__scrollbar){
   display: none !important;
 }

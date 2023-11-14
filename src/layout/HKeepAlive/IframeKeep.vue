@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 import { toRefs } from '@vueuse/core'
 import { forEach, isFunction, isString, some } from 'lodash-es'
 import type { Component } from 'vue'
@@ -81,7 +81,7 @@ function isVshow(name?: RouteRecordName | null) {
 }
 </script>
 
-<template>
+<template >
   <!-- eslint-disable-next-line vue/valid-v-for -->
   <Transition
     v-for="{ name, component } in demoCom"
@@ -104,7 +104,7 @@ function isVshow(name?: RouteRecordName | null) {
   </Transition>
 </template>
 
-<style scoped>
+<style scoped >
 .absolute_orientation{
   top:v-bind(topAttribute);
   bottom:v-bind(bottomAttribute);

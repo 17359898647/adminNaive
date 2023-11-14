@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isTitle: '管理员权限',
@@ -8,12 +8,12 @@ definePage({
 })
 </script>
 
-<template>
-  <div>
+<template >
+  <div >
     admin
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" >
 definePage({
   meta: {
     isTitle: '游客权限',
@@ -8,12 +8,12 @@ definePage({
 })
 </script>
 
-<template>
-  <div>
+<template >
+  <div >
     visitor
   </div>
 </template>
 
-<style scoped>
+<style scoped >
 
 </style>
