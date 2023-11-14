@@ -5,5 +5,5 @@ export default eslint({
     'node_modules',
     'src/types/*',
   ],
-  sortKeysOptions: true,
+  sortKeysOptions: false,
 })
