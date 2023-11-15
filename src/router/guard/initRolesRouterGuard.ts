@@ -29,7 +29,8 @@ export async function initRolesRouterGuard(
       createMsg(`无权限访问${isTitle}`, {
         type: 'error',
       })
-      throw new Error('无权限')
+      loadingError()
+      next(false)
     }
   }
   else {
