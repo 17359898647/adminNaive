@@ -84,7 +84,6 @@ const { data, columns, isLoading } = useTable<tableData>({
     demo: api.value,
   }),
   resetOnExecute: false,
-  retry: 3,
   shallow: false,
   url: '/todos',
 })

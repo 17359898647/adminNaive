@@ -1,5 +1,3 @@
-/* prettier-ignore */
-// @ts-nocheck
 import type { PluginOption } from 'vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
 

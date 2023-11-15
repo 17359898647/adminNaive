@@ -1,8 +1,8 @@
 import type { MaybeRefOrGetter } from '@vueuse/core/index'
 import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
-import { useAxios } from '@vueuse/integrations/useAxios'
 import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, Method } from 'axios'
-import { isNumber, isUndefined } from 'lodash-es'
+import { isString } from 'lodash-es'
+import { useMyAxios } from '@/composables/useMyAxios'
 
 const transformParams = reactify((url: string, params?: Record<string, any>) => {
   const searchParams = new URLSearchParams(params)
@@ -16,13 +16,9 @@ export interface useRequestParams<T = any> {
    */
   url?: MaybeRefOrGetter<string>
   /**
-   * 重试次数
-   */
-  retry?: MaybeRefOrGetter<number>
-  /**
    * 是否浅层监听
    */
-  shallow?: MaybeRefOrGetter<boolean>
+  shallow?: boolean
   /**
    * params: 请求参数
    */
@@ -34,23 +30,35 @@ export interface useRequestParams<T = any> {
   /**
    * headers: 请求头
    */
-  headers?: MaybeRefOrGetter<Record<string, any>>
+  headers?: Record<string, any>
   /**
    * method: 请求方法
    */
-  method?: MaybeRefOrGetter<Method>
+  method?: Method
   /**
    * immediate: 是否立即执行
    */
-  immediate?: MaybeRefOrGetter<boolean>
+  immediate?: boolean
   /**
-   * baseURL: 基础路径
+   * reftch: 是否自动重新请求
    */
-  refetch?: MaybeRefOrGetter<boolean>
+  refetch?: boolean
   /**
    * initialData: 初始数据
    */
-  initialData?: MaybeRefOrGetter<T>
+  initialData?: T
+  /**
+   * retry: 重试次数
+   */
+  retry?: number | false
+  /*
+  * retryDelay: 重试延迟
+  * */
+  retryDelay?: number
+  /**
+   * resetOnExecute: 是否在执行时重置数据
+   */
+  resetOnExecute?: boolean
   /**
    * onSuccess: 请求成功回调
    * @param data
@@ -75,14 +83,10 @@ export interface useRequestParams<T = any> {
    * @param e
    */
   onDownloadProgress?: (e: AxiosProgressEvent) => void
-  /**
-   * resetOnExecute: 是否在执行时重置数据
-   */
-  resetOnExecute?: MaybeRefOrGetter<boolean>
 }
 
 export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> extends Omit<StrictUseAxiosReturn<T, R, D>, 'execute'> {
-  execute: (executeUrl?: MaybeRefOrGetter<string>) => Promise<useRequestReturn<T, R, D>>
+  execute: (executeUrl?: string | AxiosRequestConfig<D>, executeConfig?: AxiosRequestConfig<D>) => Promise<useRequestReturn<T, R, D>>
 }
 /**
  * 请求工具
@@ -94,60 +98,55 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     params,
     method = 'get',
     refetch = true,
+    retryDelay = 500,
     data,
     initialData,
     immediate = true,
     resetOnExecute = true,
-    retry,
     shallow = true,
     onError,
     onSuccess,
     onFinish,
     onDownloadProgress,
     onUploadProgress,
+    retry = 0,
   } = options
   const _url = transformParams(url, params)
   const axiosConfig = computed(() => {
     return {
       data: toValue(data),
       headers: {
-        // 'Access-Control-Allow-Origin': '*',
-        ...toValue(headers),
+        'Access-Control-Allow-Origin': '*',
+        ...headers,
       },
-      method: toValue(method),
+      method,
       onDownloadProgress,
       onUploadProgress,
+      __retry: retry,
+      __retryDelay: retryDelay,
     } as AxiosRequestConfig
   })
-  let _retry = toValue(retry)
-  let isSuccessful = false
-  const _useAxios = useAxios<T>(
+
+  const _useAxios = useMyAxios<T>(
     _url.value,
     axiosConfig.value,
     instance,
     {
-      immediate: toValue(immediate),
-      initialData: toValue(initialData),
+      immediate,
+      initialData,
       onError: (err) => {
-        if (isNumber(_retry) && _retry-- > 0 && (err as AxiosError).code !== 'ERR_CANCELED') {
-          _useAxios.execute(_url.value, axiosConfig.value)
+        if ((err as AxiosError)?.code === 'ERR_CANCELED')
           return
-        }
         onError?.(err)
       },
       onFinish: () => {
-        if (isNumber(_retry) && _retry >= 0 && !isSuccessful)
-          return
-        isSuccessful = false
-        _retry = toValue(retry)
         onFinish?.()
       },
       onSuccess: (data: T) => {
-        isSuccessful = true
         onSuccess?.(data)
       },
-      resetOnExecute: toValue(resetOnExecute),
-      shallow: toValue(shallow),
+      resetOnExecute,
+      shallow,
     },
   )
   const scope = effectScope()
@@ -157,21 +156,25 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     })
   })
   tryOnScopeDispose(() => {
-    console.log('dispose')
     _useAxios?.abort()
     scope.stop()
   })
   return {
     ..._useAxios,
-    // data: computed({
-    //   get: () => {
-    //     return _useAxios.data.value
-    //   },
-    //   set: val => _useAxios.data.value = val,
-    // }),
-    execute: (executeUrl?: MaybeRefOrGetter<string>) => {
-      const _executeUrl = toValue(executeUrl)
-      return _useAxios.execute(isUndefined(_executeUrl) ? _url.value : _executeUrl) as Promise<useRequestReturn<T>>
+    execute: (executeUrl = _url.value, executeConfig = {}) => {
+      return _useAxios.execute(
+        isString(executeUrl)
+          ? executeUrl
+          : (
+              _url.value ?? executeConfig?.url
+            ),
+        {
+          ...axiosConfig.value,
+          ...typeof executeUrl === 'object'
+            ? executeUrl
+            : executeConfig,
+        },
+      ) as Promise<useRequestReturn<T>>
     },
   }
 }

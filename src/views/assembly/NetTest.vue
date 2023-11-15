@@ -1,5 +1,6 @@
 <script lang="ts" setup >
-import { useMyFetch } from '@/composables/useMyFetch'
+import { random } from 'lodash-es'
+import { request } from '@/api'
 
 interface RootObject {
   userId: number
@@ -13,26 +14,29 @@ definePage({
     lineIcon: 'icon-lucide:test-tube-2',
   },
 })
-const api = ref('1')
-// const { execute, isLoading, data } = request<RootObject>({
-//   headers: {
-//     responseType: 'json',
-//   },
-//   onError: (err) => {
-//     console.log(err)
-//   },
-//   onFinish: () => {
-//     console.log('finish')
-//   },
-//   onSuccess: (res) => {
-//     console.log(res)
-//   },
-//   retry: 3,
-//   url: () => `https://jsonplaceholder.typicode.com/todos/${api.value}`,
-// })
-const { data, isFetching: isLoading, execute } = useMyFetch<RootObject>(() => `https://jsonplaceholder.typicode.com/todos/${api.value}`, {
-
-}).get().json()
+const api = ref('')
+const { execute, isLoading, data } = request<RootObject>({
+  url: () => `https://jsonplaceholder.typicode.com/todos${api.value}`,
+  headers: {
+    responseType: 'json',
+  },
+  onSuccess(data) {
+    console.log('onSuccess', data)
+  },
+  onError(err) {
+    console.log(err)
+  },
+  retry: 0,
+  method: 'post',
+  resetOnExecute: true,
+})
+function test() {
+  execute('11', {
+    data: {
+      demoData: String(random(1, 100)),
+    },
+  })
+}
 </script>
 
 <template >
@@ -43,7 +47,7 @@ const { data, isFetching: isLoading, execute } = useMyFetch<RootObject>(() => `h
     >
       <RippleButton
         :loading="isLoading"
-        @click="() => execute()"
+        @click="test"
       >
         触发
       </RippleButton>

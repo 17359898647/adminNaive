@@ -25,7 +25,6 @@ function setupRouterGuard(router: Router) {
 
   router.onError((error) => {
     console.log('跳转错误', error)
-    loadingError()
   })
 }
 export const router = createRouter({

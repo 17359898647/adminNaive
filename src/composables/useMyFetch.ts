@@ -34,5 +34,5 @@ export const useMyFetch = createFetch({
       'content-type': 'application/json',
     },
   },
-  combination: 'overwrite',
+  combination: 'chain',
 })
