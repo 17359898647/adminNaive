@@ -1,3 +1,4 @@
+// @ts-nocheck
 import process from 'node:process'
 import type { PluginOption } from 'vite'
 import checker from '@hyoban/vite-plugin-checker'
