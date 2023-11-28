@@ -4,6 +4,7 @@ definePage({
     isAffix: true,
     isOrder: Number.NEGATIVE_INFINITY,
     isTitle: '首页',
+    lineIcon: 'icon-material-symbols:home-work',
   },
 })
 const router = useRouter()
