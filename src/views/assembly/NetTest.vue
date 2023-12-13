@@ -1,13 +1,7 @@
 <script lang="ts" setup >
 import { random } from 'lodash-es'
-import { request } from '@/api'
+import { netTest } from '@/api/netTest'
 
-interface RootObject {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
 definePage({
   meta: {
     isTitle: '网络测试',
@@ -15,15 +9,7 @@ definePage({
   },
 })
 const api = ref('')
-const { execute, isLoading, data, onSuccess, onError } = request<RootObject>({
-  url: () => `https://jsonplaceholder.typicode.com/todos${api.value}`,
-  headers: {
-    responseType: 'json',
-  },
-  retry: 0,
-  method: 'post',
-  resetOnExecute: true,
-})
+const { execute, isLoading, data, onSuccess, onError } = netTest(api)
 onSuccess((data) => {
   console.log('onSuccess', data)
 })

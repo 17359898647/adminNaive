@@ -1,8 +1,8 @@
 import type { EventHookOn, MaybeRefOrGetter } from '@vueuse/core/index'
+import { useAxios } from '@vueuse/integrations/useAxios'
 import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
 import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, Method } from 'axios'
 import { isString } from 'lodash-es'
-import { useMyAxios } from '@/composables/useMyAxios'
 
 const transformParams = reactify((url: string, params?: Record<string, any>) => {
   const searchParams = new URLSearchParams(params)
@@ -108,7 +108,7 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     } as AxiosRequestConfig
   })
 
-  const _useAxios = useMyAxios<T>(
+  const _useAxios = useAxios<T>(
     _url.value,
     axiosConfig.value,
     instance,

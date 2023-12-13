@@ -1,7 +1,6 @@
-import type { PluginOption } from 'vite'
 import TurboConsole from 'vite-plugin-turbo-console'
 
-export function enhanceLog(): PluginOption {
+export function enhanceLog(): any {
   return TurboConsole({
     disableLaunchEditor: false,
     prefix: '🦕',
