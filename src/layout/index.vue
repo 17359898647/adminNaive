@@ -9,14 +9,15 @@ provide(layoutProvide, {
   ...allValue,
   setAttrs,
 })
+const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 </script>
 
 <template >
   <NLayout
     class="h-full w-full overflow-hidden"
-    :hasSider="true"
+    :hasSider="isLargeScreen"
   >
-    <SiderView/>
+    <SiderView v-if="isLargeScreen"/>
     <NLayoutContent
       :embedded="true"
       :nativeScrollbar="false"

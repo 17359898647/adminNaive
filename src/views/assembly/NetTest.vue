@@ -15,20 +15,20 @@ definePage({
   },
 })
 const api = ref('')
-const { execute, isLoading, data } = request<RootObject>({
+const { execute, isLoading, data, onSuccess, onError } = request<RootObject>({
   url: () => `https://jsonplaceholder.typicode.com/todos${api.value}`,
   headers: {
     responseType: 'json',
   },
-  onSuccess(data) {
-    console.log('onSuccess', data)
-  },
-  onError(err) {
-    console.log(err)
-  },
   retry: 0,
   method: 'post',
   resetOnExecute: true,
+})
+onSuccess((data) => {
+  console.log('onSuccess', data)
+})
+onError((err) => {
+  console.log(err)
 })
 function test() {
   execute('11', {

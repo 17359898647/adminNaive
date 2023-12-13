@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter } from '@vueuse/core/index'
+import type { EventHookOn, MaybeRefOrGetter } from '@vueuse/core/index'
 import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
 import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, Method } from 'axios'
 import { isString } from 'lodash-es'
@@ -59,34 +59,15 @@ export interface useRequestParams<T = any> {
    * resetOnExecute: 是否在执行时重置数据
    */
   resetOnExecute?: boolean
-  /**
-   * onSuccess: 请求成功回调
-   * @param data
-   */
-  onSuccess?: (data: T) => void
-  /**
-   * onError: 请求失败回调
-   * @param err
-   */
-  onError?: (err: unknown) => void
-  /**
-   * onFinish: 请求完成回调
-   */
-  onFinish?: () => void
-  /**
-   * onUploadProgress: 上传进度回调
-   * @param e
-   */
-  onUploadProgress?: (e: AxiosProgressEvent) => void
-  /**
-   * onDownloadProgress: 下载进度回调
-   * @param e
-   */
-  onDownloadProgress?: (e: AxiosProgressEvent) => void
 }
 
 export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> extends Omit<StrictUseAxiosReturn<T, R, D>, 'execute'> {
   execute: (executeUrl?: string | AxiosRequestConfig<D>, executeConfig?: AxiosRequestConfig<D>) => Promise<useRequestReturn<T, R, D>>
+  onSuccess: EventHookOn<T>
+  onError: EventHookOn<unknown>
+  onFinish: EventHookOn<never>
+  onUploadProgress: EventHookOn<AxiosProgressEvent>
+  onDownloadProgress: EventHookOn<AxiosProgressEvent>
 }
 /**
  * 请求工具
@@ -104,13 +85,13 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
     immediate = true,
     resetOnExecute = true,
     shallow = true,
-    onError,
-    onSuccess,
-    onFinish,
-    onDownloadProgress,
-    onUploadProgress,
     retry = 0,
   } = options
+  const successEvent = createEventHook<T>()
+  const errorEvent = createEventHook<unknown>()
+  const finishEvent = createEventHook<never>()
+  const downloadProgressEvent = createEventHook<AxiosProgressEvent>()
+  const uploadProgressEvent = createEventHook<AxiosProgressEvent>()
   const _url = transformParams(url, params)
   const axiosConfig = computed(() => {
     return {
@@ -120,8 +101,8 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
         ...headers,
       },
       method,
-      onDownloadProgress,
-      onUploadProgress,
+      onDownloadProgress: downloadProgressEvent.trigger,
+      onUploadProgress: uploadProgressEvent.trigger,
       __retry: retry,
       __retryDelay: retryDelay,
     } as AxiosRequestConfig
@@ -137,14 +118,10 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
       onError: (err) => {
         if ((err as AxiosError)?.code === 'ERR_CANCELED')
           return
-        onError?.(err)
+        errorEvent.trigger(err)
       },
-      onFinish: () => {
-        onFinish?.()
-      },
-      onSuccess: (data: T) => {
-        onSuccess?.(data)
-      },
+      onFinish: finishEvent.trigger,
+      onSuccess: successEvent.trigger,
       resetOnExecute,
       shallow,
     },
@@ -161,6 +138,11 @@ export function useRequest<T = unknown>(instance: AxiosInstance, options: useReq
   })
   return {
     ..._useAxios,
+    onSuccess: successEvent.on,
+    onError: errorEvent.on,
+    onFinish: finishEvent.on,
+    onDownloadProgress: downloadProgressEvent.on,
+    onUploadProgress: uploadProgressEvent.on,
     execute: (executeUrl = _url.value, executeConfig = {}) => {
       return _useAxios.execute(
         isString(executeUrl)

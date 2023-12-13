@@ -51,17 +51,14 @@ async function retryFn(error: any) {
 
 instance.interceptors.response.use(
   (response) => {
-    console.log('成功', response)
     return response
   },
   async (error) => {
-    console.log(error)
-    if (error.code === 'ERR_CANCELED') {
-      console.log('请求取消')
+    if (error.code === 'ERR_CANCELED')
       return Promise.reject(error)
-    }
-    if (error.code === 'ECONNABORTED')
-      console.log('请求超时')
+
+    // if (error.code === 'ECONNABORTED')
+    //   console.log('请求超时')
     const config = error?.config || {}
     if (config?.__retry)
       return retryFn(error)
