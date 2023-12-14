@@ -41,7 +41,7 @@
     "vite-plugin-turbo-console": "^0.3.2",
     "vite-plugin-vue-devtools": "^0.5.1",
     "vite-plugin-vue-inspector": "^4.0.2",
-    "vite-plugin-vue-layouts": "^0.8.0",
+    "vite-plugin-vue-layouts": "^0.9.1",
     "vue": "3.3.8",
     "vue-router": "^4.2.5",
     "vuedraggable": "^4.1.0"

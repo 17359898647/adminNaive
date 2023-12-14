@@ -9,7 +9,11 @@ interface RootObject {
 }
 
 export function netTest(params: MaybeRef<string>) {
-  return request<RootObject>({
+  return request<RootObject, {
+    demoData: any
+  }, {
+    test: any
+  }>({
     url: () => `https://jsonplaceholder.typicode.com/todos${toValue(params)}`,
     headers: {
       responseType: 'json',

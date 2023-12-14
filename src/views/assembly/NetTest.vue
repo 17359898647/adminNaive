@@ -1,5 +1,4 @@
 <script lang="ts" setup >
-import { random } from 'lodash-es'
 import { netTest } from '@/api/netTest'
 
 definePage({
@@ -17,11 +16,7 @@ onError((err) => {
   console.log(err)
 })
 function test() {
-  execute('11', {
-    data: {
-      demoData: String(random(1, 100)),
-    },
-  })
+  execute()
 }
 </script>
 

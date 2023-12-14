@@ -1,7 +1,7 @@
 import type { EventHookOn, MaybeRefOrGetter } from '@vueuse/core/index'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
-import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, Method } from 'axios'
+import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, AxiosResponse, Method } from 'axios'
 import { isString } from 'lodash-es'
 
 const transformParams = reactify((url: string, params?: Record<string, any>) => {
@@ -61,8 +61,15 @@ export interface useRequestParams<T = any> {
   resetOnExecute?: boolean
 }
 
-export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> extends Omit<StrictUseAxiosReturn<T, R, D>, 'execute'> {
-  execute: (executeUrl?: string | AxiosRequestConfig<D>, executeConfig?: AxiosRequestConfig<D>) => Promise<useRequestReturn<T, R, D>>
+// type _AxiosRequestConfig<D = unknown, P = unknown> = Omit<AxiosRequestConfig<D>, 'params'> & {
+//   params?: P
+// }
+interface _AxiosRequestConfig<D = unknown, P = unknown> extends Omit<AxiosRequestConfig<D>, 'params'> {
+  params?: P
+}
+
+export interface useRequestReturn<T = any, D = unknown, P = unknown> extends Omit<StrictUseAxiosReturn<T, AxiosResponse<T>, any>, 'execute'> {
+  execute: (executeUrl?: string | _AxiosRequestConfig<D, P>, executeConfig?: _AxiosRequestConfig<D, P>) => Promise<useRequestReturn<T, D, P>>
   onSuccess: EventHookOn<T>
   onError: EventHookOn<unknown>
   onFinish: EventHookOn<never>
@@ -72,7 +79,7 @@ export interface useRequestReturn<T = any, R = AxiosRequestConfig<T>, D = any> e
 /**
  * 请求工具
  */
-export function useRequest<T = unknown>(instance: AxiosInstance, options: useRequestParams<T>): useRequestReturn<T> {
+export function useRequest<T = unknown, D = unknown, P = unknown>(instance: AxiosInstance, options: useRequestParams<T>): useRequestReturn<T, D, P> {
   const {
     url = '',
     headers,

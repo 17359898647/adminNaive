@@ -32,7 +32,10 @@ export const router = createRouter({
     const { createRouterHelper } = routerHelper()
     const resultRouter = createRouterHelper(routers)
     const excludeReg = /^\/(base|login|ExteriorNotFoundView)/
-    console.log(resultRouter)
+    console.log(setupLayouts(resultRouter.filter((item) => {
+      const { path, name } = item
+      return !excludeReg.test(path) && !excludeReg.test(isString(name) ? name : '')
+    })))
     return [
       ...setupLayouts(resultRouter.filter((item) => {
         const { path, name } = item

@@ -67,7 +67,7 @@ instance.interceptors.response.use(
 )
 export type dataFormat<T = any> = T
 
-export type requestFn = <T>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>>
+export type requestFn = <T, D = unknown, P = unknown>(options: useRequestParams<dataFormat<T>>) => useRequestReturn<dataFormat<T>, D, P>
 export const request: requestFn = options => useRequest(instance, {
   resetOnExecute: false,
   retry: 3,

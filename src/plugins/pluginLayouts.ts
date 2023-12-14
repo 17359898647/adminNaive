@@ -1,10 +1,11 @@
 // @ts-nocheck
 import type { PluginOption } from 'vite'
-import Layouts from 'vite-plugin-vue-layouts'
+import { ClientSideLayout } from 'vite-plugin-vue-layouts'
 
 export function pluginLayouts(): PluginOption {
-  return Layouts({
+  return ClientSideLayout({
     defaultLayout: 'index',
-    layoutsDirs: 'src/layout',
+    importMode: 'async',
+    layoutDir: 'src/layout',
   })
 }

@@ -10,14 +10,17 @@ provide(layoutProvide, {
   setAttrs,
 })
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
+watchImmediate(isLargeScreen, (e) => {
+  setAttrs('isCollapsed', !e)
+})
 </script>
 
 <template >
   <NLayout
     class="h-full w-full overflow-hidden"
-    :hasSider="isLargeScreen"
+    :hasSider="true"
   >
-    <SiderView v-if="isLargeScreen"/>
+    <SiderView/>
     <NLayoutContent
       :embedded="true"
       :nativeScrollbar="false"
