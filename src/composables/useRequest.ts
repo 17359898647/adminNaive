@@ -2,10 +2,15 @@ import type { EventHookOn, MaybeRefOrGetter } from '@vueuse/core/index'
 import { useAxios } from '@vueuse/integrations/useAxios'
 import type { StrictUseAxiosReturn } from '@vueuse/integrations/useAxios'
 import type { AxiosError, AxiosInstance, AxiosProgressEvent, AxiosRequestConfig, AxiosResponse, Method } from 'axios'
-import { isString } from 'lodash-es'
+import { cloneDeep, forEach, isString } from 'lodash-es'
 
 const transformParams = reactify((url: string, params?: Record<string, any>) => {
-  const searchParams = new URLSearchParams(params)
+  const cloneParams = cloneDeep(params)
+  forEach(cloneParams, (value, key) => {
+    if (value === undefined)
+      delete cloneParams?.[key]
+  })
+  const searchParams = new URLSearchParams(cloneParams)
   const queryString = searchParams.toString()
   return queryString ? `${url}?${queryString}` : `${url}`
 })
@@ -142,6 +147,7 @@ export function useRequest<T = unknown, D = unknown, P = unknown>(instance: Axio
   tryOnScopeDispose(() => {
     _useAxios?.abort()
     scope.stop()
+    console.log('tryOnScopeDispose')
   })
   return {
     ..._useAxios,
