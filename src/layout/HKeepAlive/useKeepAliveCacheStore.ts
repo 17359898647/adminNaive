@@ -7,7 +7,7 @@ function createReg(tag: ITag | (RouteRecordRaw & {
   fullPath?: string
 })) {
   const { fullPath, name } = tag
-  const reg = `^${String(name || fullPath)}`.replace(/\[([^\]]+)\]/g, '\[\\s\\S\]*')
+  const reg = `^${String(name || fullPath)}`.replace(/\[([^\]]+)]/g, '\[\\s\\S\]*')
   return new RegExp(reg)
 }
 export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () => {
