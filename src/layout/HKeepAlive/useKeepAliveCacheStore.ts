@@ -12,7 +12,7 @@ function createReg(tag: ITag | (RouteRecordRaw & {
 }
 export const useKeepAliveCacheStore = defineStore('useKeepAliveCacheStore', () => {
   const { allUnKeepAliveRouters } = routerHelper()
-  const unCache = map(unref(allUnKeepAliveRouters), item => createReg(item))
+  const unCache = map(toValue(allUnKeepAliveRouters), item => createReg(item))
   const exclude = ref<RegExp[]>(unCache)
   const delCache = async (tag: ITag | ITag[]) => {
     console.log('delCache', tag)

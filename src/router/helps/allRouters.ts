@@ -19,12 +19,12 @@ function sortRouter(routerList: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
     })
     return sortBy(_list, item => item.meta?.isOrder ?? 0)
   }
-  return deepSort(cloneDeep(unref(routerList)))
+  return deepSort(cloneDeep(toValue(routerList)))
 }
 
 function findAffix(routerList: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
-  forEach(unref(routerList), (item) => {
+  forEach(toValue(routerList), (item) => {
     const { children, meta } = item
     if (meta?.isAffix) {
       result.push({
@@ -40,7 +40,7 @@ function findAffix(routerList: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
 
 function findUnKeepAlive(routerList: MaybeRef<RouteRecordRaw[]>): RouteRecordRaw[] {
   const result: RouteRecordRaw[] = []
-  forEach(unref(routerList), (item) => {
+  forEach(toValue(routerList), (item) => {
     const { children, meta } = item
     if (meta?.isKeepAlive === false)
       result.push(item)
@@ -60,7 +60,7 @@ function setRedirect(item: RouteRecordRaw) {
 
 function setRouterRedirect(routerList: MaybeRef<RouteRecordRaw[]>) {
   const result: RouteRecordRaw[] = []
-  forEach(cloneDeep(unref(routerList)), (item) => {
+  forEach(cloneDeep(toValue(routerList)), (item) => {
     if (!isUndefined(item.children) && item.children.length >= 1) {
       item.children = setRouterRedirect(item.children)
       setRedirect(item)
@@ -72,7 +72,7 @@ function setRouterRedirect(routerList: MaybeRef<RouteRecordRaw[]>) {
 
 function deepCreateMeta(routerList: MaybeRef<RouteRecordRaw[]>) {
   const result: RouteRecordRaw[] = []
-  forEach(cloneDeep(unref(routerList)), (item) => {
+  forEach(cloneDeep(toValue(routerList)), (item) => {
     if (item.children) {
       item.children = deepCreateMeta(item.children)
       setMetaAndName(item)
@@ -92,7 +92,7 @@ function deepCreateIframe(routerList: MaybeRef<RouteRecordRaw[]>) {
         deepFilter(item.children)
     })
   }
-  deepFilter(unref(routerList))
+  deepFilter(toValue(routerList))
   return result
 }
 
@@ -102,7 +102,7 @@ const allUnKeepAliveRouters = shallowRef<RouteRecordRaw[]>([])
 const allIframeRouters = shallowRef<RouteRecordRaw[]>([])
 export function routerHelper() {
   const createRouterHelper = (list: MaybeRef<RouteRecordRaw[]>) => {
-    const metaRouter = deepCreateMeta(unref(list))
+    const metaRouter = deepCreateMeta(toValue(list))
     allRouters.value = sortRouter(metaRouter)
     allAffixRouters.value = findAffix(allRouters)
     allUnKeepAliveRouters.value = findUnKeepAlive(allRouters)
