@@ -113,7 +113,7 @@ export const LoadingView = defineComponent({
   },
 })
 
-export async function loadingFn(config?: { timeOut?: number; isTitle?: string }) {
+export async function loadingFn(config?: { timeOut?: number, isTitle?: string }) {
   const { timeOut = 0, isTitle = '' } = assign(
     {
       timeOut: 0.5,

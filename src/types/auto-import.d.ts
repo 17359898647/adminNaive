@@ -204,6 +204,7 @@ declare global {
   const useDraw: typeof import('../composables/useDraw')['useDraw']
   const useDropZone: typeof import('@vueuse/core')['useDropZone']
   const useDropdown: typeof import('../naiveHooks/useDropdown')['useDropdown']
+  const useEcharts: typeof import('../composables/useCharts')['useEcharts']
   const useElementBounding: typeof import('@vueuse/core')['useElementBounding']
   const useElementByPoint: typeof import('@vueuse/core')['useElementByPoint']
   const useElementHover: typeof import('@vueuse/core')['useElementHover']
@@ -555,6 +556,7 @@ declare module 'vue' {
     readonly useDraw: UnwrapRef<typeof import('../composables/useDraw')['useDraw']>
     readonly useDropZone: UnwrapRef<typeof import('@vueuse/core')['useDropZone']>
     readonly useDropdown: UnwrapRef<typeof import('../naiveHooks/useDropdown')['useDropdown']>
+    readonly useEcharts: UnwrapRef<typeof import('../composables/useCharts')['useEcharts']>
     readonly useElementBounding: UnwrapRef<typeof import('@vueuse/core')['useElementBounding']>
     readonly useElementByPoint: UnwrapRef<typeof import('@vueuse/core')['useElementByPoint']>
     readonly useElementHover: UnwrapRef<typeof import('@vueuse/core')['useElementHover']>
@@ -898,6 +900,7 @@ declare module '@vue/runtime-core' {
     readonly useDraw: UnwrapRef<typeof import('../composables/useDraw')['useDraw']>
     readonly useDropZone: UnwrapRef<typeof import('@vueuse/core')['useDropZone']>
     readonly useDropdown: UnwrapRef<typeof import('../naiveHooks/useDropdown')['useDropdown']>
+    readonly useEcharts: UnwrapRef<typeof import('../composables/useCharts')['useEcharts']>
     readonly useElementBounding: UnwrapRef<typeof import('@vueuse/core')['useElementBounding']>
     readonly useElementByPoint: UnwrapRef<typeof import('@vueuse/core')['useElementByPoint']>
     readonly useElementHover: UnwrapRef<typeof import('@vueuse/core')['useElementHover']>

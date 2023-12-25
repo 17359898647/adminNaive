@@ -68,10 +68,10 @@ function shouldKeepIframe(name?: RouteRecordName | null) {
     ? (
       // 判断 exclude.value 中是否有满足以下条件的项：
         !some(exclude.value, item => item.test(isString(name) ? name : ''))
-      // 判断 isRefreshPage.value 是否为真值
-      && isRefreshPage.value
-      // 判断 hasTag(name) 是否为真值
-      && hasTag(name)
+        // 判断 isRefreshPage.value 是否为真值
+        && isRefreshPage.value
+        // 判断 hasTag(name) 是否为真值
+        && hasTag(name)
       )
     // 如果不相等，则判断 hasTag(name) 是否为真值
     : hasTag(name)
