@@ -351,6 +351,7 @@
     "ExtractPublicPropTypes": "readonly",
     "useMyFetch": "readonly",
     "useAxios": "readonly",
-    "useMyAxios": "readonly"
+    "useMyAxios": "readonly",
+    "useEcharts": "readonly"
   }
 }

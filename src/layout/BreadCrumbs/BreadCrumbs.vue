@@ -17,10 +17,10 @@ const breadcrumb = computed(() => {
   return deepFindBreadcrumb(route.name, allBreadcrumb.value)
 })
 const breadcrumbRef = shallowRef<InstanceType<typeof NBreadcrumb>>()
-const childRef = computed(() => unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement)
-useAutoAnimate({
-  el: childRef,
-})
+// const childRef = computed(() => unrefElement(breadcrumbRef)?.firstElementChild as HTMLElement)
+// useAutoAnimate({
+//   el: childRef,
+// })
 </script>
 
 <template >
@@ -37,31 +37,50 @@ useAutoAnimate({
     <Dark/>
     <Refresh/>
     <NBreadcrumb ref="breadcrumbRef" >
-      <NBreadcrumbItem
-        v-for="{ name, meta, children } in breadcrumb"
-        :key="name"
-      >
-        <NDropdown
-          :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
-          @select="name => {
-            $router.push({
-              name,
-            })
-          }"
+      <TransitionGroup name="breadcrumb" >
+        <NBreadcrumbItem
+          v-for="{ name, meta, children } in breadcrumb"
+          :key="name"
         >
-          <div class="flex gap-2" >
-            <SvgIcon
-              :lineIcon="meta?.lineIcon"
-              :localIcon="meta?.localIcon"
-            />
-            <span >{{ meta?.isTitle }}</span>
-          </div>
-        </NDropdown>
-      </NBreadcrumbItem>
+          <NDropdown
+            :options="(isUndefined(children) ? undefined : createDropdownOptions(children)) as any"
+            @select="name => {
+              $router.push({
+                name,
+              })
+            }"
+          >
+            <div class="flex gap-2" >
+              <SvgIcon
+                :lineIcon="meta?.lineIcon"
+                :localIcon="meta?.localIcon"
+              />
+              <span >{{ meta?.isTitle }}</span>
+            </div>
+          </NDropdown>
+        </NBreadcrumbItem>
+      </TransitionGroup>
     </NBreadcrumb>
   </div>
 </template>
 
 <style scoped >
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s;
+}
 
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all .5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
 </style>
