@@ -10,5 +10,5 @@ definePage({
 </script>
 
 <template >
-  <IframeCom src="https://17359898647.github.io/"/>
+  <IframeCom src="https://17359898647.github.io/homePage"/>
 </template>
