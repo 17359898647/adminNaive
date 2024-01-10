@@ -15,7 +15,7 @@ function login() {
   console.log('redirect', redirect.value)
   localStorage.setItem('token', '123')
   router.push({
-    name: '/',
+    name: '/homePage',
   })
 }
 </script>

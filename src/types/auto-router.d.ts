@@ -39,7 +39,6 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     'InteriorNotFound': RouteRecordInfo<'InteriorNotFound', '/:InteriorNotFound(.*)', { InteriorNotFound: ParamValue<true> }, { InteriorNotFound: ParamValue<false> }>,
     '/about': RouteRecordInfo<'/about', '/about', Record<never, never>, Record<never, never>>,
     '/assembly/ButtonTest': RouteRecordInfo<'/assembly/ButtonTest', '/assembly/ButtonTest', Record<never, never>, Record<never, never>>,
@@ -47,6 +46,7 @@ declare module 'vue-router/auto/routes' {
     '/assembly/NetTest': RouteRecordInfo<'/assembly/NetTest', '/assembly/NetTest', Record<never, never>, Record<never, never>>,
     '/assembly/SignView': RouteRecordInfo<'/assembly/SignView', '/assembly/SignView', Record<never, never>, Record<never, never>>,
     '/assembly/TableTest': RouteRecordInfo<'/assembly/TableTest', '/assembly/TableTest', Record<never, never>, Record<never, never>>,
+    '/homePage': RouteRecordInfo<'/homePage', '/homePage', Record<never, never>, Record<never, never>>,
     '/jurisdiction/admin': RouteRecordInfo<'/jurisdiction/admin', '/jurisdiction/admin', Record<never, never>, Record<never, never>>,
     '/jurisdiction/editor': RouteRecordInfo<'/jurisdiction/editor', '/jurisdiction/editor', Record<never, never>, Record<never, never>>,
     '/jurisdiction/visitor': RouteRecordInfo<'/jurisdiction/visitor', '/jurisdiction/visitor', Record<never, never>, Record<never, never>>,
