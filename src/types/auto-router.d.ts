@@ -54,7 +54,7 @@ declare module 'vue-router/auto/routes' {
     '/one/one': RouteRecordInfo<'/one/one', '/one/one', Record<never, never>, Record<never, never>>,
     '/one/two/three/three': RouteRecordInfo<'/one/two/three/three', '/one/two/three/three', Record<never, never>, Record<never, never>>,
     '/one/two/two': RouteRecordInfo<'/one/two/two', '/one/two/two', Record<never, never>, Record<never, never>>,
-    'https://17359898647.github.io/': RouteRecordInfo<'https://17359898647.github.io/', '/outsideChain/LineNet', Record<never, never>, Record<never, never>>,
+    'https://17359898647.github.io/homePage': RouteRecordInfo<'https://17359898647.github.io/homePage', '/outsideChain/LineNet', Record<never, never>, Record<never, never>>,
     '/outsideChain/NaiveUi': RouteRecordInfo<'/outsideChain/NaiveUi', '/outsideChain/NaiveUi', Record<never, never>, Record<never, never>>,
     '/outsideChain/VueJs': RouteRecordInfo<'/outsideChain/VueJs', '/outsideChain/VueJs', Record<never, never>, Record<never, never>>,
     '/outsideChain/VueUse': RouteRecordInfo<'/outsideChain/VueUse', '/outsideChain/VueUse', Record<never, never>, Record<never, never>>,

@@ -5,7 +5,7 @@ definePage({
     isTitle: '在线预览',
     lineIcon: 'icon-icon-park:preview-open',
   },
-  name: 'https://17359898647.github.io/',
+  name: 'https://17359898647.github.io/homePage',
 })
 </script>
 
