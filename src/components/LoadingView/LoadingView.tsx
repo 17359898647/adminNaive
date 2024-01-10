@@ -2,7 +2,7 @@ import { assign } from 'lodash-es'
 import type { CSSProperties } from 'vue'
 import { defineComponent } from 'vue'
 import './loading.css'
-import { useSleep } from '@/composables/useSleep'
+import { useSleep as sleep } from '@/composables/useSleep'
 
 export const LoadingView = defineComponent({
   name: 'AppLoading',
@@ -113,7 +113,7 @@ export const LoadingView = defineComponent({
   },
 })
 
-export async function loadingFn(config?: { timeOut?: number, isTitle?: string }) {
+export async function LoadingFn(config?: { timeOut?: number, isTitle?: string }) {
   const { timeOut = 0, isTitle = '' } = assign(
     {
       timeOut: 0.5,
@@ -122,6 +122,6 @@ export async function loadingFn(config?: { timeOut?: number, isTitle?: string })
   )
   const appLoading = createApp(<LoadingView isTitle={isTitle} />)
   appLoading.mount('#app')
-  await useSleep(timeOut * 1000)
+  await sleep(timeOut * 1000)
   return appLoading
 }

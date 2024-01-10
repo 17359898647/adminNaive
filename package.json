@@ -27,7 +27,7 @@
     "dayjs": "^1.11.10",
     "drauu": "^0.3.7",
     "echarts": "^5.4.3",
-    "ge-eslint": "^0.0.6",
+    "ge-eslint": "^0.0.16",
     "lightningcss": "^1.22.1",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.37.3",

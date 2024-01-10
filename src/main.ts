@@ -1,7 +1,7 @@
 import { includes } from 'lodash-es'
 import { createApp } from 'vue'
 import App from '@/App.vue'
-import { loadingFn } from '@/components/LoadingView/LoadingView'
+import { LoadingFn } from '@/components/LoadingView/LoadingView'
 import { installDirective } from '@/directive'
 import { setupAssets } from '@/plugins/setupAssets'
 import { installRouter } from '@/router'
@@ -20,7 +20,7 @@ async function setupApp() {
   setupAssets()
   installPinia(app)
   installDirective(app)
-  const loadingApp = await loadingFn({
+  const loadingApp = await LoadingFn({
     isTitle: '加载中',
     timeOut: 0.3,
   })
