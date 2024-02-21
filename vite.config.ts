@@ -7,6 +7,7 @@ import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import { installPlugin } from './src/plugins'
 
+//
 export default defineConfig({
   build: {
     cssMinify: 'lightningcss',
