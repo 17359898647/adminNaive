@@ -3,12 +3,12 @@ name: Demo
 on:
   push:
     branches:
-      - main
+      - master
       - next
 
   pull_request:
     branches:
-      - main
+      - master
       - next
 
   merge_group: {}
