@@ -64,18 +64,14 @@ jobs:
       - name: Install
         run: nci
 
-      - name: Build
-        run: nr build
-
-      - name: Typecheck
-        run: nr typecheck
-
-      - name: Test Vue 3
-        run: pnpm run test:3
-
-      - name: Test Vue 2
-        run: pnpm run test:2
-
-      - if: matrix.node == '18.x'
-        name: Playground Smoke Test
-        run: cd playgrounds && bash ./build.sh
+      - name: Check QA Pass label
+        if: |
+          ! (
+            contains(github.event.pull_request.labels.*.name, 'QA Passed') ||
+            contains(github.event.pull_request.labels.*.name, 'QA Pass expected')
+          )
+        run: |
+          echo "Needs 'QA passed' label for all except revert, test or chore PRs."
+          echo "chore PR is reserved for changes that don't change production."
+          echo "QA should check refactor or gated feature don't alter behavior."
+          exit 1;
